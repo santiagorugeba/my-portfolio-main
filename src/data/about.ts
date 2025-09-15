@@ -1,0 +1,1 @@
+export const about={paragraphs:['Soy diseñador de producto con mentalidad de startup: impacto, velocidad y craft. He liderado research, UX y UI para LATAM/US.','Construyo design systems escalables y prototipos de alto realismo, alineando negocio y experiencia.'],bullets:['Figma · Tokens · Systems','Research: entrevistas y tests','UI Motion · Prototipado · Handoff']}

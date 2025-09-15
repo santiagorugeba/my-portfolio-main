@@ -1,0 +1,1 @@
+export default function NotFound(){return <main className='min-h-screen grid place-items-center text-center p-10'><div><h1 className='text-6xl font-black'>404</h1><p className='mt-2 text-brand-graphite/70 dark:text-brand-light/70'>No encontramos esa página</p></div></main>}

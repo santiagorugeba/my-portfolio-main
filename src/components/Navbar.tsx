@@ -86,15 +86,13 @@ export default function Navbar() {
             <a href={MAIL} className="icon-btn" aria-label="Email" title="Email">✉️</a>
             <a href={LINKEDIN} className="icon-btn" aria-label="LinkedIn" title="LinkedIn" rel="noopener noreferrer" target="_blank">in</a>
 
-            {/* Botón hamburguesa (solo mobile) */}
+            {/* Botón hamburguesa (mobile) */}
             <button
-              className="md:hidden ml-1 inline-flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 text-brand-light hover:bg-white/10 transition relative overflow-hidden"
+              className="md:hidden ml-1 inline-flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 text-brand-light hover:bg-white/10 transition relative"
               aria-label="Abrir menú"
               onClick={() => setOpen(true)}
             >
-              <span className="hamb-line top-2.5" />
-              <span className="hamb-line top-4.5" />
-              <span className="hamb-line top-6.5" />
+              <img src="/menu-icon.svg" alt="Menú" className="h-5 w-5" />
             </button>
           </div>
         </nav>

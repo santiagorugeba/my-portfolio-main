@@ -2,18 +2,56 @@ import React, { useMemo, useState } from 'react';
 
 // Coordenadas (en %) refinadas para el SVG public/maps/world-detailed.svg
 const countries = [
-  { key: 'usa', name: 'Estados Unidos', x: 25.4, y: 33.0, description: 'Estrategia de producto y UI.' },
-  { key: 'mexico', name: 'México', x: 23.2, y: 44.2, description: 'Diseño UX para fintech.' },
-  { key: 'venezuela', name: 'Venezuela', x: 30.4, y: 50.8, description: 'Prototipado avanzado y motion.' },
-  { key: 'colombia', name: 'Colombia', x: 29.2, y: 54.7, description: 'Design systems y handoff.' },
-  { key: 'chile', name: 'Chile', x: 29.7, y: 78.6, description: 'Dashboards y UX research.' },
+  { 
+    key: 'usa', 
+    name: 'Estados Unidos', 
+    x: 25.4, 
+    y: 33.0, 
+    description: 'Optimización de plataformas con IA para gestión de reportes, sistemas de gamificación para fidelización masiva, aplicaciones de apuestas deportivas mobile/web, y gestor superadmin para cultura general americana con +500 usuarios mensuales.' 
+  },
+  { 
+    key: 'mexico', 
+    name: 'México', 
+    x: 23.2, 
+    y: 44.2, 
+    description: 'Optimización de flujos operativos para empresas energéticas líderes, mejorando eficiencia y experiencia del usuario en procesos críticos del sector.' 
+  },
+  { 
+    key: 'venezuela', 
+    name: 'Venezuela', 
+    x: 30.4, 
+    y: 50.8, 
+    description: 'Creación e implementación de SaaS para recursos humanos, gestionando pruebas psicométricas y generación automática de informes de resultados para el mercado LATAM.' 
+  },
+  { 
+    key: 'colombia', 
+    name: 'Colombia', 
+    x: 29.2, 
+    y: 54.7, 
+    description: '+8 proyectos de consultoría estratégica para empresas de renombre en sectores de derecho, alimentos y seguros, transformando procesos digitales y experiencias de usuario.' 
+  },
+  { 
+    key: 'chile', 
+    name: 'Chile', 
+    x: 29.7, 
+    y: 78.6, 
+    description: 'Implementación de nuevos flujos digitales para empresa energética líder del país, optimizando procesos internos y mejorando la productividad operacional.' 
+  },
 ];
 
 function Pin({ active }: { active: boolean }) {
   return (
-    <span className="relative flex h-2.5 w-2.5 md:h-3 md:w-3">
-      <span className={`absolute inline-flex h-full w-full rounded-full ${active ? 'animate-ping bg-brand-accent/30' : 'bg-brand-accent/15'}`} />
-      <span className={`relative inline-flex h-2.5 w-2.5 md:h-3 md:w-3 rounded-full ${active ? 'bg-brand-accent' : 'bg-brand-accent'} ring-2 ring-white/70 dark:ring-black/40`} />
+    <span className="relative flex h-2.5 w-2.5 md:h-3 md:w-3 cursor-pointer group">
+      {/* Efecto de pulsación constante para invitar al clic */}
+      <span className="absolute inline-flex h-full w-full rounded-full bg-brand-accent/40 animate-ping" />
+      {/* Efecto de pulso más sutil */}
+      <span className="absolute inline-flex h-full w-full rounded-full bg-brand-accent/20 animate-pulse" />
+      {/* Pin principal con hover effect */}
+      <span className={`relative inline-flex h-2.5 w-2.5 md:h-3 md:w-3 rounded-full transition-all duration-200 ${
+        active 
+          ? 'bg-brand-accent scale-125 ring-4 ring-brand-accent/30' 
+          : 'bg-brand-accent ring-2 ring-white/70 dark:ring-black/40 group-hover:scale-110 group-hover:ring-brand-accent/50'
+      }`} />
     </span>
   );
 }
@@ -25,7 +63,7 @@ export default function GlobalReach(): JSX.Element {
   return (
     <div className="mt-12 rounded-3xl border border-black/5 dark:border-white/10 p-6">
       <h3 className="text-xl font-semibold mb-4 text-brand-graphite dark:text-brand-light">
-        Países en los que he trabajado
+        Países donde mis diseños han generado impacto
       </h3>
 
       <div className="grid md:grid-cols-[2fr_1fr] gap-6 items-start">
@@ -49,7 +87,7 @@ export default function GlobalReach(): JSX.Element {
         <aside className="rounded-2xl p-5 bg-white/40 dark:bg-white/5 ring-1 ring-black/5 dark:ring-white/10">
           <p className="text-xs uppercase tracking-widest text-brand-graphite/70 dark:text-brand-light/60 mb-2">País</p>
           <h4 className="text-2xl font-bold text-brand-graphite dark:text-brand-light mb-2">{selected ? selected.name : '—'}</h4>
-          <p className="text-brand-graphite/80 dark:text-brand-light/70 min-h-[3rem]">{selected ? selected.description : 'Haz clic en un pin para ver detalles.'}</p>
+          <p className="text-brand-graphite/80 dark:text-brand-light/70 min-h-[3rem]">{selected ? selected.description : 'Explora los proyectos y resultados que he logrado en cada país.'}</p>
 
           <div className="mt-4">
             <button

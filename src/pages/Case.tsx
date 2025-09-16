@@ -1,5 +1,10 @@
 import { useParams, Link } from "react-router-dom";
 import { cases } from "@/data/cases";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import InteractiveBadges from "@/components/InteractiveBadges";
+import CaseCards from "@/components/CaseCards";
+import InfoBlocks from "@/components/InfoBlocks";
 
 // Ajusta este tipo si tienes más campos por proyecto
 type CaseItem = {
@@ -7,8 +12,20 @@ type CaseItem = {
   title: string;
   subtitle?: string;
   cover?: string;
+  figmaUrl?: string;
   tags?: string[];
   bullets?: string[];
+  cards?: Array<{
+    icon: string;
+    title: string;
+    description: string;
+  }>;
+  infoBlocks?: Array<{
+    title: string;
+    content: string;
+    size: 'small' | 'medium' | 'large';
+    variant: 'primary' | 'secondary' | 'accent';
+  }>;
   images?: string[];     // si manejas galería
   sections?: Array<{
     heading?: string;
@@ -23,29 +40,40 @@ export default function Case() {
   // Busca el proyecto por slug
   const item = (cases as CaseItem[]).find((c) => c.slug === slug);
 
-  // Si no existe, muestra una página de “no encontrado”
+  // Si no existe, muestra una página de "no encontrado"
   if (!item) {
     return (
-      <div className="max-w-4xl mx-auto px-6 py-20">
-        <h1 className="text-3xl font-extrabold text-brand-light mb-4">
-          Caso no encontrado
-        </h1>
-        <p className="text-brand-light/80 mb-6">
-          No existe un proyecto con el identificador <span className="font-mono">{slug}</span>.
-        </p>
-        <Link to="/" className="btn-accent">Volver al inicio</Link>
-      </div>
+      <>
+        <Navbar />
+        <main className="pt-28">
+          <div className="max-w-4xl mx-auto px-6 py-20">
+            <h1 className="text-3xl font-extrabold text-brand-light mb-4">
+              Caso no encontrado
+            </h1>
+            <p className="text-brand-light/80 mb-6">
+              No existe un proyecto con el identificador <span className="font-mono">{slug}</span>.
+            </p>
+            <Link to="/" className="btn-accent">Volver al inicio</Link>
+          </div>
+        </main>
+        <Footer />
+      </>
     );
   }
 
   // Valores por defecto para evitar "Cannot read properties of undefined (reading 'map')"
   const tags = Array.isArray(item.tags) ? item.tags : [];
   const bullets = Array.isArray(item.bullets) ? item.bullets : [];
+  const cards = Array.isArray(item.cards) ? item.cards : [];
+  const infoBlocks = Array.isArray(item.infoBlocks) ? item.infoBlocks : [];
   const images = Array.isArray(item.images) ? item.images : [];
   const sections = Array.isArray(item.sections) ? item.sections : [];
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-14">
+    <>
+      <Navbar />
+      <main className="pt-28">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-14">
       {/* Cabecera */}
       <header className="mb-8">
         <Link to="/" className="text-brand-accent hover:opacity-90">← Volver</Link>
@@ -57,18 +85,42 @@ export default function Case() {
         )}
 
         {tags.length > 0 && (
-          <div className="mt-4 flex flex-wrap gap-2">
-            {tags.map((t, i) => (
-              <span key={i} className="badge bg-white/10 border-white/10 text-brand-light">
-                {t}
-              </span>
-            ))}
+          <div className="mt-4">
+            <p className="text-xs text-brand-light/60 mb-2">
+              💡 Arrastra los badges para jugar con ellos
+            </p>
+            <InteractiveBadges 
+              badges={tags.map((tag, i) => ({
+                id: `tag-${i}`,
+                label: tag,
+                initialPosition: { 
+                  x: i * 120, // Espaciado horizontal inicial
+                  y: 0 
+                }
+              }))}
+            />
           </div>
         )}
       </header>
 
-      {/* Imagen de portada (si existe) */}
-      {item.cover && (
+      {/* Prototipo de Figma o imagen de portada */}
+      {item.figmaUrl ? (
+        <div className="rounded-2xl overflow-hidden glass mb-8">
+          <div className="aspect-video w-full">
+            <iframe
+              src={item.figmaUrl}
+              className="w-full h-full border-0"
+              allowFullScreen
+              title={`Prototipo de ${item.title}`}
+            />
+          </div>
+          <div className="p-4 bg-white/5 border-t border-white/10">
+            <p className="text-sm text-brand-light/70 text-center">
+              💡 Haz clic en el prototipo para interactuar con él
+            </p>
+          </div>
+        </div>
+      ) : item.cover ? (
         <div className="rounded-2xl overflow-hidden glass mb-8">
           <img
             src={item.cover}
@@ -78,18 +130,26 @@ export default function Case() {
             decoding="async"
           />
         </div>
-      )}
+      ) : null}
 
       {/* Bullets / highlights (si existen) */}
-      {bullets.length > 0 && (
-        <ul className="mb-10 space-y-2 text-brand-light/90">
-          {bullets.map((b, i) => (
-            <li key={i} className="flex gap-2">
-              <span className="mt-2 size-1.5 rounded-full bg-brand-accent shrink-0" />
-              <span>{b}</span>
-            </li>
-          ))}
-        </ul>
+
+      {/* Cards de información (opcional) */}
+      {cards.length > 0 && (
+        <CaseCards 
+          cards={cards}
+          title="Metodología y Proceso"
+          subtitle="Un enfoque estructurado para resolver problemas complejos de UX"
+        />
+      )}
+
+      {/* Bloques informativos (opcional) */}
+      {infoBlocks.length > 0 && (
+        <InfoBlocks 
+          blocks={infoBlocks}
+          title="Hallazgos y Resultados"
+          subtitle="Métricas, impactos y lecciones aprendidas del proyecto"
+        />
       )}
 
       {/* Secciones ricas (opcional) */}
@@ -103,7 +163,29 @@ export default function Case() {
                 </h2>
               )}
               {s.text && (
-                <p className="text-brand-light/80">{s.text}</p>
+                <div className="text-brand-light/80">
+                  {s.text.split('\n').map((line, lineIndex) => {
+                    // Si la línea empieza con "•", renderizarla como bullet
+                    if (line.trim().startsWith('•')) {
+                      return (
+                        <div key={lineIndex} className="flex gap-2 mb-2">
+                          <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-brand-accent shrink-0" />
+                          <span>{line.trim().substring(1).trim()}</span>
+                        </div>
+                      );
+                    }
+                    // Si la línea está vacía, renderizar un espacio
+                    if (line.trim() === '') {
+                      return <div key={lineIndex} className="mb-2" />;
+                    }
+                    // Línea normal
+                    return (
+                      <p key={lineIndex} className="mb-2">
+                        {line}
+                      </p>
+                    );
+                  })}
+                </div>
               )}
               {s.image && (
                 <div className="mt-4 rounded-xl overflow-hidden">
@@ -137,6 +219,9 @@ export default function Case() {
           ))}
         </div>
       )}
-    </div>
+        </div>
+      </main>
+      <Footer />
+    </>
   );
 }

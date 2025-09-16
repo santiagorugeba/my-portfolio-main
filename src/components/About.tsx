@@ -1,15 +1,83 @@
-import { about } from '@/data/about'; import { motion } from 'framer-motion'; import { fadeUp, stagger } from '@/lib/motion'
-export default function About(){ return (<section id='about' className='max-w-6xl mx-auto px-6 py-16 scroll-mt-28'>
-  <motion.div className='glass rounded-3xl p-8' variants={fadeUp(0)} initial='hidden' whileInView='show' viewport={{once:true,amount:.25}}>
-    <h2 className='text-3xl font-extrabold mb-4 text-brand-graphite dark:text-brand-light'>About me</h2>
-    <motion.div className='grid md:grid-cols-[2fr_1fr] gap-6' variants={stagger(.08)}>
-      <motion.div className='space-y-4' variants={fadeUp(.05)}>{about.paragraphs.map((p,i)=>(<p key={i} className='text-brand-graphite/90 dark:text-brand-light/80 leading-7'>{p}</p>))}
-        <ul className='grid gap-2 list-disc list-inside text-brand-graphite/90 dark:text-brand-light/80'>{about.bullets.map((b,i)=>(<li key={i}>{b}</li>))}</ul>
+// Importaciones de librerías y datos.
+// - `about`: Importa los datos de la sección "Acerca de mí" desde tu archivo local.
+// - `motion`: Componente de Framer Motion para manejar animaciones.
+// - `fadeUp` y `stagger`: Funciones personalizadas para definir el comportamiento de las animaciones.
+import { about } from '@/data/about';
+import { motion } from 'framer-motion';
+import { fadeUp, stagger } from '@/lib/motion';
+
+// Componente principal de React para la sección "Acerca de mí".
+export default function About() {
+  return (
+    // <section>: Elemento semántico para la sección. El `id` permite navegar a ella.
+    // Clases de Tailwind CSS:
+    // - `max-w-6xl mx-auto`: Centra el contenido y establece un ancho máximo.
+    // - `px-6 py-16`: Añade espaciado horizontal y vertical.
+    // - `scroll-mt-28`: Desplaza la página 28 unidades por debajo del ancla al navegar.
+    <section id='about' className='max-w-6xl mx-auto px-6 py-16 scroll-mt-28'>
+      {/* Contenedor principal animado con Framer Motion.
+        - `variants={fadeUp(0)}`: Aplica una animación de aparición (fadeUp) sin retraso inicial.
+        - `initial='hidden'`: Define el estado inicial (oculto) antes de que la animación comience.
+        - `whileInView='show'`: Activa la animación cuando el componente entra en el viewport.
+        - `viewport={{once:true, amount:.25}}`: La animación se ejecuta solo una vez cuando
+          el 25% del componente es visible en pantalla.
+      */}
+      <motion.div
+        className='glass rounded-3xl p-8'
+        variants={fadeUp(0)}
+        initial='hidden'
+        whileInView='show'
+        viewport={{ once: true, amount: 0.25 }}
+      >
+        {/* Título de la sección. */}
+        <h2 className='text-3xl font-extrabold mb-4 text-brand-graphite dark:text-brand-light'>
+          About me
+        </h2>
+
+        {/* Contenedor de la cuadrícula principal con animación escalonada (stagger).
+          - `variants={stagger(.08)}`: Sus elementos hijos se animarán uno tras otro, con un
+            retraso de 0.08 segundos entre cada uno.
+        */}
+        <motion.div className='grid md:grid-cols-[2fr_1fr] gap-6' variants={stagger(0.08)}>
+          {/* Columna izquierda con párrafos y lista. */}
+          <motion.div className='space-y-4' variants={fadeUp(0.05)}>
+            {/* Mapea y renderiza cada párrafo desde el objeto `about`. */}
+            {about.paragraphs.map((p, i) => (
+              <p key={i} className='text-brand-graphite/90 dark:text-brand-light/80 leading-7'>
+                {p}
+              </p>
+            ))}
+            {/* Mapea y renderiza cada elemento de la lista de habilidades. */}
+            <ul className='grid gap-2 list-disc list-inside text-brand-graphite/90 dark:text-brand-light/80'>
+              {about.bullets.map((b, i) => (
+                <li key={i}>{b}</li>
+              ))}
+            </ul>
+          </motion.div>
+
+          {/* Columna derecha (`<aside>`) con notas adicionales. */}
+          <motion.aside className='grid gap-3' variants={stagger(0.06)}>
+            {/* Primera nota con animación. */}
+            <motion.div
+              variants={fadeUp(0.1)}
+              className='rounded-2xl p-4 bg-brand-sand/30 dark:bg-white/5'
+            >
+              <p className='text-sm text-brand-graphite/80 dark:text-brand-light/70'>
+                Años diseñando para startups, enfocándome en velocidad con calidad y métricas claras.
+              </p>
+            </motion.div>
+            {/* Segunda nota con animación. */}
+            <motion.div
+              variants={fadeUp(0.15)}
+              className='rounded-2xl p-4 bg-brand-sand/30 dark:bg-white/5'
+            >
+              <p className='text-sm text-brand-graphite/80 dark:text-brand-light/70'>
+                Disponible para proyectos, contratos o roles full-time remotos.
+              </p>
+            </motion.div>
+          </motion.aside>
+        </motion.div>
       </motion.div>
-      <motion.aside className='grid gap-3' variants={stagger(.06)}>
-        <motion.div variants={fadeUp(.1)} className='rounded-2xl p-4 bg-brand-sand/30 dark:bg-white/5'><p className='text-sm text-brand-graphite/80 dark:text-brand-light/70'>Años diseñando para startups, enfocándome en velocidad con calidad y métricas claras.</p></motion.div>
-        <motion.div variants={fadeUp(.15)} className='rounded-2xl p-4 bg-brand-sand/30 dark:bg-white/5'><p className='text-sm text-brand-graphite/80 dark:text-brand-light/70'>Disponible para proyectos, contratos o roles full-time remotos.</p></motion.div>
-      </motion.aside>
-    </motion.div>
-  </motion.div>
-</section>) }
+    </section>
+  );
+}

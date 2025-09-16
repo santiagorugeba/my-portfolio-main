@@ -19,8 +19,9 @@ export default function Hero() {
         {/* Subtítulo */}
         <p className="mt-4 text-center max-w-3xl mx-auto text-lg md:text-xl
                       text-[var(--brand-graphite)] dark:text-[var(--brand-light)]">
-          Diseñador UX/UI con experiencia liderando productos en apuestas
-          deportivas, gamificación, capital humano y retail.
+          Product Designer con experiencia internacional diseñando plataformas digitales que generan impacto real en negocio y usuarios.
+
+
         </p>
 
         {/* Chips de skills */}

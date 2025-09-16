@@ -17,4 +17,4 @@ export const about = {
     'Research: entrevistas y tests',
     'UI Motion · Prototipado · Handoff',
   ],
-};
+};  

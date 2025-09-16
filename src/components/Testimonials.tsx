@@ -94,8 +94,9 @@ export default function Testimonials() {
         bg-[#171615]/95
         shadow-[0_30px_120px_rgba(0,0,0,.55)]
         ring-1 ring-white/5
-        px-8 md:px-10 py-8 md:py-10
+        px-5 sm:px-7 md:px-10 py-6 sm:py-7 md:py-10
         text-brand-light
+        mx-2
       "
     >
       <div className="flex items-center gap-4">
@@ -139,7 +140,8 @@ export default function Testimonials() {
         bg-black/30 backdrop-blur-md
         shadow-[0_40px_140px_rgba(0,0,0,.65)]
         ring-1 ring-white/5
-        px-8 md:px-10 py-8 md:py-10
+        px-5 sm:px-7 md:px-10 py-6 sm:py-7 md:py-10
+        mx-2
       ">
         <div className="opacity-[.35] blur-[1px]">
           <div className="flex items-center gap-4">
@@ -159,7 +161,7 @@ export default function Testimonials() {
   return (
     <section
       id="testimonials"
-      className="relative py-24 md:py-28 select-none"
+      className="relative py-16 md:py-28 select-none px-4 sm:px-6"
     >
       {/* Animaciones locales */}
       <style>{`
@@ -211,16 +213,32 @@ export default function Testimonials() {
         .sr-ghost-left-in { animation: srGhostLeftIn .60s ease both; }
       `}</style>
 
-      {/* Título centrado */}
-      <div className="max-w-6xl mx-auto px-6">
+      {/* Título + flechas mobile */}
+      <div className="max-w-6xl mx-auto">
         <h2 className="text-center text-3xl md:text-4xl font-extrabold text-brand-light">
           Stories of Success
         </h2>
+        <div className="mt-2 flex justify-end gap-2 md:hidden pr-2">
+          <button
+            aria-label="Anterior"
+            onClick={goPrev}
+            className="h-9 w-9 grid place-items-center rounded-xl bg-white/5 text-white/80 hover:text-white hover:bg-white/10 border border-white/10"
+          >
+            ‹
+          </button>
+          <button
+            aria-label="Siguiente"
+            onClick={goNext}
+            className="h-9 w-9 grid place-items-center rounded-xl bg-white/5 text-white/80 hover:text-white hover:bg-white/10 border border-white/10"
+          >
+            ›
+          </button>
+        </div>
       </div>
 
       {/* Escenario */}
       <div
-        className="relative mt-10 md:mt-12"
+        className="relative mt-4 md:mt-12 px-1 sm:px-2"
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
@@ -229,8 +247,8 @@ export default function Testimonials() {
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
       >
-        {/* Flechas */}
-        <div className="absolute right-6 md:right-12 -top-10 flex gap-3 z-20">
+        {/* Flechas desktop */}
+        <div className="hidden md:flex absolute right-6 md:right-12 -top-12 gap-3 z-20">
           <button
             aria-label="Anterior"
             onClick={goPrev}
@@ -238,7 +256,7 @@ export default function Testimonials() {
           >
             ‹
           </button>
-        <button
+          <button
             aria-label="Siguiente"
             onClick={goNext}
             className="h-10 w-10 grid place-items-center rounded-xl bg-white/5 text-white/80 hover:text-white hover:bg-white/10 border border-white/10"
@@ -248,7 +266,7 @@ export default function Testimonials() {
         </div>
 
         {/* Pista */}
-        <div className="relative h-[330px] md:h-[360px] overflow-visible">
+        <div className="relative h-[300px] md:h-[360px] overflow-visible">
           {/* ghosts */}
           <div className={`absolute inset-0 grid place-items-center z-0 sr-ghost sr-ghost-left ${ghostLeftAnim}`} aria-hidden>
             <Ghost side="left" />

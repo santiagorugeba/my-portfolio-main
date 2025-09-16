@@ -333,3 +333,7 @@ html {
 
 /* Asegura que no haya scroll horizontal por animaciones */
 html, body { overflow-x: hidden; }
+
+
+/* en index.css (opcional) */
+svg g:hover circle:last-child { transform: scale(1.06); transform-origin: center; transition: transform .15s ease; }

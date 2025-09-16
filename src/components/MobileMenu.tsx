@@ -52,7 +52,7 @@ export default function MobileMenu({
           animate="show"
           exit="exit"
         >
-          {/* Backdrop con blur (no tapa tus partículas) */}
+          {/* Backdrop con blur */}
           <div className="absolute inset-0 bg-black/60 backdrop-blur-[4px]" onClick={onClose} />
 
           {/* Splash naranja + brillos */}
@@ -69,87 +69,72 @@ export default function MobileMenu({
             />
           </div>
 
-          {/* Panel de contenido */}
+          {/* Contenedor full screen del panel */}
           <motion.div
-            className="relative mx-auto w-[min(720px,92vw)] mt-6 rounded-3xl border border-white/10 bg-black/60 p-5"
+            className="absolute inset-0 flex items-stretch sm:items-center justify-center p-0 sm:p-6"
             variants={panelVariants}
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Header del menú */}
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-black tracking-[.22em] text-brand-light/80">
-                MENÚ
-              </span>
+            {/* Wrapper de contenido (con scroll interno) */}
+            <div className="w-full h-full sm:h-auto sm:w-full sm:max-w-[780px] max-h-full overflow-y-auto bg-black/60 p-6 sm:p-8 rounded-none sm:rounded-3xl border-0 sm:border sm:border-white/10 pt-[max(20px,env(safe-area-inset-top))] flex flex-col">
+              {/* Header del menú */}
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-black tracking-[.22em] text-brand-light/80">
+                  MENÚ
+                </span>
 
-              <button
-                aria-label="Cerrar menú"
-                onClick={onClose}
-                className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-brand-light hover:bg-white/10 transition"
-              >
-                ✕
-              </button>
-            </div>
-
-            {/* Links numerados con stagger */}
-            <motion.ul
-              className="mx-auto w-[min(720px,92vw)] mt-6 px-1 space-y-5"
-              initial="hidden"
-              animate="show"
-              exit="hidden"
-              variants={{
-                hidden: {
-                  transition: { staggerChildren: 0.04, staggerDirection: -1 },
-                },
-                show: { transition: { staggerChildren: 0.08 } },
-              }}
-            >
-              {links.map((l, idx) => (
-                <motion.li
-                  key={l.id}
-                  variants={{
-                    hidden: { opacity: 0, y: 20, filter: "blur(5px)" as any },
-                    show: { opacity: 1, y: 0, filter: "blur(0px)" as any },
-                  }}
+                <button
+                  aria-label="Cerrar menú"
+                  onClick={onClose}
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-brand-light hover:bg-white/10 transition"
                 >
-                  <button
-                    onClick={() => onNavigate(l.id)}
-                    className="flex items-baseline gap-3 group"
-                  >
-                    <span className="text-sm font-mono text-brand-light/50 group-hover:text-[#EB5E28] transition-colors">
-                      {String(idx + 1).padStart(2, "0")}
-                    </span>
-                    <span className="text-[28px] leading-[1.15] font-light tracking-wide text-brand-light group-hover:text-[#EB5E28] transition-colors">
-                      {l.label}
-                    </span>
-                  </button>
-                </motion.li>
-              ))}
-            </motion.ul>
-
-            {/* Socials + CTA */}
-            <div className="mx-auto w-[min(720px,92vw)] px-1 mt-8 flex flex-col gap-5">
-              <div className="flex flex-wrap gap-3">
-                {socials.linkedin && (
-                  <a className="pill-btn" href={socials.linkedin} target="_blank" rel="noreferrer">
-                    LinkedIn
-                  </a>
-                )}
-                {socials.behance && (
-                  <a className="pill-btn" href={socials.behance} target="_blank" rel="noreferrer">
-                    Behance
-                  </a>
-                )}
-                {socials.github && (
-                  <a className="pill-btn" href={socials.github} target="_blank" rel="noreferrer">
-                    GitHub
-                  </a>
-                )}
+                  ✕
+                </button>
               </div>
-
-              <div>
-                <a className="pill-cta" href={socials.mail}>
-                  <span className="mr-2">✉️</span> Escríbeme
-                </a>
+              {/* Links centrados */}
+              <motion.ul
+                className="flex-1 grid place-items-center mt-6"
+                initial="hidden"
+                animate="show"
+                exit="hidden"
+                variants={{
+                  hidden: { transition: { staggerChildren: 0.04, staggerDirection: -1 } },
+                  show: { transition: { staggerChildren: 0.08 } },
+                }}
+              >
+                {links.map((l) => (
+                  <motion.li
+                    key={l.id}
+                    variants={{
+                      hidden: { opacity: 0, y: 20, filter: "blur(5px)" as any },
+                      show: { opacity: 1, y: 0, filter: "blur(0px)" as any },
+                    }}
+                  >
+                    <button onClick={() => onNavigate(l.id)} className="block text-center text-[30px] sm:text-[34px] leading-[1.6] font-light tracking-wide text-brand-light hover:text-[#EB5E28] transition-colors px-4 py-1">
+                      {l.label}
+                    </button>
+                  </motion.li>
+                ))}
+              </motion.ul>
+              {/* Socials solo, fijo abajo */}
+              <div className="mt-6 pt-4 border-t border-white/10">
+                <div className="flex flex-wrap gap-4 justify-center">
+                  {socials.linkedin && (
+                    <a className="pill-btn" href={socials.linkedin} target="_blank" rel="noreferrer">
+                      LinkedIn
+                    </a>
+                  )}
+                  {socials.behance && (
+                    <a className="pill-btn" href={socials.behance} target="_blank" rel="noreferrer">
+                      Behance
+                    </a>
+                  )}
+                  {socials.github && (
+                    <a className="pill-btn" href={socials.github} target="_blank" rel="noreferrer">
+                      GitHub
+                    </a>
+                  )}
+                </div>
               </div>
             </div>
           </motion.div>

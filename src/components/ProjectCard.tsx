@@ -76,7 +76,7 @@ export default function ProjectCard({ item }: { item: Item }) {
         <div className="mt-2">
           <a href={ctaHref} className="btn-accent inline-flex items-center gap-2">
             {ctaLabel}
-            <span aria-hidden>→</span>
+            <img src="/pen-tool.svg" alt="" className="w-4 h-4" aria-hidden="true" />
           </a>
         </div>
       </div>

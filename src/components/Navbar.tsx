@@ -1,4 +1,5 @@
 import React from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import ThemeToggle from "@/components/ThemeToggle";
 import MobileMenu, { NavLink } from "@/components/MobileMenu";
 import { profile } from "@/data/profile";
@@ -44,10 +45,30 @@ export default function Navbar() {
   const MAIL = "mailto:santiagoo.rugeeb@gmail.com";
   const LINKEDIN = profile?.links?.linkedin || "#";
   const [open, setOpen] = React.useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const handleNavigate = (id: string) => {
     setOpen(false);
-    setTimeout(() => smoothScrollToId(id, 900, "#siteHeader"), 10);
+    
+    // Si estamos en una página de caso, navegar al home primero
+    if (location.pathname !== '/') {
+      navigate('/');
+      // Esperar a que se cargue la página y luego hacer scroll
+      setTimeout(() => {
+        const element = document.getElementById(id);
+        if (element) {
+          smoothScrollToId(id, 900, "#siteHeader");
+        }
+      }, 100);
+    } else {
+      // Si estamos en el home, hacer scroll directamente
+      setTimeout(() => smoothScrollToId(id, 900, "#siteHeader"), 10);
+    }
+  };
+
+  const handleLogoClick = () => {
+    navigate('/');
   };
 
   return (
@@ -57,24 +78,23 @@ export default function Navbar() {
         className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[min(1100px,92vw)]"
       >
         <nav className="glass rounded-2xl px-5 md:px-6 py-3 flex items-center justify-between">
-          <div className="font-semibold tracking-wide text-brand-light">
+          <button 
+            onClick={handleLogoClick}
+            className="font-semibold tracking-wide text-brand-light hover:text-brand-accent transition-colors cursor-pointer"
+          >
             Santiago Ruge
-          </div>
+          </button>
 
           {/* Desktop links */}
           <ul className="hidden md:flex gap-6 text-brand-light/80">
             {LINKS.map((l) => (
               <li key={l.id}>
-                <a
-                  href={`#${l.id}`}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    smoothScrollToId(l.id, 900, "#siteHeader");
-                  }}
+                <button
+                  onClick={() => handleNavigate(l.id)}
                   className="hover:text-brand-accent transition-colors"
                 >
                   {l.label}
-                </a>
+                </button>
               </li>
             ))}
           </ul>

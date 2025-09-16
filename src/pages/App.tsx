@@ -8,8 +8,6 @@ import Testimonials from "@/components/Testimonials";
 // import Pricing from "@/components/Pricing";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
-import RouteTransition from "@/components/RouteTransition";
-import ParticlesBG from "@/components/ParticlesBG";
 
 import { cases } from "@/data/cases";
 import { profile } from "@/data/profile";
@@ -17,11 +15,7 @@ import { profile } from "@/data/profile";
 export default function App() {
   return (
     <>
-      <RouteTransition />
       <Navbar />
-
-      {/* Fondo global: aurora + grano + partículas, detrás de todo */}
-      <ParticlesBG />
 
       <main className="pt-28">
         <Hero />

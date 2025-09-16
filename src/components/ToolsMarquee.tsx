@@ -35,14 +35,14 @@ export default function ToolsMarquee() {
 
       {/* Pista full-bleed con fade lateral y sin barras */}
       <div className="relative w-full overflow-hidden">
-        {/* Fades laterales (superpuestos) */}
+        {/* Fades laterales (superpuestos) - más sutiles */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-brand-light to-transparent dark:from-brand-coal"
+          className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-brand-light/60 via-brand-light/20 to-transparent dark:from-brand-coal/60 dark:via-brand-coal/20"
         />
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-brand-light to-transparent dark:from-brand-coal"
+          className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-brand-light/60 via-brand-light/20 to-transparent dark:from-brand-coal/60 dark:via-brand-coal/20"
         />
 
         {/* Pista animada (usamos padding horizontal para que respire) */}

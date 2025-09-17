@@ -18,7 +18,7 @@ export default function CaseCard({ icon, title, description, index }: CaseCardPr
   return (
     <motion.div
       ref={ref}
-      className="glass rounded-2xl p-6 md:p-8 border border-white/10 hover:border-white/20 transition-all duration-200 hover:shadow-lg hover:shadow-white/10 h-full flex flex-col"
+      className="glass rounded-2xl p-6 md:p-8 border border-brand-graphite/20 dark:border-white/10 hover:border-brand-graphite/30 dark:hover:border-white/20 transition-all duration-200 hover:shadow-lg hover:shadow-brand-graphite/10 dark:hover:shadow-white/10 h-full flex flex-col"
       initial={{ 
         opacity: 0, 
         y: 30, 
@@ -63,12 +63,12 @@ export default function CaseCard({ icon, title, description, index }: CaseCardPr
       </div>
 
       {/* Título */}
-      <h3 className="font-heading text-lg md:text-xl font-semibold text-brand-light mb-3 md:mb-4">
+      <h3 className="font-heading text-lg md:text-xl font-semibold text-brand-graphite dark:text-brand-light mb-3 md:mb-4">
         {title}
       </h3>
 
       {/* Descripción */}
-      <p className="text-brand-light/70 text-base md:text-lg leading-relaxed flex-grow">
+      <p className="text-brand-graphite/80 dark:text-brand-light/70 text-base md:text-lg leading-relaxed flex-grow">
         {description}
       </p>
     </motion.div>

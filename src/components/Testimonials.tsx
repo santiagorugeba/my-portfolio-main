@@ -22,9 +22,8 @@ function TestimonialCard({ testimonial, index }: {
     <motion.div
       className="
         group relative
-        glass-light dark:glass-dark
+        border border-standard bg-brand-sand/10 dark:bg-white/5 backdrop-blur-md
         rounded-2xl p-6
-        hover:border-brand-accent/50 dark:hover:border-brand-accent/50
         transition-all duration-500 ease-out
         hover:shadow-2xl hover:shadow-brand-accent/20 dark:hover:shadow-brand-accent/30
         hover:-translate-y-2 hover:scale-[1.02]
@@ -69,7 +68,7 @@ function TestimonialCard({ testimonial, index }: {
       <motion.div 
         className="
           absolute top-4 right-4
-          text-brand-accent/20 dark:text-brand-accent/30
+          text-brand-accent/20
           text-2xl
           transition-all duration-300
         "
@@ -116,7 +115,7 @@ function TestimonialCard({ testimonial, index }: {
               alt={testimonial.name}
               className="
                 h-10 w-10 rounded-full object-cover
-                ring-2 ring-brand-graphite/10 dark:ring-white/10
+                ring-2 ring-brand-graphite/10 dark:ring-brand-light/10
                 group-hover:ring-brand-accent/30
                 transition-all duration-300
               "
@@ -141,8 +140,8 @@ function TestimonialCard({ testimonial, index }: {
               {testimonial.name}
             </div>
             <div className="
-              text-xs text-brand-graphite/60 dark:text-white/60
-              group-hover:text-brand-graphite/80 dark:group-hover:text-white/80
+              text-xs text-brand-graphite/60 dark:text-brand-light/60
+              group-hover:text-brand-graphite/80 dark:group-hover:text-brand-light/80
               transition-colors duration-300
             ">
               {testimonial.role}
@@ -210,7 +209,7 @@ export default function Testimonials() {
         <h2 className="text-3xl md:text-4xl font-extrabold text-brand-graphite dark:text-brand-light mb-4">
           Lo que dicen sobre mi trabajo
         </h2>
-        <p className="text-brand-graphite/70 dark:text-white/70 text-lg max-w-2xl mx-auto">
+        <p className="text-brand-graphite/70 dark:text-brand-light/70 text-lg max-w-2xl mx-auto">
           Testimonios reales de clientes y colegas que han trabajado conmigo
         </p>
       </motion.div>
@@ -223,11 +222,10 @@ export default function Testimonials() {
             onClick={goToPrev}
             className="
               h-12 w-12
-              glass-light dark:glass-dark
+              border border-standard bg-brand-sand/10 dark:bg-white/5 backdrop-blur-md
               rounded-xl
               flex items-center justify-center
               text-brand-graphite dark:text-brand-light
-              hover:border-brand-accent/30
               hover:text-brand-accent
               transition-all duration-300
               hover:scale-105
@@ -245,11 +243,10 @@ export default function Testimonials() {
             onClick={goToNext}
             className="
               h-12 w-12
-              glass-light dark:glass-dark
+              border border-standard bg-brand-sand/10 dark:bg-white/5 backdrop-blur-md
               rounded-xl
               flex items-center justify-center
               text-brand-graphite dark:text-brand-light
-              hover:border-brand-accent/30
               hover:text-brand-accent
               transition-all duration-300
               hover:scale-105
@@ -269,7 +266,7 @@ export default function Testimonials() {
         <div className="md:hidden">
           {/* Drag indicator */}
           <div className="flex justify-center mb-4">
-            <div className="flex items-center gap-2 text-brand-graphite/60 dark:text-white/60 text-sm">
+            <div className="flex items-center gap-2 text-brand-graphite/60 dark:text-brand-light/60 text-sm">
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
               </svg>
@@ -347,7 +344,7 @@ export default function Testimonials() {
                 h-3 w-3 rounded-full transition-all duration-300
                 ${index === currentIndex 
                   ? "bg-brand-accent shadow-lg shadow-brand-accent/25" 
-                  : "bg-brand-graphite/20 dark:bg-white/20 hover:bg-brand-graphite/40 dark:hover:bg-white/40"
+                  : "bg-brand-graphite/20 dark:bg-brand-light/20 hover:bg-brand-graphite/40 dark:hover:bg-brand-light/40"
                 }
               `}
               whileHover={{ scale: 1.2 }}

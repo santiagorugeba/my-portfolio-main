@@ -98,6 +98,15 @@
     border-color: rgba(255, 255, 255, 0.15);
   }
 
+  /* Bordes estándar para botones y elementos interactivos */
+  .border-standard {
+    border-color: rgba(64, 61, 57, 0.25);
+  }
+  
+  .dark .border-standard {
+    border-color: rgba(255, 255, 255, 0.15);
+  }
+
   .btn-accent {
     @apply inline-flex items-center justify-center px-5 py-2 rounded-xl font-semibold text-white;
     background: var(--brand-accent);

@@ -9,7 +9,7 @@ export default function ThemeToggle() {
   return (
     <motion.button
       onClick={toggle}
-      className="relative inline-flex h-9 w-16 items-center rounded-full border border-brand-graphite/20 dark:border-white/10 bg-brand-sand/10 dark:bg-white/5 p-1 transition-colors hover:bg-brand-sand/20 dark:hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-brand-accent/50 focus:ring-offset-2 focus:ring-offset-transparent"
+      className="relative inline-flex h-9 w-16 items-center rounded-full border border-standard bg-brand-sand/10 dark:bg-white/5 p-1 transition-colors hover:bg-brand-sand/20 dark:hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-brand-accent/50 focus:ring-offset-2 focus:ring-offset-transparent"
       aria-label={isDark ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
       whileTap={{ scale: 0.95 }}
       initial={false}

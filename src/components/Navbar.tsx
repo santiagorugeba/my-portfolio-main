@@ -102,7 +102,7 @@ export default function Navbar() {
 
             {/* Botón hamburguesa (mobile) */}
             <button
-              className="md:hidden ml-1 inline-flex h-9 w-9 items-center justify-center rounded-xl border border-brand-graphite/20 dark:border-white/10 text-brand-graphite dark:text-brand-light hover:bg-brand-graphite/10 dark:hover:bg-white/10 transition relative focus:outline-none focus:ring-2 focus:ring-brand-accent/50 focus:ring-offset-2 focus:ring-offset-transparent"
+              className="md:hidden ml-1 inline-flex h-9 w-9 items-center justify-center rounded-xl border border-standard text-brand-graphite dark:text-brand-light hover:bg-brand-graphite/10 dark:hover:bg-white/10 transition relative focus:outline-none focus:ring-2 focus:ring-brand-accent/50 focus:ring-offset-2 focus:ring-offset-transparent"
               aria-label="Abrir menú de navegación"
               onClick={() => setOpen(true)}
             >

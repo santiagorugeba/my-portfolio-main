@@ -1,8 +1,8 @@
 export const cases = [
   {
     slug: "qr-payments",
-    title: "Construyendo Confianza en Pagos QR Instantáneos",
-    subtitle: "Para Pequeños Comerciantes - Banco de Bogotá",
+    title: "Construyendo confianza en pagos QR instantáneos para pequeños comerciantes",
+    client: "Banco de Bogotá",
     cover: "/cases/casebanco.png",
     figmaUrl: "https://embed.figma.com/design/6e9zdSroCzfLc1HqNgi6ru/Prueba-T%C3%A9cnica--Santiago-Ruge-Ballesteros?node-id=1-16629&embed-host=share",
     tags: ["Research", "Fintech", "UX"],
@@ -20,57 +20,57 @@ export const cases = [
       },
       {
         icon: "/pen-tool.svg",
-        title: "Metodología Doble Diamante",
+        title: "Metodología doble diamante",
         description: "Proceso estructurado de descubrimiento, definición, desarrollo y entrega para garantizar soluciones centradas en el usuario."
       },
       {
         icon: "/pen-tool.svg",
-        title: "Segmentación de Usuarios",
+        title: "Segmentación de usuarios",
         description: "Identificación y análisis de perfiles: nativos digitales, adoptantes pragmáticos y simplistas para personalizar la experiencia."
       },
       {
         icon: "/pen-tool.svg",
-        title: "Insights Accionables",
+        title: "Insights accionables",
         description: "Transformación de hallazgos en estrategias concretas: velocidad, confianza, claridad y soporte como pilares fundamentales."
       },
       {
         icon: "/pen-tool.svg",
-        title: "Diseño de Experiencia",
+        title: "Diseño de experiencia",
         description: "Creación de flujos optimizados que priorizan la transparencia, confirmación instantánea y acceso fácil al soporte."
       },
       {
         icon: "/pen-tool.svg",
-        title: "Validación y Testing",
+        title: "Validación y testing",
         description: "Pruebas iterativas con usuarios reales para validar la efectividad de las soluciones implementadas en el contexto real."
       }
     ],
     infoBlocks: [
       {
-        title: "Hallazgos Clave",
+        title: "Hallazgos clave",
         content: "• 78% de comerciantes priorizan velocidad en confirmaciones\n• 65% desconfían de pagos QR por miedo a estafas\n• 82% necesitan instrucciones más claras\n• 45% requieren soporte en vivo durante adopción",
         size: "large",
         variant: "secondary"
       },
       {
-        title: "Métricas de Éxito",
+        title: "Métricas de éxito",
         content: "• +40% adopción de Bre-B en ferias\n• -60% tiempo de transacción\n• +85% satisfacción del usuario\n• -35% tickets de soporte",
         size: "medium",
         variant: "primary"
       },
       {
-        title: "Impacto en el Negocio",
+        title: "Impacto en el negocio",
         content: "Transformación digital exitosa que posicionó al Banco de Bogotá como líder en pagos QR para pequeños comerciantes, generando confianza y facilitando la inclusión financiera.",
         size: "large",
         variant: "accent"
       },
       {
-        title: "Lecciones Aprendidas",
+        title: "Lecciones aprendidas",
         content: "• La confianza se construye con transparencia\n• La velocidad es clave para la adopción\n• El soporte humano marca la diferencia\n• La simplicidad vence a la complejidad",
         size: "medium",
         variant: "primary"
       },
       {
-        title: "Próximos Pasos",
+        title: "Próximos pasos",
         content: "Expansión a más ferias empresariales y desarrollo de funcionalidades avanzadas basadas en feedback continuo de usuarios.",
         size: "large",
         variant: "secondary"

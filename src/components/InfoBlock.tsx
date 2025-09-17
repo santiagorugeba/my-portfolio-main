@@ -17,22 +17,22 @@ export default function InfoBlock({ title, content, size, variant, index }: Info
   };
 
   const variantClasses = {
-    primary: 'bg-white/5 border-white/10 hover:bg-white/8',
-    secondary: 'bg-brand-accent/10 border-brand-accent/20 hover:bg-brand-accent/15',
-    accent: 'bg-gradient-to-br from-brand-accent/20 to-brand-accent/5 border-brand-accent/30 hover:from-brand-accent/25 hover:to-brand-accent/10'
+    primary: 'bg-white/5 border-white/10',
+    secondary: 'bg-brand-accent/10 border-brand-accent/20',
+    accent: 'bg-gradient-to-br from-brand-accent/20 to-brand-accent/5 border-brand-accent/30'
   };
 
   const titleSizes = {
-    small: 'text-lg',
-    medium: 'text-xl',
-    large: 'text-2xl'
+    small: 'text-lg md:text-xl',
+    medium: 'text-lg md:text-xl',
+    large: 'text-lg md:text-xl'
   };
 
   return (
     <motion.div
       className={`
-        glass rounded-2xl p-6 border transition-all duration-300
-        hover:shadow-lg hover:shadow-brand-accent/10
+        glass rounded-2xl p-6 border transition-all duration-200
+        hover:shadow-lg hover:shadow-white/10
         ${sizeClasses[size]}
         ${variantClasses[variant]}
       `}
@@ -48,7 +48,7 @@ export default function InfoBlock({ title, content, size, variant, index }: Info
       whileHover={{ 
         scale: 1.05,
         rotate: index % 2 === 0 ? 1 : -1,
-        transition: { duration: 0.3 }
+        transition: { duration: 0.15, type: "spring", stiffness: 400, damping: 30 }
       }}
     >
       {/* Título */}
@@ -60,7 +60,7 @@ export default function InfoBlock({ title, content, size, variant, index }: Info
       </h3>
 
       {/* Contenido */}
-      <div className="text-brand-light/80 text-sm leading-relaxed">
+      <div className="text-brand-light/80 text-base leading-relaxed">
         {content.split('\n').map((line, lineIndex) => {
           // Si la línea empieza con "•", renderizarla como bullet
           if (line.trim().startsWith('•')) {
@@ -84,24 +84,6 @@ export default function InfoBlock({ title, content, size, variant, index }: Info
         })}
       </div>
 
-      {/* Decoraciones juguetonas */}
-      <div className="absolute top-3 right-3 opacity-30">
-        {size === 'small' && (
-          <div className="w-6 h-6 rounded-full bg-brand-accent/40 flex items-center justify-center">
-            <span className="text-brand-accent text-sm">✨</span>
-          </div>
-        )}
-        {size === 'medium' && (
-          <div className="w-7 h-7 rounded-full bg-brand-accent/30 flex items-center justify-center">
-            <span className="text-brand-accent text-base">🎯</span>
-          </div>
-        )}
-        {size === 'large' && (
-          <div className="w-8 h-8 rounded-full bg-brand-accent/20 flex items-center justify-center">
-            <span className="text-brand-accent text-lg">💡</span>
-          </div>
-        )}
-      </div>
     </motion.div>
   );
 }

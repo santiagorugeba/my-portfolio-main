@@ -1,3 +1,4 @@
+import React from "react";
 import { useParams, Link } from "react-router-dom";
 import { cases } from "@/data/cases";
 import Navbar from "@/components/Navbar";
@@ -36,6 +37,7 @@ type CaseItem = {
 
 export default function Case() {
   const { slug } = useParams<{ slug: string }>();
+  const [showPrototype, setShowPrototype] = React.useState(false);
 
   // Busca el proyecto por slug
   const item = (cases as CaseItem[]).find((c) => c.slug === slug);
@@ -76,25 +78,33 @@ export default function Case() {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-14">
       {/* Cabecera */}
       <header className="mb-8">
-        <Link to="/" className="text-brand-accent hover:opacity-90">← Volver</Link>
+        <Link 
+          to="/" 
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium bg-white/5 border border-white/10 text-brand-light hover:bg-white/10 hover:border-white/20 transition-all duration-200"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19 12H5M12 19L5 12L12 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+          Volver
+        </Link>
         <h1 className="mt-3 text-3xl md:text-4xl font-extrabold text-brand-light">
           {item.title}
         </h1>
-        {item.subtitle && (
-          <p className="mt-2 text-brand-light/80">{item.subtitle}</p>
+        {(item as any).client && (
+          <p className="mt-2 text-brand-accent font-medium">{(item as any).client}</p>
         )}
 
-        {tags.length > 0 && (
-          <div className="mt-4">
-            <p className="text-xs text-brand-light/60 mb-2">
-              💡 Arrastra los badges para jugar con ellos
-            </p>
+                {tags.length > 0 && (
+                  <div className="mt-4">
+                    <p className="text-xs text-brand-light/60 mb-2">
+                      Arrastra los badges para jugar con ellos
+                    </p>
             <InteractiveBadges 
               badges={tags.map((tag, i) => ({
                 id: `tag-${i}`,
                 label: tag,
                 initialPosition: { 
-                  x: i * 120, // Espaciado horizontal inicial
+                  x: i * 100, // Espaciado horizontal inicial 100px
                   y: 0 
                 }
               }))}
@@ -103,34 +113,6 @@ export default function Case() {
         )}
       </header>
 
-      {/* Prototipo de Figma o imagen de portada */}
-      {item.figmaUrl ? (
-        <div className="rounded-2xl overflow-hidden glass mb-8">
-          <div className="aspect-video w-full">
-            <iframe
-              src={item.figmaUrl}
-              className="w-full h-full border-0"
-              allowFullScreen
-              title={`Prototipo de ${item.title}`}
-            />
-          </div>
-          <div className="p-4 bg-white/5 border-t border-white/10">
-            <p className="text-sm text-brand-light/70 text-center">
-              💡 Haz clic en el prototipo para interactuar con él
-            </p>
-          </div>
-        </div>
-      ) : item.cover ? (
-        <div className="rounded-2xl overflow-hidden glass mb-8">
-          <img
-            src={item.cover}
-            alt={item.title}
-            className="w-full h-auto object-cover"
-            loading="lazy"
-            decoding="async"
-          />
-        </div>
-      ) : null}
 
       {/* Bullets / highlights (si existen) */}
 
@@ -138,16 +120,41 @@ export default function Case() {
       {cards.length > 0 && (
         <CaseCards 
           cards={cards}
-          title="Metodología y Proceso"
+          title="Metodología y proceso"
           subtitle="Un enfoque estructurado para resolver problemas complejos de UX"
         />
+      )}
+
+      {/* Área de Diseño - Prototipo */}
+      {item.figmaUrl && (
+        <section className="mb-12">
+          <div className="mb-8">
+            <h2 className="text-3xl md:text-4xl font-extrabold text-brand-light mb-4">
+              Área de diseño
+            </h2>
+            <p className="text-brand-light/70 text-lg max-w-4xl">
+              Explora el prototipo interactivo y descubre cómo se materializaron las ideas en una experiencia de usuario excepcional
+            </p>
+          </div>
+          
+          <div className="rounded-3xl overflow-hidden glass border-2 border-brand-accent/20 shadow-2xl">
+            <div className="aspect-video w-full">
+              <iframe
+                src={item.figmaUrl}
+                className="w-full h-full border-0"
+                allowFullScreen
+                title={`Prototipo de ${item.title}`}
+              />
+            </div>
+          </div>
+        </section>
       )}
 
       {/* Bloques informativos (opcional) */}
       {infoBlocks.length > 0 && (
         <InfoBlocks 
           blocks={infoBlocks}
-          title="Hallazgos y Resultados"
+          title="Hallazgos y resultados"
           subtitle="Métricas, impactos y lecciones aprendidas del proyecto"
         />
       )}
@@ -219,6 +226,7 @@ export default function Case() {
           ))}
         </div>
       )}
+
         </div>
       </main>
       <Footer />

@@ -67,9 +67,11 @@ export default function InteractiveBadge({
       >
         <div className={`
           inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium
-          bg-white/10 border border-white/20 text-brand-light
+          bg-brand-graphite/20 border border-brand-graphite/30 text-brand-graphite/80
+          dark:bg-brand-light/10 dark:border-brand-light/20 dark:text-brand-light/70
           backdrop-blur-sm
-          hover:bg-white/15 hover:border-white/30
+          hover:bg-brand-graphite/30 hover:border-brand-graphite/40
+          dark:hover:bg-brand-light/15 dark:hover:border-brand-light/30
           transition-colors duration-200
           ${isDragging ? 'shadow-lg shadow-brand-accent/20' : ''}
         `}>

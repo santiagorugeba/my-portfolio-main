@@ -216,28 +216,28 @@ select-none, .no-select {
    — usa tu paleta, en TODA la web
 --------------------------------*/
 .aurora-page {
-  /* color base */
-  background-color: #fffaf0; /* suave, de la gama #FFFCF2 */
+  /* color base - beige como fondo principal */
+  background-color: #CCC5B9; /* brand-sand como base */
   /* múltiples radiales distribuidas */
   background-image:
-    radial-gradient(60% 50% at 50% -10%, rgba(235,94,40,0.18), rgba(235,94,40,0) 60%),
-    radial-gradient(40% 35% at 10% 20%, rgba(204,197,185,0.35), rgba(204,197,185,0) 65%),
-    radial-gradient(45% 35% at 90% 30%, rgba(64,61,57,0.18), rgba(64,61,57,0) 65%),
-    radial-gradient(70% 60% at 20% 70%, rgba(235,94,40,0.10), rgba(235,94,40,0) 70%),
-    radial-gradient(70% 60% at 80% 85%, rgba(255,252,242,0.35), rgba(255,252,242,0) 70%);
+    radial-gradient(60% 50% at 50% -10%, rgba(235,94,40,0.15), rgba(235,94,40,0) 60%),
+    radial-gradient(40% 35% at 10% 20%, rgba(255,252,242,0.25), rgba(255,252,242,0) 65%),
+    radial-gradient(45% 35% at 90% 30%, rgba(64,61,57,0.12), rgba(64,61,57,0) 65%),
+    radial-gradient(70% 60% at 20% 70%, rgba(235,94,40,0.08), rgba(235,94,40,0) 70%),
+    radial-gradient(70% 60% at 80% 85%, rgba(204,197,185,0.20), rgba(204,197,185,0) 70%);
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-size: cover;
 }
 
 .aurora-page-dark {
-  background-color: #121110; /* base oscura */
+  background-color: #252422; /* brand-coal como base */
   background-image:
     radial-gradient(60% 50% at 50% -10%, rgba(235,94,40,0.20), rgba(235,94,40,0) 60%),
     radial-gradient(45% 35% at 90% 20%, rgba(235,94,40,0.12), rgba(235,94,40,0) 60%),
-    radial-gradient(60% 50% at 10% 75%, rgba(64,61,57,0.55), rgba(64,61,57,0) 70%),
-    radial-gradient(70% 60% at 80% 90%, rgba(37,36,34,0.45), rgba(37,36,34,0) 70%),
-    radial-gradient(30% 25% at 20% 30%, rgba(204,197,185,0.18), rgba(204,197,185,0) 60%);
+    radial-gradient(60% 50% at 10% 75%, rgba(64,61,57,0.45), rgba(64,61,57,0) 70%),
+    radial-gradient(70% 60% at 80% 90%, rgba(37,36,34,0.35), rgba(37,36,34,0) 70%),
+    radial-gradient(30% 25% at 20% 30%, rgba(255,252,242,0.08), rgba(255,252,242,0) 60%);
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-size: cover;

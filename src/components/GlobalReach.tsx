@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from 'react';
+import { motion } from 'framer-motion';
 
 // Coordenadas (en %) refinadas para el SVG public/maps/world-detailed.svg
 const countries = [
@@ -61,14 +62,40 @@ export default function GlobalReach(): JSX.Element {
   const selected = useMemo(() => countries.find(c => c.key === selectedKey) || null, [selectedKey]);
 
   return (
-    <div className="mt-12 rounded-3xl border border-black/5 dark:border-white/10 p-6">
+    <motion.div 
+      className="mt-6 glass-light dark:glass-dark rounded-3xl p-6"
+      initial={{ opacity: 0, y: 50, scale: 0.9 }}
+      whileInView={{ 
+        opacity: 1, 
+        y: 0, 
+        scale: 1 
+      }}
+      viewport={{ 
+        once: false, 
+        amount: 0.3 
+      }}
+      transition={{ 
+        duration: 0.6, 
+        ease: [0.22, 1, 0.36, 1] 
+      }}
+    >
       <h3 className="text-xl font-semibold mb-4 text-brand-graphite dark:text-brand-light">
         Países donde mis diseños han generado impacto
       </h3>
 
       <div className="grid md:grid-cols-[2fr_1fr] gap-6 items-start">
-        <div className="relative w-full overflow-hidden rounded-2xl bg-white/40 dark:bg-white/5 ring-1 ring-black/5 dark:ring-white/10">
-          <img src="/maps/world-detailed.svg" alt="Mapa mundial" className="w-full h-auto select-none" draggable={false} />
+            <div className="relative w-full overflow-hidden rounded-2xl glass-light dark:glass-dark">
+          <img 
+            src="/maps/world-detailed.svg" 
+            alt="Mapa mundial interactivo mostrando países donde mis diseños han generado impacto" 
+            className="w-full h-auto select-none" 
+            draggable={false}
+            style={{ 
+              filter: 'brightness(0.95) contrast(1.05)',
+              minHeight: '200px'
+            }}
+            loading="lazy"
+          />
 
           {countries.map((c) => (
             <button
@@ -84,7 +111,7 @@ export default function GlobalReach(): JSX.Element {
           ))}
         </div>
 
-        <aside className="rounded-2xl p-5 bg-white/40 dark:bg-white/5 ring-1 ring-black/5 dark:ring-white/10">
+            <aside className="rounded-2xl p-5 glass-light dark:glass-dark">
           <p className="text-xs uppercase tracking-widest text-brand-graphite/70 dark:text-brand-light/60 mb-2">País</p>
           <h4 className="text-2xl font-bold text-brand-graphite dark:text-brand-light mb-2">{selected ? selected.name : '—'}</h4>
           <p className="text-brand-graphite/80 dark:text-brand-light/70 min-h-[3rem]">{selected ? selected.description : 'Explora los proyectos y resultados que he logrado en cada país.'}</p>
@@ -116,6 +143,6 @@ export default function GlobalReach(): JSX.Element {
           </ul>
         </aside>
       </div>
-    </div>
+    </motion.div>
   );
 }

@@ -21,8 +21,8 @@ const tools = [
  * - Respeta tema claro/oscuro (usa colores de tu paleta Tailwind)
  */
 export default function ToolsMarquee() {
-  // Duplicamos el contenido para un loop perfecto
-  const loop = [...tools, ...tools];
+  // Triplicamos el contenido para un loop perfecto y suave
+  const loop = [...tools, ...tools, ...tools];
 
   return (
     <section aria-label="Herramientas" className="select-none py-16">
@@ -35,14 +35,14 @@ export default function ToolsMarquee() {
 
       {/* Pista full-bleed con fade lateral y sin barras */}
       <div className="relative w-full overflow-hidden">
-        {/* Fades laterales (superpuestos) - más sutiles */}
+        {/* Fades laterales (superpuestos) - más sutiles y graduales */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-brand-light/60 via-brand-light/20 to-transparent dark:from-brand-coal/60 dark:via-brand-coal/20"
+          className="pointer-events-none absolute inset-y-0 left-0 z-10 w-32 bg-gradient-to-r from-brand-light/30 via-brand-light/8 to-transparent dark:from-brand-coal/30 dark:via-brand-coal/8"
         />
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-brand-light/60 via-brand-light/20 to-transparent dark:from-brand-coal/60 dark:via-brand-coal/20"
+          className="pointer-events-none absolute inset-y-0 right-0 z-10 w-32 bg-gradient-to-l from-brand-light/30 via-brand-light/8 to-transparent dark:from-brand-coal/30 dark:via-brand-coal/8"
         />
 
         {/* Pista animada (usamos padding horizontal para que respire) */}
@@ -61,9 +61,15 @@ export default function ToolsMarquee() {
                 >
                   <img
                     src={`/logos/${t}.svg`}
-                    alt={t}
+                    alt={`Logo de ${t}`}
                     className="max-h-8 object-contain md:max-h-9"
                     draggable={false}
+                    style={{ 
+                      filter: 'brightness(0.8) contrast(1.3) saturate(1.1)',
+                      minWidth: '24px',
+                      minHeight: '24px'
+                    }}
+                    loading="lazy"
                   />
                 </div>
               </div>
@@ -73,17 +79,17 @@ export default function ToolsMarquee() {
 
         {/* Estilos del carrusel (infinito + accesible) */}
         <style>{`
-          /* Velocidad global del carrusel (ajústala si quieres) */
+          /* Velocidad global del carrusel - loop perfecto */
           .marquee-track{
-            animation: tm-scroll 35s linear infinite;
+            animation: tm-scroll 45s linear infinite;
             will-change: transform;
           }
           .marquee-track:hover{
             animation-play-state: paused;
           }
           @keyframes tm-scroll{
-            from { transform: translateX(0); }
-            to   { transform: translateX(-50%); }
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-33.333%); }
           }
 
           /* Reduce motion: desactivamos animación si el usuario lo prefiere */

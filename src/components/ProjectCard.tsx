@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "framer-motion";
 
 type Item = {
   slug: string;
@@ -11,7 +12,7 @@ type Item = {
   ctaHref?: string;
 };
 
-export default function ProjectCard({ item }: { item: Item }) {
+export default function ProjectCard({ item, index }: { item: Item; index: number }) {
   const {
     title,
     subtitle,
@@ -23,15 +24,31 @@ export default function ProjectCard({ item }: { item: Item }) {
   } = item;
 
   return (
-    <article
+    <motion.article
       className="
         min-w-0
-        glass rounded-3xl overflow-hidden
-        border border-brand-graphite/20 dark:border-white/10
-        bg-brand-sand/30 dark:bg-white/5
+        glass-light dark:glass-dark rounded-3xl overflow-hidden
         hover:shadow-[0_28px_90px_rgba(0,0,0,.25)]
-        transition
+        transition-all duration-300
       "
+      initial={{ opacity: 0, y: 50, scale: 0.9 }}
+      whileInView={{ 
+        opacity: 1, 
+        y: 0, 
+        scale: 1 
+      }}
+      viewport={{ 
+        once: false, 
+        amount: 0.3 
+      }}
+      transition={{ 
+        duration: 0.6, 
+        ease: [0.22, 1, 0.36, 1] 
+      }}
+      whileHover={{ 
+        y: -8,
+        transition: { duration: 0.2 }
+      }}
     >
       {/* Imagen: altura controlada y sin forzar ancho */}
       {cover ? (
@@ -76,10 +93,19 @@ export default function ProjectCard({ item }: { item: Item }) {
         <div className="mt-2">
           <a href={ctaHref} className="btn-accent inline-flex items-center gap-2">
             {ctaLabel}
-            <img src="/pen-tool.svg" alt="" className="w-4 h-4" aria-hidden="true" />
+            <img 
+              src="/pen-tool.svg" 
+              alt="Ver caso de estudio" 
+              className="w-4 h-4" 
+              style={{ 
+                filter: 'brightness(0.8) contrast(1.3) saturate(1.1)',
+                minWidth: '16px',
+                minHeight: '16px'
+              }}
+            />
           </a>
         </div>
       </div>
-    </article>
+    </motion.article>
   );
 }

@@ -20,12 +20,12 @@ export default function CaseCards({ cards, title, subtitle }: CaseCardsProps) {
       {(title || subtitle) && (
         <div className="mb-10">
           {title && (
-            <h2 className="font-heading text-3xl md:text-4xl font-bold text-brand-light mb-4">
+            <h2 className="font-heading text-3xl md:text-4xl font-bold text-brand-graphite dark:text-brand-light mb-4">
               {title}
             </h2>
           )}
           {subtitle && (
-            <p className="text-brand-light/70 text-lg max-w-3xl">
+            <p className="text-brand-graphite/70 dark:text-brand-light/70 text-lg max-w-3xl">
               {subtitle}
             </p>
           )}

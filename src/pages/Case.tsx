@@ -49,10 +49,10 @@ export default function Case() {
         <Navbar />
         <main className="pt-28">
           <div className="max-w-4xl mx-auto px-6 py-20">
-            <h1 className="text-3xl font-extrabold text-brand-light mb-4">
+            <h1 className="text-3xl font-extrabold text-brand-graphite dark:text-brand-light mb-4">
               Caso no encontrado
             </h1>
-            <p className="text-brand-light/80 mb-6">
+            <p className="text-brand-graphite/80 dark:text-brand-light/80 mb-6">
               No existe un proyecto con el identificador <span className="font-mono">{slug}</span>.
             </p>
             <Link to="/" className="btn-accent">Volver al inicio</Link>
@@ -80,14 +80,14 @@ export default function Case() {
       <header className="mb-8">
         <Link 
           to="/" 
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium bg-white/5 border border-white/10 text-brand-light hover:bg-white/10 hover:border-white/20 transition-all duration-200"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium bg-brand-sand/10 dark:bg-white/5 border border-brand-graphite/20 dark:border-white/10 text-brand-graphite dark:text-brand-light hover:bg-brand-sand/20 dark:hover:bg-white/10 hover:border-brand-graphite/30 dark:hover:border-white/20 transition-all duration-200"
         >
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M19 12H5M12 19L5 12L12 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
           Volver
         </Link>
-        <h1 className="mt-3 text-3xl md:text-4xl font-extrabold text-brand-light">
+        <h1 className="mt-3 text-3xl md:text-4xl font-extrabold text-brand-graphite dark:text-brand-light">
           {item.title}
         </h1>
         {(item as any).client && (
@@ -96,7 +96,7 @@ export default function Case() {
 
                 {tags.length > 0 && (
                   <div className="mt-4">
-                    <p className="text-xs text-brand-light/60 mb-2">
+                    <p className="text-xs text-brand-graphite/60 dark:text-brand-light/60 mb-2">
                       Arrastra los badges para jugar con ellos
                     </p>
             <InteractiveBadges 
@@ -126,10 +126,10 @@ export default function Case() {
       {item.figmaUrl && (
         <section className="mb-12">
           <div className="mb-8">
-            <h2 className="text-3xl md:text-4xl font-extrabold text-brand-light mb-4">
+            <h2 className="text-3xl md:text-4xl font-extrabold text-brand-graphite dark:text-brand-light mb-4">
               Área de diseño
             </h2>
-            <p className="text-brand-light/70 text-lg max-w-4xl">
+            <p className="text-brand-graphite/70 dark:text-brand-light/70 text-lg max-w-4xl">
               Explora el prototipo interactivo y descubre cómo se materializaron las ideas en una experiencia de usuario excepcional
             </p>
           </div>
@@ -162,12 +162,12 @@ export default function Case() {
           {sections.map((s, i) => (
             <section key={i} className="glass rounded-2xl p-5 md:p-6">
               {s.heading && (
-                <h2 className="text-xl md:text-2xl font-bold text-brand-light mb-2">
+                <h2 className="text-xl md:text-2xl font-bold text-brand-graphite dark:text-brand-light mb-2">
                   {s.heading}
                 </h2>
               )}
               {s.text && (
-                <div className="text-brand-light/80">
+                <div className="text-brand-graphite/80 dark:text-brand-light/80">
                   {s.text.split('\n').map((line, lineIndex) => {
                     // Si la línea empieza con "•", renderizarla como bullet
                     if (line.trim().startsWith('•')) {

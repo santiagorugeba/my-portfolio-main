@@ -24,7 +24,6 @@ function TestimonialCard({ testimonial, index }: {
         group relative
         glass-light dark:glass-dark
         rounded-2xl p-6
-        border border-brand-graphite/10 dark:border-white/10
         hover:border-brand-accent/50 dark:hover:border-brand-accent/50
         transition-all duration-500 ease-out
         hover:shadow-2xl hover:shadow-brand-accent/20 dark:hover:shadow-brand-accent/30
@@ -226,7 +225,6 @@ export default function Testimonials() {
               h-12 w-12
               glass-light dark:glass-dark
               rounded-xl
-              border border-brand-graphite/10 dark:border-white/10
               flex items-center justify-center
               text-brand-graphite dark:text-brand-light
               hover:border-brand-accent/30
@@ -249,7 +247,6 @@ export default function Testimonials() {
               h-12 w-12
               glass-light dark:glass-dark
               rounded-xl
-              border border-brand-graphite/10 dark:border-white/10
               flex items-center justify-center
               text-brand-graphite dark:text-brand-light
               hover:border-brand-accent/30

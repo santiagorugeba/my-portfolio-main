@@ -89,6 +89,15 @@
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
   }
 
+  /* Estilos consistentes para todos los componentes */
+  .glass-light.dark\:glass-dark {
+    border-color: rgba(64, 61, 57, 0.25);
+  }
+  
+  .dark .glass-light.dark\:glass-dark {
+    border-color: rgba(255, 255, 255, 0.15);
+  }
+
   .btn-accent {
     @apply inline-flex items-center justify-center px-5 py-2 rounded-xl font-semibold text-white;
     background: var(--brand-accent);

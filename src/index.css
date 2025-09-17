@@ -54,8 +54,31 @@
 @layer components {
   .glass {
     @apply border rounded-3xl backdrop-blur-md;
-    border-color: rgb(255 255 255 / 0.08);
-    background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+    border-color: rgb(255 255 255 / 0.2);
+    background: linear-gradient(180deg, rgba(255,255,255,.15), rgba(255,255,255,.08));
+  }
+
+  /* Iconos de CaseCards - condiciones por modo */
+  .case-card-icon {
+    filter: brightness(0) saturate(0) invert(15%) sepia(8%) saturate(1018%) hue-rotate(314deg) brightness(95%) contrast(86%);
+  }
+  
+  .dark .case-card-icon {
+    filter: brightness(0) saturate(0) invert(100%);
+  }
+
+  .glass-light {
+    @apply border rounded-3xl backdrop-blur-md;
+    border-color: rgba(64, 61, 57, 0.25);
+    background: linear-gradient(180deg, rgba(255, 252, 242, 0.4), rgba(255, 252, 242, 0.2));
+    box-shadow: 0 4px 20px rgba(64, 61, 57, 0.08);
+  }
+
+  .glass-dark {
+    @apply border rounded-3xl backdrop-blur-md;
+    border-color: rgba(255, 255, 255, 0.15);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04));
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
   }
 
   .btn-accent {
@@ -154,6 +177,16 @@ html, body {
 }
 .dark .fade-r {
   background: linear-gradient(to left, rgba(255,255,255,.18), transparent);
+}
+
+/* ==== Efecto de cursor para typing ==== */
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+.typing-cursor {
+  animation: blink 1s infinite;
 }
 
 /* ==== Marquee infinito para Toolbox ==== */

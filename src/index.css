@@ -407,3 +407,13 @@ html, body { overflow-x: hidden; }
 
 /* en index.css (opcional) */
 svg g:hover circle:last-child { transform: scale(1.06); transform-origin: center; transition: transform .15s ease; }
+
+/* -----------------------------
+   Utilidades para testimonials
+--------------------------------*/
+.line-clamp-4 {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

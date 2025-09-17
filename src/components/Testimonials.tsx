@@ -1,11 +1,11 @@
-import React, { useMemo, useRef, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { testimonials as DATA, Testimonial } from "@/data/testimonials";
 import { motion } from "framer-motion";
 
 function StarRow({ count = 5 }: { count?: number }) {
   const n = Math.max(0, Math.min(5, count ?? 0));
   return (
-    <div className="mt-4 flex gap-1 text-brand-accent">
+    <div className="flex gap-1 text-brand-accent">
       {Array.from({ length: n }).map((_, i) => (
         <span key={i} aria-hidden>★</span>
       ))}
@@ -13,304 +13,351 @@ function StarRow({ count = 5 }: { count?: number }) {
   );
 }
 
-type XY = { x: number; t: number };
-type Dir = "next" | "prev";
+// Componente de card individual
+function TestimonialCard({ testimonial, index }: { 
+  testimonial: Testimonial; 
+  index: number;
+}) {
+  return (
+    <motion.div
+      className="
+        group relative
+        glass-light dark:glass-dark
+        rounded-2xl p-6
+        border border-brand-graphite/10 dark:border-white/10
+        hover:border-brand-accent/50 dark:hover:border-brand-accent/50
+        transition-all duration-500 ease-out
+        hover:shadow-2xl hover:shadow-brand-accent/20 dark:hover:shadow-brand-accent/30
+        hover:-translate-y-2 hover:scale-[1.02]
+        cursor-pointer
+        overflow-hidden
+        h-full
+      "
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: false, amount: 0.3 }}
+      transition={{ 
+        duration: 0.6, 
+        delay: index * 0.1,
+        ease: [0.22, 1, 0.36, 1] 
+      }}
+      whileHover={{ 
+        scale: 1.02,
+        y: -8,
+        transition: { duration: 0.3, ease: "easeOut" }
+      }}
+    >
+      {/* Gradient overlay on hover */}
+      <div className="
+        absolute inset-0
+        bg-gradient-to-br from-brand-accent/10 via-transparent to-brand-accent/5
+        opacity-0 group-hover:opacity-100
+        transition-opacity duration-500 ease-out
+      " />
+      
+      {/* Animated border glow */}
+      <div className="
+        absolute inset-0
+        rounded-2xl
+        bg-gradient-to-r from-brand-accent/20 via-brand-accent/10 to-brand-accent/20
+        opacity-0 group-hover:opacity-100
+        transition-opacity duration-500 ease-out
+        blur-sm
+        -z-10
+      " />
+
+      {/* Quote icon with animation */}
+      <motion.div 
+        className="
+          absolute top-4 right-4
+          text-brand-accent/20 dark:text-brand-accent/30
+          text-2xl
+          transition-all duration-300
+        "
+        whileHover={{ 
+          scale: 1.2,
+          rotate: 5,
+          color: "var(--brand-accent)"
+        }}
+      >
+        "
+      </motion.div>
+
+      {/* Content */}
+      <div className="relative z-10 h-full flex flex-col">
+        {/* Stars with hover animation */}
+        <motion.div 
+          className="mb-4"
+          whileHover={{ scale: 1.05 }}
+          transition={{ duration: 0.2 }}
+        >
+          <StarRow count={testimonial.stars ?? 5} />
+        </motion.div>
+
+        {/* Quote */}
+        <blockquote className="
+          text-brand-graphite dark:text-brand-light
+          text-sm leading-relaxed
+          mb-6 flex-1
+          group-hover:text-brand-graphite/90 dark:group-hover:text-brand-light/90
+          transition-colors duration-300
+        ">
+          "{testimonial.quote}"
+        </blockquote>
+
+        {/* Author info */}
+        <div className="flex items-center gap-3">
+          <motion.div 
+            className="relative"
+            whileHover={{ scale: 1.1 }}
+            transition={{ duration: 0.2 }}
+          >
+            <img
+              src={testimonial.avatar}
+              alt={testimonial.name}
+              className="
+                h-10 w-10 rounded-full object-cover
+                ring-2 ring-brand-graphite/10 dark:ring-white/10
+                group-hover:ring-brand-accent/30
+                transition-all duration-300
+              "
+            />
+            {/* Pulse effect on hover */}
+            <div className="
+              absolute inset-0
+              rounded-full
+              ring-2 ring-brand-accent/0
+              group-hover:ring-brand-accent/40
+              transition-all duration-500 ease-out
+              animate-pulse
+            " />
+          </motion.div>
+          <div className="min-w-0 flex-1">
+            <div className="
+              font-semibold text-sm
+              text-brand-graphite dark:text-brand-light
+              group-hover:text-brand-accent
+              transition-colors duration-300
+            ">
+              {testimonial.name}
+            </div>
+            <div className="
+              text-xs text-brand-graphite/60 dark:text-white/60
+              group-hover:text-brand-graphite/80 dark:group-hover:text-white/80
+              transition-colors duration-300
+            ">
+              {testimonial.role}
+              {testimonial.company ? ` • ${testimonial.company}` : ""}
+            </div>
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
 
 export default function Testimonials() {
   const items = useMemo(() => DATA.filter(Boolean), []);
-  const TOTAL = items.length;
-  const [index, setIndex] = useState(0);
-  const [dir, setDir] = useState<Dir>("next");
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
-  const prevIndex = (i = index) => (i - 1 + TOTAL) % TOTAL;
-  const nextIndex = (i = index) => (i + 1) % TOTAL;
-
-  const goPrev = () => {
-    setDir("prev");
-    setIndex((i) => prevIndex(i));
-  };
-  const goNext = () => {
-    setDir("next");
-    setIndex((i) => nextIndex(i));
-  };
-  const goTo = (i: number) => {
-    const norm = ((i % TOTAL) + TOTAL) % TOTAL;
-    setDir(norm > index ? "next" : "prev");
-    setIndex(norm);
+  const goToNext = () => {
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setCurrentIndex((prev) => (prev + 1) % items.length);
+    setTimeout(() => setIsTransitioning(false), 600);
   };
 
-  /** ------ drag ------ */
-  const dragRef = useRef<XY | null>(null);
-
-  const onDown = (x: number) => {
-    dragRef.current = { x, t: Date.now() };
-    document.body.classList.add("dragging");
-  };
-  const onMove = (_x: number) => {
-    // dejamos limpio: no movemos la card en vivo para mantener el “flip” cool
-  };
-  const endDrag = (x?: number) => {
-    const start = dragRef.current;
-    dragRef.current = null;
-    document.body.classList.remove("dragging");
-    if (!start || x == null) return;
-
-    const dx = x - start.x;
-    const dt = Date.now() - start.t;
-    const fast = dt < 300;
-
-    const THRESHOLD = fast ? 50 : 90;
-    if (dx > THRESHOLD) goPrev();
-    else if (dx < -THRESHOLD) goNext();
+  const goToPrev = () => {
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setCurrentIndex((prev) => (prev - 1 + items.length) % items.length);
+    setTimeout(() => setIsTransitioning(false), 600);
   };
 
-  const handleMouseDown = (e: React.MouseEvent) => onDown(e.clientX);
-  const handleMouseMove = (e: React.MouseEvent) => onMove(e.clientX);
-  const handleMouseUp = (e: React.MouseEvent) => endDrag(e.clientX);
-  const handleMouseLeave = (e: React.MouseEvent) => endDrag(e.clientX);
-  const handleTouchStart = (e: React.TouchEvent) =>
-    onDown(e.changedTouches[0].clientX);
-  const handleTouchMove = (e: React.TouchEvent) =>
-    onMove(e.changedTouches[0].clientX);
-  const handleTouchEnd = (e: React.TouchEvent) =>
-    endDrag(e.changedTouches[0].clientX);
+  const goToSlide = (index: number) => {
+    if (isTransitioning || index === currentIndex) return;
+    setIsTransitioning(true);
+    setCurrentIndex(index);
+    setTimeout(() => setIsTransitioning(false), 600);
+  };
 
-  /** ------ UI ------ */
-  const current = items[index];
-  const left = items[prevIndex()];
-  const right = items[nextIndex()];
-
-  const activeAnim =
-    dir === "next" ? "sr-active-next" : "sr-active-prev";
-  const ghostLeftAnim =
-    dir === "next" ? "sr-ghost-left-out" : "sr-ghost-left-in";
-  const ghostRightAnim =
-    dir === "next" ? "sr-ghost-right-in" : "sr-ghost-right-out";
-
-  const Card = ({ t }: { t: Testimonial }) => (
-        <motion.div
-          className="
-            w-full max-w-[980px]
-            glass-light dark:glass-dark
-            shadow-[0_30px_120px_rgba(0,0,0,.55)]
-            px-5 sm:px-7 md:px-10 py-6 sm:py-7 md:py-10
-            text-brand-graphite dark:text-brand-light
-            mx-2
-          "
-          initial={{ opacity: 0, y: 50, scale: 0.9 }}
-          whileInView={{ 
-            opacity: 1, 
-            y: 0, 
-            scale: 1 
-          }}
-          viewport={{ 
-            once: false, 
-            amount: 0.3 
-          }}
-          transition={{ 
-            duration: 0.6, 
-            ease: [0.22, 1, 0.36, 1] 
-          }}
-        >
-      <div className="flex items-center gap-4">
-        <img
-          src={t.avatar}
-          alt={t.name}
-          className="h-12 w-12 rounded-full object-cover ring-2 ring-brand-graphite/20 dark:ring-white/10"
-        />
-        <div className="min-w-0">
-          <div className="font-semibold text-lg">{t.name}</div>
-          <div className="text-sm text-brand-graphite/70 dark:text-white/70">
-            {t.role}
-            {t.company ? ` | ${t.company}` : ""}
-          </div>
-        </div>
-      </div>
-
-      <p className="mt-6 text-base md:text-lg leading-relaxed text-brand-graphite/90 dark:text-white/90">
-        {t.quote}
-      </p>
-
-      <StarRow count={t.stars ?? 5} />
-    </motion.div>
-  );
-
-  const Ghost = ({
-    side,
-  }: {
-    side: "left" | "right";
-  }) => (
-    <div
-      aria-hidden
-      className={`
-        pointer-events-none absolute inset-0 grid place-items-center
-        ${side === "left" ? "origin-[70%_60%]" : "origin-[30%_60%]"}
-      `}
-    >
-      <div className="
-        w-full max-w-[980px]
-        rounded-3xl border border-white/10
-        bg-black/30 backdrop-blur-md
-        shadow-[0_40px_140px_rgba(0,0,0,.65)]
-        ring-1 ring-white/5
-        px-5 sm:px-7 md:px-10 py-6 sm:py-7 md:py-10
-        mx-2
-      ">
-        <div className="opacity-[.35] blur-[1px]">
-          <div className="flex items-center gap-4">
-            <div className="h-10 w-10 rounded-full bg-white/10" />
-            <div className="h-4 w-40 rounded bg-white/10" />
-          </div>
-          <div className="mt-6 space-y-2">
-            <div className="h-3 w-4/5 rounded bg-white/10" />
-            <div className="h-3 w-3/5 rounded bg-white/10" />
-            <div className="h-3 w-2/5 rounded bg-white/10" />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+  // Obtener las 3 cards a mostrar
+  const getVisibleCards = () => {
+    const total = items.length;
+    const prev = (currentIndex - 1 + total) % total;
+    const next = (currentIndex + 1) % total;
+    
+    return [
+      { testimonial: items[prev], index: prev, position: 'left' },
+      { testimonial: items[currentIndex], index: currentIndex, position: 'center' },
+      { testimonial: items[next], index: next, position: 'right' }
+    ];
+  };
 
   return (
     <section
       id="testimonials"
-      className="relative py-16 md:py-28 select-none px-4 sm:px-6"
+      className="relative py-16 md:py-28 px-4 sm:px-6"
     >
-      {/* Animaciones locales */}
-      <style>{`
-        /* Active in (derecha) */
-        @keyframes srActiveNext {
-          0%   { transform: translateY(30px) scale(.96) rotate(-3deg); opacity: 0; filter: blur(2px); }
-          60%  { transform: translateY(-6px) scale(1.02) rotate(0deg);  opacity: 1; filter: blur(0); }
-          100% { transform: translateY(0) scale(1); }
-        }
-        .sr-active-next { animation: srActiveNext .60s cubic-bezier(.18,.88,.22,1) both; }
-
-        /* Active in (izquierda) */
-        @keyframes srActivePrev {
-          0%   { transform: translateY(30px) scale(.96) rotate(3deg); opacity: 0; filter: blur(2px); }
-          60%  { transform: translateY(-6px) scale(1.02) rotate(0deg); opacity: 1; filter: blur(0); }
-          100% { transform: translateY(0) scale(1); }
-        }
-        .sr-active-prev { animation: srActivePrev .60s cubic-bezier(.18,.88,.22,1) both; }
-
-        /* Ghosts core (posición base) */
-        .sr-ghost { transform: scale(.92) rotate(0deg); opacity: .45; }
-        .sr-ghost-left  { transform: translateX(-8%) rotate(-6deg) scale(.92); }
-        .sr-ghost-right { transform: translateX( 8%) rotate( 6deg) scale(.92); }
-
-        /* Flujo cuando voy NEXT: el de la izquierda se aleja, el de la derecha entra */
-        @keyframes srGhostLeftOut {
-          0% { transform: translateX(-8%) rotate(-6deg) scale(.92); opacity:.45; filter: blur(0); }
-          100% { transform: translateX(-20%) rotate(-10deg) scale(.88); opacity:.15; filter: blur(2px); }
-        }
-        .sr-ghost-left-out { animation: srGhostLeftOut .60s ease both; }
-
-        @keyframes srGhostRightIn {
-          0% { transform: translateX(18%) rotate(9deg) scale(.86); opacity:.10; filter: blur(2px); }
-          100% { transform: translateX(8%) rotate(6deg) scale(.92); opacity:.45; filter: blur(0); }
-        }
-        .sr-ghost-right-in { animation: srGhostRightIn .60s ease both; }
-
-        /* Flujo cuando voy PREV: el de la derecha se aleja, el de la izquierda entra */
-        @keyframes srGhostRightOut {
-          0% { transform: translateX(8%) rotate(6deg) scale(.92); opacity:.45; filter: blur(0); }
-          100% { transform: translateX(20%) rotate(10deg) scale(.88); opacity:.15; filter: blur(2px); }
-        }
-        .sr-ghost-right-out { animation: srGhostRightOut .60s ease both; }
-
-        @keyframes srGhostLeftIn {
-          0% { transform: translateX(-18%) rotate(-9deg) scale(.86); opacity:.10; filter: blur(2px); }
-          100% { transform: translateX(-8%) rotate(-6deg) scale(.92); opacity:.45; filter: blur(0); }
-        }
-        .sr-ghost-left-in { animation: srGhostLeftIn .60s ease both; }
-      `}</style>
-
-      {/* Título + flechas mobile */}
-      <div className="max-w-6xl mx-auto">
-        <h2 className="text-center text-3xl md:text-4xl font-extrabold text-brand-graphite dark:text-brand-light">
-          Stories of Success
-        </h2>
-        <div className="mt-2 flex justify-end gap-2 md:hidden pr-2">
-          <button
-            aria-label="Anterior"
-            onClick={goPrev}
-            className="h-9 w-9 grid place-items-center rounded-xl bg-white/5 text-white/80 hover:text-white hover:bg-white/10 border border-white/10"
-          >
-            ‹
-          </button>
-          <button
-            aria-label="Siguiente"
-            onClick={goNext}
-            className="h-9 w-9 grid place-items-center rounded-xl bg-white/5 text-white/80 hover:text-white hover:bg-white/10 border border-white/10"
-          >
-            ›
-          </button>
-        </div>
-      </div>
-
-      {/* Escenario */}
-      <div
-        className="relative mt-4 md:mt-12 px-1 sm:px-2"
-        onMouseDown={handleMouseDown}
-        onMouseMove={handleMouseMove}
-        onMouseUp={handleMouseUp}
-        onMouseLeave={handleMouseLeave}
-        onTouchStart={handleTouchStart}
-        onTouchMove={handleTouchMove}
-        onTouchEnd={handleTouchEnd}
+      {/* Header */}
+      <motion.div 
+        className="max-w-6xl mx-auto text-center mb-12"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: false, amount: 0.3 }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       >
-        {/* Flechas desktop */}
-        <div className="hidden md:flex absolute right-6 md:right-12 -top-12 gap-3 z-20">
-          <button
-            aria-label="Anterior"
-            onClick={goPrev}
-            className="h-10 w-10 grid place-items-center rounded-xl bg-white/5 text-white/80 hover:text-white hover:bg-white/10 border border-white/10"
+        <h2 className="text-3xl md:text-4xl font-extrabold text-brand-graphite dark:text-brand-light mb-4">
+          Lo que dicen sobre mi trabajo
+        </h2>
+        <p className="text-brand-graphite/70 dark:text-white/70 text-lg max-w-2xl mx-auto">
+          Testimonios reales de clientes y colegas que han trabajado conmigo
+        </p>
+      </motion.div>
+
+      {/* Cards Container */}
+      <div className="max-w-6xl mx-auto">
+        {/* Navigation arrows */}
+        <div className="flex justify-end gap-3 mb-8">
+          <motion.button
+            onClick={goToPrev}
+            className="
+              h-12 w-12
+              glass-light dark:glass-dark
+              rounded-xl
+              border border-brand-graphite/10 dark:border-white/10
+              flex items-center justify-center
+              text-brand-graphite dark:text-brand-light
+              hover:border-brand-accent/30
+              hover:text-brand-accent
+              transition-all duration-300
+              hover:scale-105
+              hover:shadow-lg
+            "
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            aria-label="Testimonio anterior"
           >
-            ‹
-          </button>
-          <button
-            aria-label="Siguiente"
-            onClick={goNext}
-            className="h-10 w-10 grid place-items-center rounded-xl bg-white/5 text-white/80 hover:text-white hover:bg-white/10 border border-white/10"
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+          </motion.button>
+          <motion.button
+            onClick={goToNext}
+            className="
+              h-12 w-12
+              glass-light dark:glass-dark
+              rounded-xl
+              border border-brand-graphite/10 dark:border-white/10
+              flex items-center justify-center
+              text-brand-graphite dark:text-brand-light
+              hover:border-brand-accent/30
+              hover:text-brand-accent
+              transition-all duration-300
+              hover:scale-105
+              hover:shadow-lg
+            "
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            aria-label="Siguiente testimonio"
           >
-            ›
-          </button>
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </motion.button>
         </div>
 
-        {/* Pista */}
-        <div className="relative h-[300px] md:h-[360px] overflow-visible">
-          {/* ghosts */}
-          <div className={`absolute inset-0 grid place-items-center z-0 sr-ghost sr-ghost-left ${ghostLeftAnim}`} aria-hidden>
-            <Ghost side="left" />
+        {/* Mobile: Single Card with Drag */}
+        <div className="md:hidden">
+          {/* Drag indicator */}
+          <div className="flex justify-center mb-4">
+            <div className="flex items-center gap-2 text-brand-graphite/60 dark:text-white/60 text-sm">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
+              </svg>
+              <span>Desliza para navegar</span>
+            </div>
           </div>
-          <div className={`absolute inset-0 grid place-items-center z-0 sr-ghost sr-ghost-right ${ghostRightAnim}`} aria-hidden>
-            <Ghost side="right" />
-          </div>
-
-          {/* activa */}
-          <div key={index} className={`absolute inset-0 grid place-items-center z-10 ${activeAnim}`}>
-            <Card t={current} />
-          </div>
+          
+          <motion.div
+            key={currentIndex}
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -50 }}
+            transition={{ 
+              duration: 0.4,
+              ease: [0.22, 1, 0.36, 1]
+            }}
+            drag="x"
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={0.2}
+            onDragEnd={(event, info) => {
+              if (info.offset.x > 100) {
+                goToPrev();
+              } else if (info.offset.x < -100) {
+                goToNext();
+              }
+            }}
+            className="cursor-grab active:cursor-grabbing"
+          >
+            <TestimonialCard testimonial={items[currentIndex]} index={currentIndex} />
+          </motion.div>
         </div>
 
-        {/* dots */}
-        <div className="mt-6 flex items-center justify-center gap-2">
-          {items.map((_, i) => {
-            const active = i === index;
-            return (
-              <button
-                key={i}
-                onClick={() => goTo(i)}
-                aria-label={`Ir al testimonio ${i + 1}`}
-                className={`h-2.5 w-2.5 rounded-full transition-all ${
-                  active
-                    ? "bg-brand-accent shadow-[0_0_0_4px_rgba(235,94,40,.15)]"
-                    : "bg-white/25 hover:bg-white/40"
-                }`}
-              />
-            );
-          })}
+        {/* Desktop: Three Cards Grid */}
+        <motion.div 
+          className="
+            hidden md:grid md:grid-cols-3
+            gap-6 md:gap-8
+            auto-rows-fr
+          "
+          key={currentIndex} // Force re-render for fade effect
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ 
+            duration: 0.4,
+            ease: [0.22, 1, 0.36, 1]
+          }}
+        >
+          {getVisibleCards().map(({ testimonial, index, position }) => (
+            <motion.div
+              key={`${testimonial.name}-${index}-${currentIndex}`}
+              className={`
+                ${position === 'center' ? 'md:scale-105 md:z-10' : 'md:scale-95'}
+                transition-all duration-500 ease-out
+              `}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ 
+                duration: 0.6, 
+                delay: position === 'left' ? 0 : position === 'center' ? 0.1 : 0.2,
+                ease: [0.22, 1, 0.36, 1] 
+              }}
+            >
+              <TestimonialCard testimonial={testimonial} index={index} />
+            </motion.div>
+          ))}
+        </motion.div>
+
+        {/* Dots indicator */}
+        <div className="flex justify-center gap-2 mt-8">
+          {items.map((_, index) => (
+            <motion.button
+              key={index}
+              onClick={() => goToSlide(index)}
+              className={`
+                h-3 w-3 rounded-full transition-all duration-300
+                ${index === currentIndex 
+                  ? "bg-brand-accent shadow-lg shadow-brand-accent/25" 
+                  : "bg-brand-graphite/20 dark:bg-white/20 hover:bg-brand-graphite/40 dark:hover:bg-white/40"
+                }
+              `}
+              whileHover={{ scale: 1.2 }}
+              whileTap={{ scale: 0.9 }}
+              aria-label={`Ir al testimonio ${index + 1}`}
+            />
+          ))}
         </div>
       </div>
     </section>

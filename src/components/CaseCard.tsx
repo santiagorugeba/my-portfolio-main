@@ -1,5 +1,5 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
 
 interface CaseCardProps {
   icon: string;
@@ -9,22 +9,48 @@ interface CaseCardProps {
 }
 
 export default function CaseCard({ icon, title, description, index }: CaseCardProps) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { 
+    once: false, // Permite animación múltiples veces
+    margin: "-100px 0px -100px 0px" // Trigger cuando está cerca del viewport
+  });
+
   return (
     <motion.div
+      ref={ref}
       className="glass rounded-2xl p-6 md:p-8 border border-white/10 hover:border-white/20 transition-all duration-200 hover:shadow-lg hover:shadow-white/10 h-full flex flex-col"
-      initial={{ opacity: 0, y: 20, scale: 0.95, rotate: index % 2 === 0 ? -2 : 2 }}
-      animate={{ opacity: 1, y: 0, scale: 1, rotate: 0 }}
+      initial={{ 
+        opacity: 0, 
+        y: 30, 
+        scale: 0.9,
+        rotate: index % 2 === 0 ? -3 : 3,
+        filter: "blur(4px)"
+      }}
+      animate={isInView ? { 
+        opacity: 1, 
+        y: 0, 
+        scale: 1, 
+        rotate: 0,
+        filter: "blur(0px)"
+      } : { 
+        opacity: 0, 
+        y: 30, 
+        scale: 0.9,
+        rotate: index % 2 === 0 ? -3 : 3,
+        filter: "blur(4px)"
+      }}
       transition={{ 
-        delay: index * 0.1, 
-        duration: 0.6,
+        delay: index * 0.08, 
+        duration: 0.7,
         type: "spring",
-        stiffness: 120,
-        damping: 15
+        stiffness: 100,
+        damping: 20
       }}
       whileHover={{ 
-        scale: 1.05,
+        scale: 1.03,
         rotate: index % 2 === 0 ? 1 : -1,
-        transition: { duration: 0.15, type: "spring", stiffness: 400, damping: 30 }
+        y: -5,
+        transition: { duration: 0.2, type: "spring", stiffness: 400, damping: 25 }
       }}
     >
       {/* Icono */}

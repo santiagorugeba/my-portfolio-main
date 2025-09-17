@@ -1,5 +1,5 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
 
 interface InfoBlockProps {
   title: string;
@@ -10,6 +10,12 @@ interface InfoBlockProps {
 }
 
 export default function InfoBlock({ title, content, size, variant, index }: InfoBlockProps) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { 
+    once: false, // Permite animación múltiples veces
+    margin: "-80px 0px -80px 0px" // Trigger cuando está cerca del viewport
+  });
+
   const sizeClasses = {
     small: 'col-span-1 row-span-1',
     medium: 'col-span-1 md:col-span-2 row-span-1',
@@ -30,25 +36,45 @@ export default function InfoBlock({ title, content, size, variant, index }: Info
 
   return (
     <motion.div
+      ref={ref}
       className={`
         glass rounded-2xl p-6 border transition-all duration-200
         hover:shadow-lg hover:shadow-white/10
         ${sizeClasses[size]}
         ${variantClasses[variant]}
       `}
-      initial={{ opacity: 0, y: 20, scale: 0.95, rotate: index % 2 === 0 ? -2 : 2 }}
-      animate={{ opacity: 1, y: 0, scale: 1, rotate: 0 }}
+      initial={{ 
+        opacity: 0, 
+        y: 25, 
+        scale: 0.9,
+        rotate: index % 2 === 0 ? -2 : 2,
+        filter: "blur(3px)"
+      }}
+      animate={isInView ? { 
+        opacity: 1, 
+        y: 0, 
+        scale: 1, 
+        rotate: 0,
+        filter: "blur(0px)"
+      } : { 
+        opacity: 0, 
+        y: 25, 
+        scale: 0.9,
+        rotate: index % 2 === 0 ? -2 : 2,
+        filter: "blur(3px)"
+      }}
       transition={{ 
-        delay: index * 0.15, 
+        delay: index * 0.1, 
         duration: 0.6,
         type: "spring",
-        stiffness: 120,
-        damping: 15
+        stiffness: 110,
+        damping: 18
       }}
       whileHover={{ 
-        scale: 1.05,
-        rotate: index % 2 === 0 ? 1 : -1,
-        transition: { duration: 0.15, type: "spring", stiffness: 400, damping: 30 }
+        scale: 1.02,
+        rotate: index % 2 === 0 ? 0.5 : -0.5,
+        y: -3,
+        transition: { duration: 0.2, type: "spring", stiffness: 400, damping: 25 }
       }}
     >
       {/* Título */}

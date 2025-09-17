@@ -14,11 +14,10 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   const [theme, setTheme] = useState<"light" | "dark">("dark");
 
   useEffect(() => {
-    // Verificar el tema inicial del sistema o localStorage
+    // Verificar si el usuario ha usado el toggle antes
     const savedTheme = localStorage.getItem('theme');
-    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     
-    // Siempre iniciar en modo oscuro por defecto, a menos que el usuario haya guardado 'light'
+    // Siempre iniciar en modo oscuro por defecto, solo cambia si el usuario explícitamente guardó 'light'
     const shouldBeDark = savedTheme !== 'light';
     setTheme(shouldBeDark ? 'dark' : 'light');
     

@@ -63,9 +63,17 @@
     filter: brightness(0) saturate(0) invert(15%) sepia(8%) saturate(1018%) hue-rotate(314deg) brightness(95%) contrast(86%);
   }
   
-  .dark .case-card-icon {
-    filter: brightness(0) saturate(0) invert(100%);
-  }
+.dark .case-card-icon {
+  filter: brightness(0) saturate(0) invert(100%);
+}
+
+.menu-icon {
+  filter: brightness(0) saturate(0) invert(15%) sepia(8%) saturate(1018%) hue-rotate(314deg) brightness(95%) contrast(86%);
+}
+
+.dark .menu-icon {
+  filter: brightness(0) saturate(0) invert(100%);
+}
 
   .glass-light {
     @apply border rounded-3xl backdrop-blur-md;

@@ -109,9 +109,8 @@ export default function Navbar() {
               <img 
                 src="/menu-icon.svg" 
                 alt="" 
-                className="h-5 w-5"
+                className="h-5 w-5 menu-icon"
                 style={{ 
-                  filter: 'brightness(0.7) contrast(1.4) saturate(1.1)',
                   minWidth: '20px',
                   minHeight: '20px'
                 }}

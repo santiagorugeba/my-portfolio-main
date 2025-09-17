@@ -20,7 +20,17 @@ const socialLinks = [
   { 
     href: "https://www.behance.net/santiagorugeba2", 
     label: "Behance", 
-    icon: <img src="/behance-icon.svg" alt="Behance" className="w-6 h-6" />
+    icon: <img 
+      src="/behance-icon.svg" 
+      alt="Behance" 
+      className="w-6 h-6" 
+      style={{ 
+        filter: 'brightness(0.8) contrast(1.3) saturate(1.1)',
+        minWidth: '24px',
+        minHeight: '24px'
+      }}
+      loading="lazy"
+    />
   },
 ];
 

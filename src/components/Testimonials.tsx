@@ -1,5 +1,6 @@
 import React, { useMemo, useRef, useState } from "react";
 import { testimonials as DATA, Testimonial } from "@/data/testimonials";
+import { motion } from "framer-motion";
 
 function StarRow({ count = 5 }: { count?: number }) {
   const n = Math.max(0, Math.min(5, count ?? 0));
@@ -87,18 +88,30 @@ export default function Testimonials() {
     dir === "next" ? "sr-ghost-right-in" : "sr-ghost-right-out";
 
   const Card = ({ t }: { t: Testimonial }) => (
-    <div
-      className="
-        w-full max-w-[980px]
-        rounded-3xl border border-brand-graphite/20 dark:border-white/10
-        bg-brand-sand/95 dark:bg-[#171615]/95
-        shadow-[0_30px_120px_rgba(0,0,0,.55)]
-        ring-1 ring-brand-graphite/5 dark:ring-white/5
-        px-5 sm:px-7 md:px-10 py-6 sm:py-7 md:py-10
-        text-brand-graphite dark:text-brand-light
-        mx-2
-      "
-    >
+        <motion.div
+          className="
+            w-full max-w-[980px]
+            glass-light dark:glass-dark
+            shadow-[0_30px_120px_rgba(0,0,0,.55)]
+            px-5 sm:px-7 md:px-10 py-6 sm:py-7 md:py-10
+            text-brand-graphite dark:text-brand-light
+            mx-2
+          "
+          initial={{ opacity: 0, y: 50, scale: 0.9 }}
+          whileInView={{ 
+            opacity: 1, 
+            y: 0, 
+            scale: 1 
+          }}
+          viewport={{ 
+            once: false, 
+            amount: 0.3 
+          }}
+          transition={{ 
+            duration: 0.6, 
+            ease: [0.22, 1, 0.36, 1] 
+          }}
+        >
       <div className="flex items-center gap-4">
         <img
           src={t.avatar}
@@ -119,7 +132,7 @@ export default function Testimonials() {
       </p>
 
       <StarRow count={t.stars ?? 5} />
-    </div>
+    </motion.div>
   );
 
   const Ghost = ({

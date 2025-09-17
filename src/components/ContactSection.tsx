@@ -85,18 +85,22 @@ export default function ContactSection() {
       <div className="grid md:grid-cols-2 gap-6">
         {/* Left copy */}
         <motion.div
-          initial={{ opacity: 0, y: 20, scale: 0.98 }}
-          whileInView={{ opacity: 1, y: 0, scale: 1 }}
-          viewport={{ once: true, amount: 0.4 }}
-          transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-          style={{
-            background: t.leftBg,
-            border: `1px solid ${t.border}`,
-            boxShadow: t.shadowLeft,
-            borderRadius: 18,
-            padding: 24,
-            color: t.ink,
+          initial={{ opacity: 0, y: 50, scale: 0.9 }}
+          whileInView={{ 
+            opacity: 1, 
+            y: 0, 
+            scale: 1 
           }}
+          viewport={{ 
+            once: false, 
+            amount: 0.3 
+          }}
+          transition={{ 
+            duration: 0.6, 
+            ease: [0.22, 1, 0.36, 1] 
+          }}
+          className="glass-light dark:glass-dark rounded-3xl p-6"
+          style={{ color: t.ink }}
         >
           <p
             style={{
@@ -207,19 +211,21 @@ export default function ContactSection() {
           </motion.div>
         ) : (
           <motion.form
-            className="grid gap-4"
+            className="glass-light dark:glass-dark grid gap-4 rounded-3xl p-6"
             onSubmit={handleSubmit}
-            initial={{ opacity: 0, y: 20, scale: 0.98 }}
-            whileInView={{ opacity: 1, y: 0, scale: 1 }}
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.55, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
-            style={{
-              background: t.rightBg,
-              border: `1px solid ${t.border}`,
-              boxShadow: t.shadowRight,
-              borderRadius: 18,
-              padding: 20,
-              color: t.ink,
+            initial={{ opacity: 0, y: 50, scale: 0.9 }}
+            whileInView={{ 
+              opacity: 1, 
+              y: 0, 
+              scale: 1 
+            }}
+            viewport={{ 
+              once: false, 
+              amount: 0.3 
+            }}
+            transition={{ 
+              duration: 0.6, 
+              ease: [0.22, 1, 0.36, 1] 
             }}
             aria-labelledby="contact-title"
           >

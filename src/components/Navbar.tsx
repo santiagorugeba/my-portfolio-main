@@ -74,7 +74,7 @@ export default function Navbar() {
         id="siteHeader"
         className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[min(1100px,92vw)]"
       >
-        <nav className="glass rounded-2xl px-5 md:px-6 py-3 flex items-center justify-between">
+            <nav className="glass-light dark:glass-dark rounded-2xl px-5 md:px-6 py-3 flex items-center justify-between">
           <button 
             onClick={handleLogoClick}
             className="font-semibold tracking-wide text-brand-graphite dark:text-brand-light hover:text-brand-accent transition-colors cursor-pointer"
@@ -102,11 +102,21 @@ export default function Navbar() {
 
             {/* Botón hamburguesa (mobile) */}
             <button
-              className="md:hidden ml-1 inline-flex h-9 w-9 items-center justify-center rounded-xl border border-brand-graphite/20 dark:border-white/10 text-brand-graphite dark:text-brand-light hover:bg-brand-graphite/10 dark:hover:bg-white/10 transition relative"
-              aria-label="Abrir menú"
+              className="md:hidden ml-1 inline-flex h-9 w-9 items-center justify-center rounded-xl border border-brand-graphite/20 dark:border-white/10 text-brand-graphite dark:text-brand-light hover:bg-brand-graphite/10 dark:hover:bg-white/10 transition relative focus:outline-none focus:ring-2 focus:ring-brand-accent/50 focus:ring-offset-2 focus:ring-offset-transparent"
+              aria-label="Abrir menú de navegación"
               onClick={() => setOpen(true)}
             >
-              <img src="/menu-icon.svg" alt="Menú" className="h-5 w-5" />
+              <img 
+                src="/menu-icon.svg" 
+                alt="" 
+                className="h-5 w-5"
+                style={{ 
+                  filter: 'brightness(0.7) contrast(1.4) saturate(1.1)',
+                  minWidth: '20px',
+                  minHeight: '20px'
+                }}
+                aria-hidden="true"
+              />
             </button>
           </div>
         </nav>

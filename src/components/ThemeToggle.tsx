@@ -22,8 +22,8 @@ export default function ThemeToggle() {
       <motion.div
         className="relative h-7 w-7 rounded-full bg-gradient-to-br from-brand-light to-brand-sand dark:from-brand-light dark:to-brand-sand shadow-lg flex items-center justify-center"
         animate={{
-          x: isDark ? 32 : 0,
-          rotate: isDark ? 180 : 0,
+          x: isDark ? 0 : 32, // Invertido: dark mode a la izquierda (0), light mode a la derecha (32)
+          rotate: isDark ? 0 : 180,
         }}
         transition={{
           type: "spring",
@@ -31,26 +31,46 @@ export default function ThemeToggle() {
           damping: 30
         }}
       >
-        {/* Icon inside toggle */}
+        {/* Moon icon (dark mode) - visible cuando está en dark mode */}
         <motion.div
-          className="text-brand-graphite"
-          animate={{
-            opacity: isDark ? 0 : 1,
-            scale: isDark ? 0 : 1,
-          }}
-          transition={{ duration: 0.2 }}
-        >
-          ☀️
-        </motion.div>
-        <motion.div
-          className="absolute text-brand-graphite"
+          className="absolute"
           animate={{
             opacity: isDark ? 1 : 0,
             scale: isDark ? 1 : 0,
           }}
           transition={{ duration: 0.2 }}
         >
-          🌙
+          <img 
+            src="/moon.svg" 
+            alt="Modo oscuro" 
+            className="h-4 w-4"
+            style={{ 
+              filter: isDark 
+                ? 'brightness(0) saturate(0) invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%)' 
+                : 'brightness(0) saturate(0) invert(25%) sepia(8%) saturate(1018%) hue-rotate(314deg) brightness(95%) contrast(86%)',
+            }}
+          />
+        </motion.div>
+        
+        {/* Sun icon (light mode) - visible cuando está en light mode */}
+        <motion.div
+          className="absolute"
+          animate={{
+            opacity: isDark ? 0 : 1,
+            scale: isDark ? 0 : 1,
+          }}
+          transition={{ duration: 0.2 }}
+        >
+          <img 
+            src="/sun.svg" 
+            alt="Modo claro" 
+            className="h-4 w-4"
+            style={{ 
+              filter: !isDark 
+                ? 'brightness(0) saturate(0) invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%)' 
+                : 'brightness(0) saturate(0) invert(25%) sepia(8%) saturate(1018%) hue-rotate(314deg) brightness(95%) contrast(86%)',
+            }}
+          />
         </motion.div>
       </motion.div>
     </motion.button>

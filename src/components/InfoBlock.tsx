@@ -23,7 +23,7 @@ export default function InfoBlock({ title, content, size, variant, index }: Info
   };
 
   const variantClasses = {
-    primary: 'bg-brand-sand/20 dark:bg-white/5 border-brand-graphite/20 dark:border-white/10',
+    primary: 'glass-light dark:glass-dark',
     secondary: 'bg-brand-accent/10 border-brand-accent/20',
     accent: 'bg-gradient-to-br from-brand-accent/20 to-brand-accent/5 border-brand-accent/30'
   };
@@ -38,7 +38,7 @@ export default function InfoBlock({ title, content, size, variant, index }: Info
     <motion.div
       ref={ref}
       className={`
-        glass rounded-2xl p-6 border transition-all duration-200
+        rounded-2xl p-6 transition-all duration-300
         hover:shadow-lg hover:shadow-white/10
         ${sizeClasses[size]}
         ${variantClasses[variant]}

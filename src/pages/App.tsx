@@ -11,6 +11,7 @@ import Footer from "@/components/Footer";
 
 import { cases } from "@/data/cases";
 import { profile } from "@/data/profile";
+import { motion } from "framer-motion";
 
 export default function App() {
   return (
@@ -19,11 +20,31 @@ export default function App() {
 
       <main className="pt-28">
         <Hero />
-        <About />
-        <ToolsMarquee />
+        
+        <motion.div
+          initial={{ opacity: 0, y: 100 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <About />
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 100 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1.0, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <ToolsMarquee />
+        </motion.div>
 
         {/* PROYECTOS (grilla estable) */}
-        <section id="projects" className="max-w-6xl mx-auto px-6 py-10 scroll-mt-28">
+        <motion.section 
+          id="projects" 
+          className="max-w-6xl mx-auto px-6 py-6 scroll-mt-28"
+          initial={{ opacity: 0, y: 100 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1.5, ease: [0.22, 1, 0.36, 1] }}
+        >
           <div className="flex items-end justify-between mb-6">
             <h2 className="text-3xl font-extrabold text-brand-graphite dark:text-brand-light">
               Proyectos
@@ -38,16 +59,37 @@ export default function App() {
           </div>
 
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 auto-rows-fr">
-            {cases.map((c: any) => (
-              <ProjectCard key={c.slug} item={c} />
+            {cases.map((c: any, index: number) => (
+              <ProjectCard key={c.slug} item={c} index={index} />
             ))}
           </div>
-        </section>
+        </motion.section>
 
-        <Experience />
-        <Testimonials />
+        <motion.div
+          initial={{ opacity: 0, y: 100 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 2.0, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <Experience />
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 100 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 2.5, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <Testimonials />
+        </motion.div>
+
         {/* <Pricing /> */}
-        <ContactSection />
+        
+        <motion.div
+          initial={{ opacity: 0, y: 100 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 3.0, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <ContactSection />
+        </motion.div>
       </main>
 
       <Footer />

@@ -11,13 +11,20 @@ interface CaseCardProps {
 export default function CaseCard({ icon, title, description, index }: CaseCardProps) {
   return (
     <motion.div
-      className="glass rounded-2xl p-6 md:p-8 border border-white/10 hover:border-white/20 transition-all duration-300 hover:shadow-lg hover:shadow-brand-accent/10 h-full flex flex-col"
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.1, duration: 0.5 }}
+      className="glass rounded-2xl p-6 md:p-8 border border-white/10 hover:border-white/20 transition-all duration-200 hover:shadow-lg hover:shadow-white/10 h-full flex flex-col"
+      initial={{ opacity: 0, y: 20, scale: 0.95, rotate: index % 2 === 0 ? -2 : 2 }}
+      animate={{ opacity: 1, y: 0, scale: 1, rotate: 0 }}
+      transition={{ 
+        delay: index * 0.1, 
+        duration: 0.6,
+        type: "spring",
+        stiffness: 120,
+        damping: 15
+      }}
       whileHover={{ 
-        scale: 1.02,
-        transition: { duration: 0.2 }
+        scale: 1.05,
+        rotate: index % 2 === 0 ? 1 : -1,
+        transition: { duration: 0.15, type: "spring", stiffness: 400, damping: 30 }
       }}
     >
       {/* Icono */}
@@ -35,7 +42,7 @@ export default function CaseCard({ icon, title, description, index }: CaseCardPr
       </h3>
 
       {/* Descripción */}
-      <p className="text-brand-light/70 text-sm md:text-base leading-relaxed flex-grow">
+      <p className="text-brand-light/70 text-base md:text-lg leading-relaxed flex-grow">
         {description}
       </p>
     </motion.div>

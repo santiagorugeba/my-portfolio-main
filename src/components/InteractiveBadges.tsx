@@ -47,19 +47,13 @@ export default function InteractiveBadges({ badges }: InteractiveBadgesProps) {
       {/* Botón de Reset */}
       <motion.button
         onClick={handleReset}
-        className="absolute -top-8 right-0 z-10 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium bg-brand-accent/10 border border-brand-accent/30 text-brand-accent hover:bg-brand-accent/20 hover:border-brand-accent/50 transition-all duration-200"
+        className="absolute -top-8 right-0 z-10 inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium bg-brand-accent/10 border border-brand-accent/30 text-brand-accent hover:bg-brand-accent/20 hover:border-brand-accent/50 transition-all duration-200"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5 }}
       >
-        <motion.span
-          animate={{ rotate: resetKey * 360 }}
-          transition={{ duration: 0.5, ease: "easeInOut" }}
-        >
-          🔄
-        </motion.span>
         Reset
       </motion.button>
 

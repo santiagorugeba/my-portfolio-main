@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import InteractiveBadge from './InteractiveBadge';
 
@@ -13,14 +13,38 @@ interface InteractiveBadgesProps {
 }
 
 export default function InteractiveBadges({ badges }: InteractiveBadgesProps) {
+  // Función para calcular espaciado responsivo
+  const getResponsiveSpacing = (index: number) => {
+    if (typeof window !== 'undefined') {
+      const isMobile = window.innerWidth < 768; // md breakpoint
+      return isMobile ? index * 80 : index * 100; // Menos espaciado en mobile
+    }
+    return index * 100; // Fallback para SSR
+  };
+
   const [badgePositions, setBadgePositions] = useState<Record<string, { x: number; y: number }>>(
-    badges.reduce((acc, badge) => {
-      acc[badge.id] = badge.initialPosition;
+    badges.reduce((acc, badge, index) => {
+      acc[badge.id] = { x: getResponsiveSpacing(index), y: 0 };
       return acc;
     }, {} as Record<string, { x: number; y: number }>)
   );
 
   const [resetKey, setResetKey] = useState(0);
+
+  // Hook para manejar resize y recalcular posiciones
+  useEffect(() => {
+    const handleResize = () => {
+      setBadgePositions(
+        badges.reduce((acc, badge, index) => {
+          acc[badge.id] = { x: getResponsiveSpacing(index), y: 0 };
+          return acc;
+        }, {} as Record<string, { x: number; y: number }>)
+      );
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [badges]);
 
   const handlePositionChange = (badgeId: string, position: { x: number; y: number }) => {
     setBadgePositions(prev => ({
@@ -30,10 +54,10 @@ export default function InteractiveBadges({ badges }: InteractiveBadgesProps) {
   };
 
   const handleReset = () => {
-    // Resetear posiciones a las iniciales
+    // Resetear posiciones a las iniciales con espaciado responsivo
     setBadgePositions(
-      badges.reduce((acc, badge) => {
-        acc[badge.id] = badge.initialPosition;
+      badges.reduce((acc, badge, index) => {
+        acc[badge.id] = { x: getResponsiveSpacing(index), y: 0 };
         return acc;
       }, {} as Record<string, { x: number; y: number }>)
     );

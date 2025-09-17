@@ -103,10 +103,7 @@ export default function Case() {
               badges={tags.map((tag, i) => ({
                 id: `tag-${i}`,
                 label: tag,
-                initialPosition: { 
-                  x: i * 100, // Espaciado horizontal inicial 100px
-                  y: 0 
-                }
+                initialPosition: { x: 0, y: 0 } // Se calcula automáticamente dentro del componente
               }))}
             />
           </div>

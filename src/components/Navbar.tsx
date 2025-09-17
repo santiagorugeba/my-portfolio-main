@@ -2,7 +2,6 @@ import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import ThemeToggle from "@/components/ThemeToggle";
 import MobileMenu, { NavLink } from "@/components/MobileMenu";
-import { profile } from "@/data/profile";
 
 const LINKS: NavLink[] = [
   { id: "home",       label: "Home" },
@@ -42,8 +41,6 @@ function smoothScrollToId(id: string, duration = 900, headerSelector = "#siteHea
 }
 
 export default function Navbar() {
-  const MAIL = "mailto:santiagoo.rugeeb@gmail.com";
-  const LINKEDIN = profile?.links?.linkedin || "#";
   const [open, setOpen] = React.useState(false);
   const location = useLocation();
   const navigate = useNavigate();
@@ -80,13 +77,13 @@ export default function Navbar() {
         <nav className="glass rounded-2xl px-5 md:px-6 py-3 flex items-center justify-between">
           <button 
             onClick={handleLogoClick}
-            className="font-semibold tracking-wide text-brand-light hover:text-brand-accent transition-colors cursor-pointer"
+            className="font-semibold tracking-wide text-brand-graphite dark:text-brand-light hover:text-brand-accent transition-colors cursor-pointer"
           >
             Santiago Ruge
           </button>
 
           {/* Desktop links */}
-          <ul className="hidden md:flex gap-6 text-brand-light/80">
+          <ul className="hidden md:flex gap-6 text-brand-graphite/80 dark:text-brand-light/80">
             {LINKS.map((l) => (
               <li key={l.id}>
                 <button
@@ -101,14 +98,11 @@ export default function Navbar() {
 
           {/* Right controls */}
           <div className="flex items-center gap-3">
-            {/* Puedes ocultar el toggle si no lo necesitas */}
             <ThemeToggle />
-            <a href={MAIL} className="icon-btn" aria-label="Email" title="Email">✉️</a>
-            <a href={LINKEDIN} className="icon-btn" aria-label="LinkedIn" title="LinkedIn" rel="noopener noreferrer" target="_blank">in</a>
 
             {/* Botón hamburguesa (mobile) */}
             <button
-              className="md:hidden ml-1 inline-flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 text-brand-light hover:bg-white/10 transition relative"
+              className="md:hidden ml-1 inline-flex h-9 w-9 items-center justify-center rounded-xl border border-brand-graphite/20 dark:border-white/10 text-brand-graphite dark:text-brand-light hover:bg-brand-graphite/10 dark:hover:bg-white/10 transition relative"
               aria-label="Abrir menú"
               onClick={() => setOpen(true)}
             >

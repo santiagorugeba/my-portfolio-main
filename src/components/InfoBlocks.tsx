@@ -21,12 +21,12 @@ export default function InfoBlocks({ blocks, title, subtitle }: InfoBlocksProps)
       {(title || subtitle) && (
         <div className="mb-8">
           {title && (
-            <h2 className="font-heading text-3xl md:text-4xl font-bold text-brand-light mb-3">
+            <h2 className="font-heading text-3xl md:text-4xl font-bold text-brand-graphite dark:text-brand-light mb-3">
               {title}
             </h2>
           )}
           {subtitle && (
-            <p className="text-brand-light/70 text-lg max-w-3xl">
+            <p className="text-brand-graphite/70 dark:text-brand-light/70 text-lg max-w-3xl">
               {subtitle}
             </p>
           )}

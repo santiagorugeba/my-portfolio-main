@@ -90,12 +90,12 @@ export default function Testimonials() {
     <div
       className="
         w-full max-w-[980px]
-        rounded-3xl border border-white/10
-        bg-[#171615]/95
+        rounded-3xl border border-brand-graphite/20 dark:border-white/10
+        bg-brand-sand/95 dark:bg-[#171615]/95
         shadow-[0_30px_120px_rgba(0,0,0,.55)]
-        ring-1 ring-white/5
+        ring-1 ring-brand-graphite/5 dark:ring-white/5
         px-5 sm:px-7 md:px-10 py-6 sm:py-7 md:py-10
-        text-brand-light
+        text-brand-graphite dark:text-brand-light
         mx-2
       "
     >
@@ -103,18 +103,18 @@ export default function Testimonials() {
         <img
           src={t.avatar}
           alt={t.name}
-          className="h-12 w-12 rounded-full object-cover ring-2 ring-white/10"
+          className="h-12 w-12 rounded-full object-cover ring-2 ring-brand-graphite/20 dark:ring-white/10"
         />
         <div className="min-w-0">
           <div className="font-semibold text-lg">{t.name}</div>
-          <div className="text-sm text-white/70">
+          <div className="text-sm text-brand-graphite/70 dark:text-white/70">
             {t.role}
             {t.company ? ` | ${t.company}` : ""}
           </div>
         </div>
       </div>
 
-      <p className="mt-6 text-base md:text-lg leading-relaxed text-white/90">
+      <p className="mt-6 text-base md:text-lg leading-relaxed text-brand-graphite/90 dark:text-white/90">
         {t.quote}
       </p>
 
@@ -215,7 +215,7 @@ export default function Testimonials() {
 
       {/* Título + flechas mobile */}
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-center text-3xl md:text-4xl font-extrabold text-brand-light">
+        <h2 className="text-center text-3xl md:text-4xl font-extrabold text-brand-graphite dark:text-brand-light">
           Stories of Success
         </h2>
         <div className="mt-2 flex justify-end gap-2 md:hidden pr-2">

@@ -23,7 +23,7 @@ export default function InfoBlock({ title, content, size, variant, index }: Info
   };
 
   const variantClasses = {
-    primary: 'bg-white/5 border-white/10',
+    primary: 'bg-brand-sand/20 dark:bg-white/5 border-brand-graphite/20 dark:border-white/10',
     secondary: 'bg-brand-accent/10 border-brand-accent/20',
     accent: 'bg-gradient-to-br from-brand-accent/20 to-brand-accent/5 border-brand-accent/30'
   };
@@ -79,14 +79,14 @@ export default function InfoBlock({ title, content, size, variant, index }: Info
     >
       {/* Título */}
       <h3 className={`
-        font-heading font-bold text-brand-light mb-3
+        font-heading font-bold text-brand-graphite dark:text-brand-light mb-3
         ${titleSizes[size]}
       `}>
         {title}
       </h3>
 
       {/* Contenido */}
-      <div className="text-brand-light/80 text-base leading-relaxed">
+      <div className="text-brand-graphite/80 dark:text-brand-light/80 text-base leading-relaxed">
         {content.split('\n').map((line, lineIndex) => {
           // Si la línea empieza con "•", renderizarla como bullet
           if (line.trim().startsWith('•')) {

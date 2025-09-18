@@ -64,22 +64,6 @@ function TestimonialCard({ testimonial, index }: {
         -z-10
       " />
 
-      {/* Quote icon with animation */}
-      <motion.div 
-        className="
-          absolute top-4 right-4
-          text-brand-accent/20
-          text-2xl
-          transition-all duration-300
-        "
-        whileHover={{ 
-          scale: 1.2,
-          rotate: 5,
-          color: "var(--brand-accent)"
-        }}
-      >
-        "
-      </motion.div>
 
       {/* Easter Egg en testimonials */}
       {index === 0 && (
@@ -282,15 +266,6 @@ export default function Testimonials() {
 
         {/* Mobile: Single Card with Drag */}
         <div className="sm:hidden">
-          {/* Drag indicator */}
-          <div className="flex justify-center mb-4">
-            <div className="flex items-center gap-2 text-brand-graphite/60 dark:text-brand-light/60 text-xs">
-              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
-              </svg>
-              <span>Desliza para navegar</span>
-            </div>
-          </div>
           
           <motion.div
             key={currentIndex}

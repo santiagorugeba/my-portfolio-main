@@ -36,42 +36,42 @@ export default function Footer() {
   // --- 2. Lógica del Tema ---
   const { theme } = useTheme();
 
-  // Objeto 't' que contiene las variables de estilo que dependen del tema.
-  const t =
-    theme === "dark"
-      ? {
-          // Estilos para el modo oscuro
-          bg: "#101010",
-          ink: "#FFFCF2",
-          sub: "rgba(255,252,242,.78)",
-          border: "rgba(255,252,242,.1)",
-        }
-      : {
-          // Estilos para el modo claro
-          bg: "#FFFCF2",
-          ink: "#252422",
-          sub: "rgba(37,36,34,.78)",
-          border: "rgba(37,36,34,.1)",
-        };
-
-  // --- 3. Definición de Objetos de Estilo ---
-  // Estilo para los enlaces del footer para evitar la repetición en el JSX.
-  const linkStyles = {
-    color: t.sub,
-    textDecoration: 'none',
-    transition: 'color 0.2s ease-in-out', // Efecto suave al pasar el mouse.
-  };
-
-  // Estilo para la línea divisoria.
-  const dividerStyles = {
-    border: 'none',
-    borderTop: `1px solid ${t.border}`,
-    margin: '32px 0',
-  };
+  // --- 3. Lógica del Tema ---
+  // Ya no necesitamos variables de estilo personalizadas ya que usamos las clases de Tailwind
 
   // --- 4. Renderizado del Componente ---
   return (
-    <footer style={{ background: t.bg, color: t.ink }} className="py-12">
+    <footer className="py-12 relative glass-light dark:glass-dark rounded-t-3xl">
+      {/* Easter Eggs en Footer */}
+      <div className="absolute top-4 right-1/4 z-10">
+        <img
+          src="/chocolate-1-svgrepo-com.svg"
+          alt="🍫"
+          className="w-4 h-4 cursor-pointer hover:scale-110 transition-transform duration-200"
+          style={{
+            filter: 'brightness(0.4) saturate(0.6)',
+            opacity: 0.2
+          }}
+          onClick={() => {
+            console.log('Chocolate encontrado en Footer!');
+          }}
+        />
+      </div>
+      <div className="absolute bottom-4 left-1/3 z-10">
+        <img
+          src="/chocolate-1-svgrepo-com.svg"
+          alt="🍫"
+          className="w-3 h-3 cursor-pointer hover:scale-110 transition-transform duration-200"
+          style={{
+            filter: 'brightness(0.3) saturate(0.5)',
+            opacity: 0.15
+          }}
+          onClick={() => {
+            console.log('Chocolate oculto encontrado en Footer!');
+          }}
+        />
+      </div>
+      
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Sección Superior: Logo, Navegación y Redes Sociales */}
@@ -79,18 +79,18 @@ export default function Footer() {
           
           {/* Columna 1: Logo y Descripción */}
           <div className="flex flex-col gap-4">
-            <h3 className="font-heading text-2xl font-bold">Santiago Ruge</h3>
-            <p style={{ color: t.sub, fontSize: 14 }}>
+            <h3 className="font-heading text-2xl font-bold text-brand-graphite dark:text-brand-light">Santiago Ruge</h3>
+            <p className="text-brand-graphite/70 dark:text-brand-light/70 text-sm">
               Diseñador de producto enfocado en la creación de experiencias de usuario memorables.
             </p>
           </div>
 
           {/* Columna 2: Enlaces de Navegación */}
           <div className="flex flex-col gap-4">
-            <h4 className="font-heading font-bold">Navegación</h4>
+            <h4 className="font-heading font-bold text-brand-graphite dark:text-brand-light">Navegación</h4>
             <nav className="flex flex-col gap-2">
               {navigationLinks.map((link) => (
-                <a key={link.label} href={link.href} style={linkStyles} className="hover:text-orange-500">
+                <a key={link.label} href={link.href} className="text-brand-graphite/70 dark:text-brand-light/70 hover:text-brand-accent transition-colors duration-200">
                   {link.label}
                 </a>
               ))}
@@ -99,15 +99,14 @@ export default function Footer() {
 
           {/* Columna 3: Enlaces a Redes Sociales */}
           <div className="flex flex-col gap-4">
-            <h4 className="font-heading font-bold">Social</h4>
+            <h4 className="font-heading font-bold text-brand-graphite dark:text-brand-light">Social</h4>
             <div className="flex gap-4">
               {socialLinks.map((social) => (
                 <a 
                   key={social.label} 
                   href={social.href} 
                   aria-label={`Visita mi perfil de ${social.label}`} // Mejora la accesibilidad
-                  style={linkStyles}
-                  className="hover:text-orange-500"
+                  className="text-brand-graphite/70 dark:text-brand-light/70 hover:text-brand-accent transition-colors duration-200"
                   target="_blank" // Agregué esta propiedad para abrir en una nueva pestaña
                   rel="noopener noreferrer" // Mejora la seguridad al usar target="_blank"
                 >
@@ -120,8 +119,8 @@ export default function Footer() {
 
         {/* Sección Inferior: Divisor y Copyright */}
         <div>
-          <hr style={dividerStyles} />
-          <p style={{ color: t.sub, fontSize: 12, textAlign: 'center' }}>
+          <hr className="border-none border-t border-brand-graphite/10 dark:border-brand-light/10 my-8" />
+          <p className="text-brand-graphite/70 dark:text-brand-light/70 text-xs text-center">
             © 2025. Todos los derechos reservados.
           </p>
         </div>

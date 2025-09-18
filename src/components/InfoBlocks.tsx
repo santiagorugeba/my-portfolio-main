@@ -34,7 +34,7 @@ export default function InfoBlocks({ blocks, title, subtitle }: InfoBlocksProps)
       )}
 
       {/* Grid de bloques informativos con layout dinámico */}
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 auto-rows-min">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 auto-rows-min">
         {blocks.map((block, index) => (
           <InfoBlock
             key={index}

@@ -42,7 +42,36 @@ const jobs: Job[] = [
 
 export default function Experience() {
   return (
-    <section id='experience' className='max-w-6xl mx-auto px-6 py-20 scroll-mt-28'>
+    <section id='experience' className='max-w-6xl mx-auto px-6 py-20 scroll-mt-28 relative'>
+      {/* Easter Eggs en Experience */}
+      <div className="absolute top-8 right-8 z-10">
+        <img
+          src="/chocolate-1-svgrepo-com.svg"
+          alt="🍫"
+          className="w-4 h-4 cursor-pointer hover:scale-110 transition-transform duration-200"
+          style={{
+            filter: 'brightness(0.5) saturate(0.7)',
+            opacity: 0.25
+          }}
+          onClick={() => {
+            console.log('Chocolate encontrado en Experience!');
+          }}
+        />
+      </div>
+      <div className="absolute bottom-8 left-8 z-10">
+        <img
+          src="/chocolate-1-svgrepo-com.svg"
+          alt="🍫"
+          className="w-3 h-3 cursor-pointer hover:scale-110 transition-transform duration-200"
+          style={{
+            filter: 'brightness(0.3) saturate(0.5)',
+            opacity: 0.15
+          }}
+          onClick={() => {
+            console.log('Chocolate oculto encontrado en Experience!');
+          }}
+        />
+      </div>
       <h2 className='text-3xl font-extrabold mb-8 text-brand-graphite dark:text-brand-light'>
         Experiencia
       </h2>

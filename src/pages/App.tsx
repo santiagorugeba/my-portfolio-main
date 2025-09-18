@@ -7,11 +7,13 @@ import Experience from "@/components/Experience";
 import Testimonials from "@/components/Testimonials";
 // import Pricing from "@/components/Pricing";
 import ContactSection from "@/components/ContactSection";
+import EasterEggChallenge from "@/components/EasterEggChallenge";
 import Footer from "@/components/Footer";
 
 import { cases } from "@/data/cases";
 import { profile } from "@/data/profile";
 import { motion } from "framer-motion";
+
 
 export default function App() {
   return (
@@ -90,6 +92,9 @@ export default function App() {
         >
           <ContactSection />
         </motion.div>
+
+        {/* Easter Egg Challenge */}
+        <EasterEggChallenge />
       </main>
 
       <Footer />

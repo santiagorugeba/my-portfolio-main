@@ -47,9 +47,41 @@ export default function ContactSection() {
 
   const [sending, setSending] = React.useState(false);
   const [ok, setOk] = React.useState<null | "ok" | "err">(null);
+  const [securityError, setSecurityError] = React.useState<string | null>(null);
+
+  // Función de validación de seguridad
+  function validateSecurity(content: string): { isValid: boolean; error?: string } {
+    const text = content.toLowerCase();
+    
+    // Patrones peligrosos a detectar
+    const dangerousPatterns = [
+      // Código HTML/JavaScript
+      { pattern: /<script|<\/script|javascript:|onclick|onload|onerror/gi, message: "No se permiten scripts o código JavaScript" },
+      // Links y URLs
+      { pattern: /https?:\/\/|www\.|\.com|\.org|\.net|\.io|\.co/gi, message: "No se permiten enlaces o URLs" },
+      // Código SQL
+      { pattern: /select|insert|update|delete|drop|create|alter|union/gi, message: "No se permiten comandos de base de datos" },
+      // Código de sistema
+      { pattern: /eval\(|exec\(|system\(|shell_exec|passthru/gi, message: "No se permiten comandos de sistema" },
+      // Caracteres especiales peligrosos
+      { pattern: /[<>{}[\]\\|`~!@#$%^&*()+=]/g, message: "No se permiten caracteres especiales peligrosos" },
+      // Palabras clave de programación
+      { pattern: /\b(function|class|import|require|include|define|var|let|const)\b/gi, message: "No se permiten palabras clave de programación" }
+    ];
+
+    for (const { pattern, message } of dangerousPatterns) {
+      if (pattern.test(text)) {
+        return { isValid: false, error: message };
+      }
+    }
+
+    return { isValid: true };
+  }
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    setSecurityError(null); // Limpiar errores previos
+    
     const fdNative = new FormData(e.currentTarget);
 
     const data: FormData = {
@@ -61,6 +93,23 @@ export default function ContactSection() {
     };
 
     if (!data.name || !data.email || !data.message) return;
+
+    // Validación de seguridad en todos los campos
+    const fieldsToValidate = [
+      { content: data.name, field: "nombre" },
+      { content: data.email, field: "email" },
+      { content: data.company || "", field: "empresa" },
+      { content: data.role || "", field: "cargo" },
+      { content: data.message, field: "mensaje" }
+    ];
+
+    for (const { content, field } of fieldsToValidate) {
+      const validation = validateSecurity(content);
+      if (!validation.isValid) {
+        setSecurityError(`Error de seguridad en el campo ${field}: ${validation.error}`);
+        return;
+      }
+    }
 
     setSending(true);
 
@@ -79,10 +128,39 @@ export default function ContactSection() {
   return (
     <section
       id="contact"
-      className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16"
+      className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 relative"
       style={{ scrollMarginTop: 96 }}
     >
-      <div className="grid md:grid-cols-2 gap-6">
+      {/* Easter Eggs en Contact */}
+      <div className="absolute top-8 right-8 z-10">
+        <img
+          src="/chocolate-1-svgrepo-com.svg"
+          alt="🍫"
+          className="w-4 h-4 cursor-pointer hover:scale-110 transition-transform duration-200"
+          style={{
+            filter: 'brightness(0.5) saturate(0.7)',
+            opacity: 0.25
+          }}
+          onClick={() => {
+            console.log('Chocolate encontrado en Contact!');
+          }}
+        />
+      </div>
+      <div className="absolute bottom-8 left-8 z-10">
+        <img
+          src="/chocolate-1-svgrepo-com.svg"
+          alt="🍫"
+          className="w-3 h-3 cursor-pointer hover:scale-110 transition-transform duration-200"
+          style={{
+            filter: 'brightness(0.3) saturate(0.5)',
+            opacity: 0.15
+          }}
+          onClick={() => {
+            console.log('Chocolate oculto encontrado en Contact!');
+          }}
+        />
+      </div>
+      <div className="grid md:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
         {/* Left copy */}
         <motion.div
           initial={{ opacity: 0, y: 50, scale: 0.9 }}
@@ -99,7 +177,7 @@ export default function ContactSection() {
             duration: 0.6, 
             ease: [0.22, 1, 0.36, 1] 
           }}
-          className="glass-light dark:glass-dark rounded-3xl p-6"
+          className="glass-light dark:glass-dark rounded-3xl p-4 sm:p-6 lg:p-8"
           style={{ color: t.ink }}
         >
           <p
@@ -115,10 +193,10 @@ export default function ContactSection() {
           </p>
 
           <h2
+            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl"
             style={{
               marginTop: 12,
               marginBottom: 12,
-              fontSize: 38,
               lineHeight: 1.15,
               fontWeight: 900,
             }}
@@ -127,7 +205,7 @@ export default function ContactSection() {
             tu proyecto o una oportunidad laboral.
           </h2>
 
-          <p style={{ color: t.sub, marginTop: 6 }}>
+          <p className="text-sm sm:text-base md:text-lg" style={{ color: t.sub, marginTop: 6 }}>
             Diseño de producto end-to-end: research, UX, UI, prototipos y
             systems.
           </p>
@@ -211,7 +289,7 @@ export default function ContactSection() {
           </motion.div>
         ) : (
           <motion.form
-            className="glass-light dark:glass-dark grid gap-4 rounded-3xl p-6"
+            className="glass-light dark:glass-dark grid gap-4 sm:gap-5 md:gap-6 rounded-3xl p-4 sm:p-6 lg:p-8"
             onSubmit={handleSubmit}
             initial={{ opacity: 0, y: 50, scale: 0.9 }}
             whileInView={{ 
@@ -229,114 +307,120 @@ export default function ContactSection() {
             }}
             aria-labelledby="contact-title"
           >
-            <div className="grid md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4">
               <label className="grid gap-1">
-                <span style={{ fontSize: 12, opacity: 0.75 }}>Nombre*</span>
+                <span className="text-xs sm:text-sm" style={{ opacity: 0.75 }}>Nombre*</span>
                 <input
                   required
                   name="name"
                   type="text"
                   placeholder="Nombre*"
                   autoComplete="name"
+                  className="w-full min-h-[44px] sm:min-h-[48px] md:min-h-[52px] text-sm sm:text-base"
                   style={{
                     background: t.inputBg,
                     border: `1px solid ${t.inputBorder}`,
                     color: t.inputInk,
                     outline: "none",
                     borderRadius: 10,
-                    padding: "10px 12px",
+                    padding: "12px 14px",
                   }}
                 />
               </label>
 
               <label className="grid gap-1">
-                <span style={{ fontSize: 12, opacity: 0.75 }}>Email*</span>
+                <span className="text-xs sm:text-sm" style={{ opacity: 0.75 }}>Email*</span>
                 <input
                   required
                   name="email"
                   type="email"
                   placeholder="Email*"
                   autoComplete="email"
+                  className="w-full min-h-[44px] sm:min-h-[48px] md:min-h-[52px] text-sm sm:text-base"
                   style={{
                     background: t.inputBg,
                     border: `1px solid ${t.inputBorder}`,
                     color: t.inputInk,
                     outline: "none",
                     borderRadius: 10,
-                    padding: "10px 12px",
+                    padding: "12px 14px",
                   }}
                 />
               </label>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4">
               <label className="grid gap-1">
-                <span style={{ fontSize: 12, opacity: 0.75 }}>Empresa</span>
+                <span className="text-xs sm:text-sm" style={{ opacity: 0.75 }}>Empresa</span>
                 <input
                   name="company"
                   type="text"
                   placeholder="Empresa"
                   autoComplete="organization"
+                  className="w-full min-h-[44px] sm:min-h-[48px] md:min-h-[52px] text-sm sm:text-base"
                   style={{
                     background: t.inputBg,
                     border: `1px solid ${t.inputBorder}`,
                     color: t.inputInk,
                     outline: "none",
                     borderRadius: 10,
-                    padding: "10px 12px",
+                    padding: "12px 14px",
                   }}
                 />
               </label>
 
               <label className="grid gap-1">
-                <span style={{ fontSize: 12, opacity: 0.75 }}>Cargo</span>
+                <span className="text-xs sm:text-sm" style={{ opacity: 0.75 }}>Cargo</span>
                 <input
                   name="role"
                   type="text"
                   placeholder="Cargo"
                   autoComplete="organization-title"
+                  className="w-full min-h-[44px] sm:min-h-[48px] md:min-h-[52px] text-sm sm:text-base"
                   style={{
                     background: t.inputBg,
                     border: `1px solid ${t.inputBorder}`,
                     color: t.inputInk,
                     outline: "none",
                     borderRadius: 10,
-                    padding: "10px 12px",
+                    padding: "12px 14px",
                   }}
                 />
               </label>
             </div>
 
             <label className="grid gap-1">
-              <span style={{ fontSize: 12, opacity: 0.75 }}>
+              <span className="text-xs sm:text-sm" style={{ opacity: 0.75 }}>
                 Cuéntame sobre tu proyecto…
               </span>
               <textarea
                 required
                 name="message"
-                rows={6}
+                rows={5}
                 placeholder="Cuéntame sobre tu proyecto…"
+                className="w-full min-h-[120px] sm:min-h-[140px] md:min-h-[160px] text-sm sm:text-base"
                 style={{
                   background: t.inputBg,
                   border: `1px solid ${t.inputBorder}`,
                   color: t.inputInk,
                   outline: "none",
                   borderRadius: 10,
-                  padding: "10px 12px",
+                  padding: "12px 14px",
                   resize: "vertical",
                 }}
               />
             </label>
 
-            <div className="flex items-center gap-3">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
               <button
                 type="submit"
                 disabled={sending}
+                className="w-full sm:w-auto min-h-[44px] sm:min-h-[48px] md:min-h-[52px] px-6 sm:px-8 md:px-10 text-sm sm:text-base md:text-lg font-semibold touch-manipulation"
                 style={{
                   background: t.btnBg,
                   color: t.btnInk,
                   border: "none",
-                  padding: "10px 16px",
+                  padding: "12px 20px",
                   borderRadius: 12,
                   fontWeight: 800,
                   boxShadow:
@@ -352,7 +436,15 @@ export default function ContactSection() {
                 {sending ? "Enviando…" : "Enviar"}
               </button>
 
-              <span style={{ fontSize: 12, color: t.sub }}>
+              {securityError && (
+                <div className="w-full bg-red-500/10 border border-red-500/20 rounded-lg p-3 mb-3">
+                  <p className="text-red-500 text-sm font-medium">
+                    ⚠️ {securityError}
+                  </p>
+                </div>
+              )}
+              
+              <span className="text-xs sm:text-sm" style={{ color: t.sub }}>
                 * Campos obligatorios
               </span>
             </div>

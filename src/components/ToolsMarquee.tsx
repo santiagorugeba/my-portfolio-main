@@ -54,7 +54,7 @@ export default function ToolsMarquee() {
                 <div
                   className="
                     grid h-14 w-14 place-items-center rounded-2xl
-                    bg-black/30 dark:bg-black/40 ring-1 ring-white/10
+                    glass-light dark:glass-dark
                     shadow-[0_10px_40px_rgba(0,0,0,.25)]
                     md:h-16 md:w-16
                   "

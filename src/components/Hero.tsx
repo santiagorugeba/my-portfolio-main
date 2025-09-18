@@ -80,6 +80,36 @@ export default function Hero() {
 
   return (
     <header className="relative">
+      {/* Easter Eggs en Hero */}
+      <div className="absolute top-1/4 right-1/4 z-10">
+        <img
+          src="/chocolate-1-svgrepo-com.svg"
+          alt="🍫"
+          className="w-5 h-5 cursor-pointer hover:scale-110 transition-transform duration-200"
+          style={{
+            filter: 'brightness(0.4) saturate(0.6)',
+            opacity: 0.2
+          }}
+          onClick={() => {
+            console.log('Chocolate encontrado en Hero!');
+          }}
+        />
+      </div>
+      <div className="absolute bottom-1/3 left-1/5 z-10">
+        <img
+          src="/chocolate-1-svgrepo-com.svg"
+          alt="🍫"
+          className="w-3 h-3 cursor-pointer hover:scale-110 transition-transform duration-200"
+          style={{
+            filter: 'brightness(0.3) saturate(0.5)',
+            opacity: 0.15
+          }}
+          onClick={() => {
+            console.log('Chocolate oculto encontrado en Hero!');
+          }}
+        />
+      </div>
+      
       <div className="max-w-6xl mx-auto px-6 pt-6 pb-2 md:pt-8 md:pb-4">
         {/* Badge ubicación - aparece primero con pulso naranja */}
         <motion.div 

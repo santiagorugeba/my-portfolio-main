@@ -26,7 +26,7 @@ export default function ProjectCard({ item, index }: { item: Item; index: number
   return (
     <motion.article
       className="
-        min-w-0
+        min-w-0 relative
         glass-light dark:glass-dark rounded-3xl overflow-hidden
         hover:shadow-[0_28px_90px_rgba(0,0,0,.25)]
         transition-all duration-300
@@ -50,15 +50,50 @@ export default function ProjectCard({ item, index }: { item: Item; index: number
         transition: { duration: 0.2 }
       }}
     >
+      {/* Easter Egg ocasional en proyectos */}
+      {(index === 0 || index === 2) && (
+        <div className="absolute top-4 right-4 z-10">
+          <img
+            src="/chocolate-1-svgrepo-com.svg"
+            alt="🍫"
+            className={`${index === 0 ? 'w-4 h-4' : 'w-3 h-3'} cursor-pointer hover:scale-110 transition-transform duration-200`}
+            style={{
+              filter: 'brightness(0.5) saturate(0.7)',
+              opacity: 0.2
+            }}
+            onClick={() => {
+              console.log(`Chocolate encontrado en proyecto ${index}!`);
+            }}
+          />
+        </div>
+      )}
+
       {/* Imagen: altura controlada y sin forzar ancho */}
       {cover ? (
-        <div className="w-full h-40 sm:h-44 md:h-48 xl:h-44 overflow-hidden">
+        <div className="w-full h-40 sm:h-44 md:h-48 xl:h-44 overflow-hidden relative">
           <img
             src={cover}
             alt={title}
             className="w-full h-full object-cover"
             loading="lazy"
           />
+          {/* Easter Egg en la imagen ocasionalmente */}
+          {index === 1 && (
+            <div className="absolute bottom-2 left-2 z-10">
+              <img
+                src="/chocolate-1-svgrepo-com.svg"
+                alt="🍫"
+                className="w-3 h-3 cursor-pointer hover:scale-110 transition-transform duration-200"
+                style={{
+                  filter: 'brightness(0.3) saturate(0.4)',
+                  opacity: 0.15
+                }}
+                onClick={() => {
+                  console.log(`Chocolate oculto encontrado en imagen del proyecto ${index}!`);
+                }}
+              />
+            </div>
+          )}
         </div>
       ) : null}
 

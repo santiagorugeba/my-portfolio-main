@@ -22,8 +22,8 @@ function TestimonialCard({ testimonial, index }: {
     <motion.div
       className="
         group relative
-        border border-standard bg-brand-sand/10 dark:bg-white/5 backdrop-blur-md
-        rounded-2xl p-6
+        glass-light dark:glass-dark
+        rounded-2xl p-4 sm:p-5 md:p-6 lg:p-8
         transition-all duration-500 ease-out
         hover:shadow-2xl hover:shadow-brand-accent/20 dark:hover:shadow-brand-accent/30
         hover:-translate-y-2 hover:scale-[1.02]
@@ -81,6 +81,24 @@ function TestimonialCard({ testimonial, index }: {
         "
       </motion.div>
 
+      {/* Easter Egg en testimonials */}
+      {index === 0 && (
+        <div className="absolute top-4 left-4 z-10">
+          <img
+            src="/chocolate-1-svgrepo-com.svg"
+            alt="🍫"
+            className="w-4 h-4 cursor-pointer hover:scale-110 transition-transform duration-200"
+            style={{
+              filter: 'brightness(0.5) saturate(0.7)',
+              opacity: 0.25
+            }}
+            onClick={() => {
+              console.log('Chocolate encontrado en Testimonial!');
+            }}
+          />
+        </div>
+      )}
+
       {/* Content */}
       <div className="relative z-10 h-full flex flex-col">
         {/* Stars with hover animation */}
@@ -95,8 +113,8 @@ function TestimonialCard({ testimonial, index }: {
         {/* Quote */}
         <blockquote className="
           text-brand-graphite dark:text-brand-light
-          text-sm leading-relaxed
-          mb-6 flex-1
+          text-sm sm:text-base md:text-lg leading-relaxed
+          mb-4 sm:mb-5 md:mb-6 flex-1
           group-hover:text-brand-graphite/90 dark:group-hover:text-brand-light/90
           transition-colors duration-300
         ">
@@ -114,7 +132,7 @@ function TestimonialCard({ testimonial, index }: {
               src={testimonial.avatar}
               alt={testimonial.name}
               className="
-                h-10 w-10 rounded-full object-cover
+                h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 rounded-full object-cover
                 ring-2 ring-brand-graphite/10 dark:ring-brand-light/10
                 group-hover:ring-brand-accent/30
                 transition-all duration-300
@@ -132,7 +150,7 @@ function TestimonialCard({ testimonial, index }: {
           </motion.div>
           <div className="min-w-0 flex-1">
             <div className="
-              font-semibold text-sm
+              font-semibold text-xs sm:text-sm md:text-base
               text-brand-graphite dark:text-brand-light
               group-hover:text-brand-accent
               transition-colors duration-300
@@ -140,7 +158,7 @@ function TestimonialCard({ testimonial, index }: {
               {testimonial.name}
             </div>
             <div className="
-              text-xs text-brand-graphite/60 dark:text-brand-light/60
+              text-xs sm:text-sm text-brand-graphite/60 dark:text-brand-light/60
               group-hover:text-brand-graphite/80 dark:group-hover:text-brand-light/80
               transition-colors duration-300
             ">
@@ -180,15 +198,13 @@ export default function Testimonials() {
     setTimeout(() => setIsTransitioning(false), 600);
   };
 
-  // Obtener las 3 cards a mostrar
+  // Obtener las 2 cards a mostrar
   const getVisibleCards = () => {
     const total = items.length;
-    const prev = (currentIndex - 1 + total) % total;
     const next = (currentIndex + 1) % total;
     
     return [
-      { testimonial: items[prev], index: prev, position: 'left' },
-      { testimonial: items[currentIndex], index: currentIndex, position: 'center' },
+      { testimonial: items[currentIndex], index: currentIndex, position: 'left' },
       { testimonial: items[next], index: next, position: 'right' }
     ];
   };
@@ -200,16 +216,16 @@ export default function Testimonials() {
     >
       {/* Header */}
       <motion.div 
-        className="max-w-6xl mx-auto text-center mb-12"
+        className="max-w-6xl mx-auto text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16"
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: false, amount: 0.3 }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       >
-        <h2 className="text-3xl md:text-4xl font-extrabold text-brand-graphite dark:text-brand-light mb-4">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-brand-graphite dark:text-brand-light mb-3 sm:mb-4 md:mb-6">
           Lo que dicen sobre mi trabajo
         </h2>
-        <p className="text-brand-graphite/70 dark:text-brand-light/70 text-lg max-w-2xl mx-auto">
+        <p className="text-brand-graphite/70 dark:text-brand-light/70 text-base sm:text-lg md:text-xl max-w-2xl mx-auto">
           Testimonios reales de clientes y colegas que han trabajado conmigo
         </p>
       </motion.div>
@@ -217,11 +233,11 @@ export default function Testimonials() {
       {/* Cards Container */}
       <div className="max-w-6xl mx-auto">
         {/* Navigation arrows */}
-        <div className="flex justify-end gap-3 mb-8">
+        <div className="flex justify-center sm:justify-end gap-3 mb-6 sm:mb-8">
           <motion.button
             onClick={goToPrev}
             className="
-              h-12 w-12
+              h-10 w-10 sm:h-12 sm:w-12
               border border-standard bg-brand-sand/10 dark:bg-white/5 backdrop-blur-md
               rounded-xl
               flex items-center justify-center
@@ -230,19 +246,20 @@ export default function Testimonials() {
               transition-all duration-300
               hover:scale-105
               hover:shadow-lg
+              touch-manipulation
             "
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             aria-label="Testimonio anterior"
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
           </motion.button>
           <motion.button
             onClick={goToNext}
             className="
-              h-12 w-12
+              h-10 w-10 sm:h-12 sm:w-12
               border border-standard bg-brand-sand/10 dark:bg-white/5 backdrop-blur-md
               rounded-xl
               flex items-center justify-center
@@ -251,23 +268,24 @@ export default function Testimonials() {
               transition-all duration-300
               hover:scale-105
               hover:shadow-lg
+              touch-manipulation
             "
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             aria-label="Siguiente testimonio"
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
           </motion.button>
         </div>
 
         {/* Mobile: Single Card with Drag */}
-        <div className="md:hidden">
+        <div className="sm:hidden">
           {/* Drag indicator */}
           <div className="flex justify-center mb-4">
-            <div className="flex items-center gap-2 text-brand-graphite/60 dark:text-brand-light/60 text-sm">
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="flex items-center gap-2 text-brand-graphite/60 dark:text-brand-light/60 text-xs">
+              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
               </svg>
               <span>Desliza para navegar</span>
@@ -299,11 +317,28 @@ export default function Testimonials() {
           </motion.div>
         </div>
 
-        {/* Desktop: Three Cards Grid */}
+        {/* Tablet: Single Card with Horizontal Navigation */}
+        <div className="hidden sm:block lg:hidden">
+          <motion.div
+            key={currentIndex}
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -50 }}
+            transition={{ 
+              duration: 0.4,
+              ease: [0.22, 1, 0.36, 1]
+            }}
+            className="max-w-2xl mx-auto"
+          >
+            <TestimonialCard testimonial={items[currentIndex]} index={currentIndex} />
+          </motion.div>
+        </div>
+
+        {/* Desktop: Two Cards Grid */}
         <motion.div 
           className="
-            hidden md:grid md:grid-cols-3
-            gap-6 md:gap-8
+            hidden lg:grid lg:grid-cols-2
+            gap-6 lg:gap-8
             auto-rows-fr
           "
           key={currentIndex} // Force re-render for fade effect
@@ -318,14 +353,14 @@ export default function Testimonials() {
             <motion.div
               key={`${testimonial.name}-${index}-${currentIndex}`}
               className={`
-                ${position === 'center' ? 'md:scale-105 md:z-10' : 'md:scale-95'}
+                ${position === 'left' ? 'lg:scale-105 lg:z-10' : 'lg:scale-95'}
                 transition-all duration-500 ease-out
               `}
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ 
                 duration: 0.6, 
-                delay: position === 'left' ? 0 : position === 'center' ? 0.1 : 0.2,
+                delay: position === 'left' ? 0 : 0.1,
                 ease: [0.22, 1, 0.36, 1] 
               }}
             >

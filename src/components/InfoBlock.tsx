@@ -19,7 +19,7 @@ export default function InfoBlock({ title, content, size, variant, index }: Info
   const sizeClasses = {
     small: 'col-span-1 row-span-1',
     medium: 'col-span-1 md:col-span-2 row-span-1',
-    large: 'col-span-1 md:col-span-2 lg:col-span-2 row-span-1'
+    large: 'col-span-1 md:col-span-2 lg:col-span-3 row-span-1'
   };
 
   const variantClasses = {
@@ -29,16 +29,16 @@ export default function InfoBlock({ title, content, size, variant, index }: Info
   };
 
   const titleSizes = {
-    small: 'text-lg md:text-xl',
-    medium: 'text-lg md:text-xl',
-    large: 'text-lg md:text-xl'
+    small: 'text-base sm:text-lg md:text-xl',
+    medium: 'text-base sm:text-lg md:text-xl',
+    large: 'text-lg sm:text-xl md:text-2xl'
   };
 
   return (
     <motion.div
       ref={ref}
       className={`
-        rounded-2xl p-6 transition-all duration-300
+        rounded-2xl p-4 sm:p-5 md:p-6 lg:p-8 transition-all duration-300
         hover:shadow-lg hover:shadow-white/10
         ${sizeClasses[size]}
         ${variantClasses[variant]}
@@ -86,7 +86,7 @@ export default function InfoBlock({ title, content, size, variant, index }: Info
       </h3>
 
       {/* Contenido */}
-      <div className="text-brand-graphite/80 dark:text-brand-light/80 text-base leading-relaxed">
+      <div className="text-brand-graphite/80 dark:text-brand-light/80 text-sm sm:text-base md:text-lg leading-relaxed">
         {content.split('\n').map((line, lineIndex) => {
           // Si la línea empieza con "•", renderizarla como bullet
           if (line.trim().startsWith('•')) {

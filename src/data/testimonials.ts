@@ -36,6 +36,14 @@ export const testimonials: Testimonial[] = [
     quote: "Tuve la fortuna de trabajar con Santiago, donde demostró ser un diseñador talentoso, proactivo y siempre orientado al detalle. Su capacidad para transformar ideas en soluciones visuales claras y atractivas fue clave en varios de nuestros proyectos.",
     stars: 5,
   },
+  {
+    id: "edwin",
+    name: "Edwin Romero",
+    role: "UX/UI Designer",
+    avatar: "/avatars/edwin.webp",
+    quote: "Conozco a Santiago Ruge desde hace más de nueve años y he tenido la oportunidad de trabajar con él en múltiples proyectos. Durante este tiempo he sido testigo de su dedicación, profesionalismo y pasión por el diseño UI, así como de su amplia experiencia en UX research. Estoy convencido de que cuenta con la capacidad y las habilidades necesarias para afrontar cualquier desafío y llevar los proyectos al siguiente nivel. Además de ser un excelente profesional, Santiago es un gran ser humano, compañero y amigo de trabajo, lo que hace aún más valiosa la experiencia de colaborar con él.",
+    stars: 5,
+  },
 ];
 
 // 👇 Agregamos default export para poder hacer `import testimonials from "..."`

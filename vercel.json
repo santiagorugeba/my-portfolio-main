@@ -1,13 +1,8 @@
 {
-  "functions": {
-    "api/og-image.js": {
-      "runtime": "nodejs18.x"
-    }
-  },
   "rewrites": [
     {
       "source": "/og-image.png",
-      "destination": "/api/og-image"
+      "destination": "/og-image.svg"
     }
   ]
 }

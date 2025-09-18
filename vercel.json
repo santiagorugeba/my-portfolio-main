@@ -3,6 +3,10 @@
     {
       "source": "/og-image.png",
       "destination": "/og-image.svg"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }

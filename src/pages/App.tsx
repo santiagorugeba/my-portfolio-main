@@ -48,7 +48,7 @@ export default function App() {
           transition={{ duration: 0.8, delay: 1.5, ease: [0.22, 1, 0.36, 1] }}
         >
           <div className="flex items-end justify-between mb-6">
-            <h2 className="text-3xl font-extrabold text-brand-graphite dark:text-brand-light">
+            <h2 className="font-heading text-3xl md:text-4xl font-bold text-brand-graphite dark:text-brand-light">
               Proyectos
             </h2>
             <a

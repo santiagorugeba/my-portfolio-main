@@ -87,6 +87,22 @@ export const cases = [
       "Onboarding y pairing",
       "Comprobantes con reintentos"
     ]
+  },
+  {
+    slug: "collaborate",
+    title: "¿Tu próximo proyecto?",
+    subtitle: "Construyamos soluciones digitales juntos",
+    cover: "/cases/wip.png",
+    tags: ["WIP", "Colaboración", "UX/UI"],
+    bullets: [
+      "Diseño centrado en el usuario",
+      "Desarrollo de productos digitales",
+      "Estrategia de experiencia",
+      "Innovación y creatividad"
+    ],
+    ctaLabel: "Escríbeme",
+    ctaHref: "#contact", // Enlace a la sección de contacto
+    isWIP: true // Flag especial para identificar esta card
   }
   
   // ... más proyectos

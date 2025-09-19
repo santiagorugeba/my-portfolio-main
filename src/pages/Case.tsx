@@ -42,6 +42,11 @@ export default function Case() {
   // Busca el proyecto por slug
   const item = (cases as CaseItem[]).find((c) => c.slug === slug);
 
+  // Scroll to top cuando se carga la página
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [slug]);
+
   // Si no existe, muestra una página de "no encontrado"
   if (!item) {
     return (
@@ -87,7 +92,7 @@ export default function Case() {
           </svg>
           Volver
         </Link>
-        <h1 className="mt-3 text-3xl md:text-4xl font-extrabold text-brand-graphite dark:text-brand-light">
+        <h1 className="mt-3 font-heading text-3xl md:text-4xl font-bold text-brand-graphite dark:text-brand-light">
           {item.title}
         </h1>
         {(item as any).client && (
@@ -125,8 +130,8 @@ export default function Case() {
       {/* Área de Diseño - Prototipo */}
       {item.figmaUrl && (
         <section className="mb-12">
-          <div className="mb-8">
-            <h2 className="text-3xl md:text-4xl font-extrabold text-brand-graphite dark:text-brand-light mb-4">
+          <div className="mb-10">
+            <h2 className="font-heading text-3xl md:text-4xl font-bold text-brand-graphite dark:text-brand-light mb-4">
               Área de diseño
             </h2>
             <p className="text-brand-graphite/70 dark:text-brand-light/70 text-lg max-w-4xl">

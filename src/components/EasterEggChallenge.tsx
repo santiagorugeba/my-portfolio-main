@@ -6,6 +6,7 @@ export default function EasterEggChallenge() {
   const [userGuess, setUserGuess] = useState('');
   const [showResult, setShowResult] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
+  const [confettiOpacity, setConfettiOpacity] = useState(1);
   const [isShaking, setIsShaking] = useState(false);
   const [isCorrectAnswer, setIsCorrectAnswer] = useState(false);
   const [windowDimensions, setWindowDimensions] = useState({
@@ -35,11 +36,19 @@ export default function EasterEggChallenge() {
     if (correctAnswer) {
       // Activar confetti inmediatamente
       setShowConfetti(true);
+      setConfettiOpacity(1);
       console.log('¡Confetti activado! 🎉');
       
-      // Desactivar confetti después de 8 segundos para que sea más visible
+      // Iniciar fade out después de 6 segundos
+      setTimeout(() => {
+        setConfettiOpacity(0);
+        console.log('Confetti fade out iniciado');
+      }, 6000);
+      
+      // Desactivar confetti completamente después de 8 segundos
       setTimeout(() => {
         setShowConfetti(false);
+        setConfettiOpacity(1); // Reset para la próxima vez
         console.log('Confetti desactivado');
       }, 8000);
     } else {
@@ -119,79 +128,94 @@ export default function EasterEggChallenge() {
               className="glass-light dark:glass-dark rounded-3xl p-4 sm:p-6 md:p-8 lg:p-12 backface-hidden"
               style={{ transform: 'rotateY(0deg)' }}
             >
-              <div className="text-left">
-                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-4xl font-extrabold text-brand-graphite dark:text-brand-light mb-4 sm:mb-6 md:mb-8">
-                  ¿Eres un Easter Egg Expert?
-                </h2>
-                <p className="text-brand-graphite/70 dark:text-brand-light/70 text-base sm:text-lg md:text-lg lg:text-xl mb-6 sm:mb-8 md:mb-10">
-                  He escondido varias <strong>barras de chocolate 🍫</strong> estratégicamente en mi portfolio. 
-                  Si logras encontrarlas todas, ¡eres ultra detallista! Cuenta cuántas viste y recibe 
-                  un diploma por tu expertise en ser observador.
-                </p>
-                
-                {/* Selector de Chocolates - Centrado */}
-                <div className="flex flex-col items-center">
-                  <div className="text-center mb-6 sm:mb-8 md:mb-10">
-                    <div className="text-4xl sm:text-5xl md:text-6xl lg:text-6xl mb-3 sm:mb-4 md:mb-5">🍫</div>
-                    <p className="text-base sm:text-lg md:text-lg lg:text-xl text-brand-graphite/70 dark:text-brand-light/70">
+              <div className="grid md:grid-cols-2 gap-6 lg:gap-8">
+                {/* Columna izquierda - Instrucciones */}
+                <div className="text-left">
+                  <h2 className="font-heading text-2xl md:text-3xl font-bold text-brand-graphite dark:text-brand-light mb-4">
+                    ¿Eres un Easter Egg Expert?
+                  </h2>
+                  
+                  <p className="text-brand-graphite/70 dark:text-brand-light/70 text-sm sm:text-base leading-relaxed mb-4">
+                    He escondido varias <strong>barras de chocolate 🍫</strong> estratégicamente en mi portfolio. 
+                    Si logras encontrarlas todas, ¡eres ultra detallista! Cuenta cuántas viste y recibe 
+                    un diploma por tu expertise en ser observador.
+                  </p>
+                  
+                  {/* Tip al final con estilo naranja */}
+                  <div className="bg-brand-accent/10 border border-brand-accent/20 rounded-xl p-3">
+                    <p className="text-brand-graphite/80 dark:text-brand-light/80 text-xs font-medium">
+                      <strong>Tip:</strong> Cambia entre modo claro y oscuro usando el botón de tema en la navbar. 
+                      Algunos chocolates son más fáciles de encontrar en un modo que en el otro. 
+                      ¡Usa esta ventaja para tu búsqueda!
+                    </p>
+                  </div>
+                </div>
+
+                {/* Columna derecha - Contador */}
+                <div className="flex flex-col items-center justify-center">
+                  <div className="text-center mb-4">
+                    <div className="text-4xl mb-3">🍫</div>
+                    <p className="text-sm text-brand-graphite/70 dark:text-brand-light/70">
                       ¿Cuántos chocolates encontraste?
                     </p>
                   </div>
                   
-                  <div className="flex items-center gap-3 sm:gap-4 bg-brand-sand/10 dark:bg-white/5 rounded-2xl p-4 sm:p-5 border border-standard mb-6 sm:mb-8 w-full max-w-sm sm:max-w-md">
+                  <div className="flex items-center gap-3 bg-brand-sand/10 dark:bg-white/5 rounded-xl p-3 border border-standard mb-4">
                     <motion.button
                       onClick={() => {
                         const currentValue = parseInt(userGuess || '0');
                         setUserGuess(Math.max(0, currentValue - 1).toString());
                       }}
-                      className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-brand-graphite/10 dark:bg-brand-light/10 hover:bg-brand-graphite/20 dark:hover:bg-brand-light/20 transition-colors flex items-center justify-center text-lg sm:text-xl font-bold text-brand-graphite dark:text-brand-light touch-manipulation"
+                      className="w-8 h-8 rounded-full bg-brand-graphite/10 dark:bg-brand-light/10 hover:bg-brand-graphite/20 dark:hover:bg-brand-light/20 transition-colors flex items-center justify-center text-lg font-bold text-brand-graphite dark:text-brand-light touch-manipulation"
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.9 }}
                       disabled={parseInt(userGuess || '0') <= 0}
                     >
-                      −
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5 12H19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
                     </motion.button>
                     
-                    <div className="text-center flex-1 min-w-[60px] sm:min-w-[80px]">
-                      <div className="text-2xl sm:text-3xl font-bold text-brand-graphite dark:text-brand-light mb-1">
-                        {userGuess || '0'}
-                      </div>
-                      <div className="text-xs sm:text-sm text-brand-graphite/60 dark:text-brand-light/60">
-                        chocolates
-                      </div>
-                    </div>
+                    <input
+                      type="text"
+                      inputMode="numeric"
+                      pattern="[0-9]*"
+                      value={userGuess || ''}
+                      onChange={(e) => {
+                        const value = e.target.value.replace(/[^0-9]/g, '');
+                        if (value === '' || (parseInt(value) >= 0 && parseInt(value) <= 20)) {
+                          setUserGuess(value);
+                        }
+                      }}
+                      className="w-14 h-8 text-center text-lg font-bold text-brand-graphite dark:text-brand-light bg-transparent border border-brand-accent/30 rounded focus:border-brand-accent focus:outline-none"
+                      placeholder="0"
+                      maxLength="2"
+                    />
                     
                     <motion.button
                       onClick={() => {
                         const currentValue = parseInt(userGuess || '0');
                         setUserGuess(Math.min(20, currentValue + 1).toString());
                       }}
-                      className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-brand-graphite/10 dark:bg-brand-light/10 hover:bg-brand-graphite/20 dark:hover:bg-brand-light/20 transition-colors flex items-center justify-center text-lg sm:text-xl font-bold text-brand-graphite dark:text-brand-light touch-manipulation"
+                      className="w-8 h-8 rounded-full bg-brand-graphite/10 dark:bg-brand-light/10 hover:bg-brand-graphite/20 dark:hover:bg-brand-light/20 transition-colors flex items-center justify-center text-lg font-bold text-brand-graphite dark:text-brand-light touch-manipulation"
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.9 }}
                       disabled={parseInt(userGuess || '0') >= 20}
                     >
-                      +
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 5V19M5 12H19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
                     </motion.button>
                   </div>
                   
                   <motion.button
                     onClick={handleSubmitGuess}
-                    className="w-full max-w-sm sm:max-w-md px-6 sm:px-8 py-3 sm:py-4 bg-brand-accent text-white rounded-xl font-semibold hover:bg-brand-accent/90 transition-colors shadow-lg text-sm sm:text-base touch-manipulation"
+                    className="w-full sm:w-auto min-h-[44px] px-6 sm:px-8 text-sm sm:text-base font-semibold bg-brand-accent text-white rounded-xl hover:bg-brand-accent/90 transition-colors touch-manipulation"
                     whileHover={{ scale: 1.05, y: -2 }}
                     whileTap={{ scale: 0.95 }}
                   >
                     Verificar Respuesta
                   </motion.button>
-                </div>
-                
-                {/* Tip sobre Light/Dark Mode */}
-                <div className="bg-brand-accent/10 border border-brand-accent/20 rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-5 mt-6 sm:mt-8">
-                  <p className="text-brand-graphite/80 dark:text-brand-light/80 text-sm sm:text-base md:text-lg font-medium">
-                    <strong>Tip:</strong> Cambia entre modo claro y oscuro usando el botón de tema en la navbar. 
-                    Algunos chocolates son más fáciles de encontrar en un modo que en el otro. 
-                    ¡Usa esta ventaja para tu búsqueda!
-                  </p>
                 </div>
               </div>
             </motion.div>
@@ -219,25 +243,24 @@ export default function EasterEggChallenge() {
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
                     transition={{ delay: 0.4, type: "spring", stiffness: 200 }}
-                    className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl xl:text-[10rem] mb-4 sm:mb-6 md:mb-8"
+                    className="text-4xl sm:text-5xl md:text-6xl mb-6"
                   >
-                    🎉
+                    🍫
                   </motion.div>
-                  <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-4xl font-bold text-brand-graphite dark:text-brand-light mb-3 sm:mb-4 md:mb-6">
-                    Felicitaciones
+                  <h3 className="font-heading text-3xl md:text-4xl font-bold text-brand-graphite dark:text-brand-light mb-4">
+                    ¡Felicitaciones!
                   </h3>
-                  <h4 className="text-lg sm:text-xl md:text-xl lg:text-2xl font-semibold text-brand-graphite dark:text-brand-light mb-4 sm:mb-6 md:mb-8">
+                  <h4 className="font-heading text-2xl md:text-3xl font-semibold text-brand-graphite dark:text-brand-light mb-6">
                     Eres un Easter Egg Expert
                   </h4>
-                  <p className="text-sm sm:text-base md:text-base lg:text-lg text-brand-graphite/70 dark:text-brand-light/70 mb-6 sm:mb-8 md:mb-10 max-w-md md:max-w-lg lg:max-w-xl mx-auto">
-                    Has demostrado una atención al detalle excepcional al encontrar todos los chocolates escondidos en mi portfolio. 
-                    Tu nivel de observación y persistencia es impresionante. 
-                    Eres oficialmente un experto en encontrar Easter Eggs.
+                  <p className="text-brand-graphite/70 dark:text-brand-light/70 text-base leading-relaxed mb-8 max-w-lg mx-auto">
+                    Eres una persona observadora y orientada al detalle.<br />
+                    ¡Gracias por participar!
                   </p>
                   {/* TODO: Descomentar cuando el diploma esté diseñado */}
                   {/* <motion.button
                     onClick={generateCertificate}
-                    className="w-full max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl px-6 sm:px-8 md:px-10 lg:px-12 xl:px-16 py-3 sm:py-4 md:py-5 lg:py-6 bg-gradient-to-r from-brand-accent to-orange-500 text-white rounded-xl font-semibold hover:from-brand-accent/90 hover:to-orange-500/90 transition-all duration-300 shadow-lg text-sm sm:text-base md:text-lg lg:text-xl touch-manipulation"
+                    className="w-full sm:w-auto min-h-[44px] px-6 sm:px-8 text-sm sm:text-base font-semibold bg-brand-accent text-white rounded-xl hover:bg-brand-accent/90 transition-colors touch-manipulation"
                     whileHover={{ scale: 1.05, y: -2 }}
                     whileTap={{ scale: 0.95 }}
                     initial={{ opacity: 0, y: 20 }}
@@ -250,18 +273,10 @@ export default function EasterEggChallenge() {
               ) : (
                 // Error
                 <div className="text-center px-4 md:px-6 lg:px-8">
-                  <motion.div
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ delay: 0.4, type: "spring", stiffness: 200 }}
-                    className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl xl:text-[10rem] mb-4 sm:mb-6 md:mb-8"
-                  >
-                    😅
-                  </motion.div>
-                  <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-4xl font-bold text-red-500 mb-3 sm:mb-4 md:mb-6">
+                  <h3 className="font-heading text-3xl md:text-4xl font-bold text-red-500 mb-4">
                     ¡Intenta de nuevo!
                   </h3>
-                  <p className="text-sm sm:text-base md:text-base lg:text-lg text-brand-graphite dark:text-brand-light mb-6 sm:mb-8 md:mb-10 max-w-md md:max-w-lg lg:max-w-xl mx-auto">
+                  <p className="text-brand-graphite/70 dark:text-brand-light/70 text-base leading-relaxed mb-6 max-w-md mx-auto">
                     El número no es correcto. ¡Activa tus super habilidades! 
                     Los chocolates están ahí esperándote, solo necesitas ser más observador.
                   </p>
@@ -270,7 +285,7 @@ export default function EasterEggChallenge() {
                       setShowResult(false);
                       setUserGuess('');
                     }}
-                    className="w-full max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl px-6 sm:px-8 md:px-10 lg:px-12 xl:px-16 py-3 sm:py-4 md:py-5 lg:py-6 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-xl font-semibold hover:from-red-500/90 hover:to-red-600/90 transition-all duration-300 shadow-lg text-sm sm:text-base md:text-lg lg:text-xl touch-manipulation"
+                    className="w-full sm:w-auto min-h-[44px] px-6 sm:px-8 text-sm sm:text-base font-semibold bg-red-500 text-white rounded-xl hover:bg-red-500/90 transition-colors touch-manipulation"
                     whileHover={{ scale: 1.05, y: -2 }}
                     whileTap={{ scale: 0.95 }}
                     initial={{ opacity: 0, y: 20 }}
@@ -288,7 +303,11 @@ export default function EasterEggChallenge() {
 
       {/* Confetti Effect */}
       {showConfetti && (
-        <div className="fixed inset-0 pointer-events-none z-50">
+        <motion.div 
+          className="fixed inset-0 pointer-events-none z-50"
+          animate={{ opacity: confettiOpacity }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+        >
           <Confetti
             width={windowDimensions.width}
             height={windowDimensions.height}
@@ -310,7 +329,7 @@ export default function EasterEggChallenge() {
               zIndex: 9999
             }}
           />
-        </div>
+        </motion.div>
       )}
     </>
   );

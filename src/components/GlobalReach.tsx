@@ -79,9 +79,9 @@ export default function GlobalReach(): JSX.Element {
         ease: [0.22, 1, 0.36, 1] 
       }}
     >
-      <h3 className="text-xl font-semibold mb-4 text-brand-graphite dark:text-brand-light">
+      <h2 className="font-heading text-3xl md:text-4xl font-bold text-brand-graphite dark:text-brand-light mb-4">
         Países donde mis diseños han generado impacto
-      </h3>
+      </h2>
 
       <div className="grid md:grid-cols-[2fr_1fr] gap-6 items-start">
             <div className="relative w-full overflow-hidden rounded-2xl glass-light dark:glass-dark">

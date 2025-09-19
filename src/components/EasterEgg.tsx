@@ -213,7 +213,7 @@ export const EasterEggSystem: React.FC = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-3xl md:text-4xl font-extrabold text-brand-graphite dark:text-brand-light mb-6">
+            <h2 className="font-heading text-3xl md:text-4xl font-bold text-brand-graphite dark:text-brand-light mb-6">
               🍫 ¿Lograste contar las barras de chocolate?
             </h2>
             <p className="text-brand-graphite/70 dark:text-brand-light/70 text-lg mb-8 max-w-2xl mx-auto">

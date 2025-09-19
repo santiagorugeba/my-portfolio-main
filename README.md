@@ -9,6 +9,22 @@ npm install
 npm run dev
 ```
 
+## 💻 Desarrollo Técnico
+
+Este portfolio fue desarrollado con asistencia de IA para optimizar la experiencia de desarrollo y implementar las mejores prácticas de UX/UI.
+
+**Stack Tecnológico:**
+- React + TypeScript
+- Vite
+- Tailwind CSS
+- Framer Motion
+- React Router
+
+**Asistencia de Desarrollo:**
+- Desarrollo asistido por IA (Claude/Anthropic)
+- Implementación de componentes y funcionalidades
+- Optimización de código y mejores prácticas
+
 ## 🎨 Atribuciones
 
 ### Iconos

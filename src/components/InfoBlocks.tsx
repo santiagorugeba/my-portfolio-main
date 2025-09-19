@@ -19,9 +19,9 @@ export default function InfoBlocks({ blocks, title, subtitle }: InfoBlocksProps)
     <section className="mb-12">
       {/* Título y subtítulo opcionales */}
       {(title || subtitle) && (
-        <div className="mb-8">
+        <div className="mb-10">
           {title && (
-            <h2 className="font-heading text-3xl md:text-4xl font-bold text-brand-graphite dark:text-brand-light mb-3">
+            <h2 className="font-heading text-3xl md:text-4xl font-bold text-brand-graphite dark:text-brand-light mb-4">
               {title}
             </h2>
           )}
@@ -33,8 +33,8 @@ export default function InfoBlocks({ blocks, title, subtitle }: InfoBlocksProps)
         </div>
       )}
 
-      {/* Grid de bloques informativos con layout dinámico */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 auto-rows-min">
+      {/* Grid de bloques informativos con altura uniforme */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 auto-rows-fr">
         {blocks.map((block, index) => (
           <InfoBlock
             key={index}

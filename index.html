@@ -44,13 +44,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&family=Sora:wght@100..800&display=swap" rel="stylesheet">
   
-  <!-- Script para tema oscuro -->
+  <!-- Script para tema oscuro - SIEMPRE DARK POR DEFECTO -->
   <script>
-    const s = localStorage.getItem('theme');
-    const p = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    if (s === 'dark' || (!s && p)) {
-      document.documentElement.classList.add('dark');
-    }
+    // SIEMPRE iniciar en dark mode - NO HAY EXCEPCIONES
+    document.documentElement.classList.add('dark');
+    document.body.classList.remove('aurora-page');
+    document.body.classList.add('aurora-page-dark');
   </script>
 </head>
 <body class="bg-brand-light text-brand-coal dark:bg-brand-coal dark:text-brand-light">

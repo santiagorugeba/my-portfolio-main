@@ -11,19 +11,24 @@ const ThemeContext = createContext<ThemeValue>({
 });
 
 export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
-  const [theme, setTheme] = useState<"light" | "dark">("dark");
+  // SIEMPRE iniciar en dark mode - NO HAY EXCEPCIONES
+  const [theme, setTheme] = useState<"light" | "dark">(() => {
+    // Aplicar tema inmediatamente al HTML
+    if (typeof window !== 'undefined') {
+      const html = document.documentElement;
+      const body = document.body;
+      
+      // SIEMPRE iniciar en dark mode - NO HAY EXCEPCIONES
+      html.classList.add('dark');
+      body.classList.remove('aurora-page');
+      body.classList.add('aurora-page-dark');
+    }
+    return 'dark';
+  });
 
   useEffect(() => {
-    // SIEMPRE iniciar en modo oscuro por defecto - ignorar localStorage
-    setTheme('dark');
-    
-    // Aplicar tema inicial
-    const html = document.documentElement;
-    const body = document.body;
-    
-    html.classList.add('dark');
-    body.classList.remove('aurora-page');
-    body.classList.add('aurora-page-dark');
+    // NO HACER NADA - SIEMPRE DARK MODE
+    // El tema ya está aplicado en el HTML y en useState
   }, []);
 
   const toggle = () => {

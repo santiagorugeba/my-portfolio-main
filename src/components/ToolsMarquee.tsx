@@ -28,7 +28,7 @@ export default function ToolsMarquee() {
     <section aria-label="Herramientas" className="select-none py-16">
       {/* Título (contenido centrado en contenedor, no full-bleed) */}
       <div className="mx-auto mb-6 flex max-w-6xl items-center justify-between px-6">
-        <h2 className="text-2xl md:text-3xl font-extrabold text-brand-graphite dark:text-brand-light">
+        <h2 className="font-heading text-3xl md:text-4xl font-bold text-brand-graphite dark:text-brand-light">
           Toolbox
         </h2>
       </div>

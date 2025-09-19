@@ -206,7 +206,7 @@ export default function Testimonials() {
         viewport={{ once: false, amount: 0.3 }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       >
-        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-brand-graphite dark:text-brand-light mb-3 sm:mb-4 md:mb-6">
+        <h2 className="font-heading text-3xl md:text-4xl font-bold text-brand-graphite dark:text-brand-light mb-4">
           Lo que dicen sobre mi trabajo
         </h2>
         <p className="text-brand-graphite/70 dark:text-brand-light/70 text-base sm:text-lg md:text-xl max-w-2xl mx-auto">

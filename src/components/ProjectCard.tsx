@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 type Item = {
   slug: string;
@@ -10,6 +11,7 @@ type Item = {
   bullets?: string[];
   ctaLabel?: string;
   ctaHref?: string;
+  isWIP?: boolean;      // Flag para identificar cards WIP
 };
 
 export default function ProjectCard({ item, index }: { item: Item; index: number }) {
@@ -21,16 +23,18 @@ export default function ProjectCard({ item, index }: { item: Item; index: number
     bullets = [],
     ctaLabel = "Ver caso",
     ctaHref = `/case/${item.slug}`,
+    isWIP = false,
   } = item;
 
   return (
     <motion.article
-      className="
+      className={`
         min-w-0 relative
         glass-light dark:glass-dark rounded-3xl overflow-hidden
         hover:shadow-[0_28px_90px_rgba(0,0,0,.25)]
         transition-all duration-300
-      "
+        ${isWIP ? 'border-2 border-brand-accent/30 hover:border-brand-accent/50' : ''}
+      `}
       initial={{ opacity: 0, y: 50, scale: 0.9 }}
       whileInView={{ 
         opacity: 1, 
@@ -50,8 +54,14 @@ export default function ProjectCard({ item, index }: { item: Item; index: number
         transition: { duration: 0.2 }
       }}
     >
-      {/* Easter Egg ocasional en proyectos */}
-      {(index === 0 || index === 2) && (
+      {/* Indicador WIP o Easter Egg ocasional en proyectos */}
+      {isWIP ? (
+        <div className="absolute top-4 right-4 z-10">
+          <div className="bg-brand-accent/20 dark:bg-brand-accent/30 backdrop-blur-sm rounded-full px-3 py-1 border border-brand-accent/40">
+            <span className="text-xs font-semibold text-brand-accent">WIP</span>
+          </div>
+        </div>
+      ) : (index === 0 || index === 2) && (
         <div className="absolute top-4 right-4 z-10">
           <img
             src="/chocolate-1-svgrepo-com.svg"
@@ -126,19 +136,51 @@ export default function ProjectCard({ item, index }: { item: Item; index: number
         ) : null}
 
         <div className="mt-2">
-          <a href={ctaHref} className="btn-accent inline-flex items-center gap-2">
-            {ctaLabel}
-            <img 
-              src="/pen-tool.svg" 
-              alt="Ver caso de estudio" 
-              className="w-4 h-4" 
-              style={{ 
-                filter: 'brightness(0.8) contrast(1.3) saturate(1.1)',
-                minWidth: '16px',
-                minHeight: '16px'
-              }}
-            />
-          </a>
+          {isWIP ? (
+            <a 
+              href={ctaHref} 
+              className="btn-accent inline-flex items-center gap-2 hover:scale-105 transition-transform duration-200"
+            >
+              {ctaLabel}
+              <svg 
+                width="16" 
+                height="16" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                xmlns="http://www.w3.org/2000/svg"
+                className="w-4 h-4"
+              >
+                <path 
+                  d="M21 15C21 15.5304 20.7893 16.0391 20.4142 16.4142C20.0391 16.7893 19.5304 17 19 17H7L3 21V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H19C19.5304 3 20.0391 3.21071 20.4142 3.58579C20.7893 3.96086 21 4.46957 21 5V15Z" 
+                  stroke="currentColor" 
+                  strokeWidth="2" 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round"
+                />
+                <path 
+                  d="M13 8H7M17 12H7" 
+                  stroke="currentColor" 
+                  strokeWidth="2" 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </a>
+          ) : (
+            <Link to={ctaHref} className="btn-accent inline-flex items-center gap-2">
+              {ctaLabel}
+              <img 
+                src="/pen-tool.svg" 
+                alt="Ver caso de estudio" 
+                className="w-4 h-4" 
+                style={{ 
+                  filter: 'brightness(0.8) contrast(1.3) saturate(1.1)',
+                  minWidth: '16px',
+                  minHeight: '16px'
+                }}
+              />
+            </Link>
+          )}
         </div>
       </div>
     </motion.article>

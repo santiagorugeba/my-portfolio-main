@@ -41,7 +41,7 @@ export default function Footer() {
 
   // --- 4. Renderizado del Componente ---
   return (
-    <footer className="py-12 relative glass-light dark:glass-dark rounded-t-3xl">
+    <footer className="py-12 relative glass-light dark:glass-dark border-t border-b border-brand-graphite/20 dark:border-brand-light/20 rounded-none">
       {/* Easter Eggs en Footer */}
       <div className="absolute top-4 right-1/4 z-10">
         <img

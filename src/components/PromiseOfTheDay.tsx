@@ -28,30 +28,28 @@ export default function PromiseOfTheDay() {
   };
 
   return (
-    <motion.div 
-      className="mt-6 glass-light dark:glass-dark rounded-3xl p-8"
-      initial={{ opacity: 0, y: 50, scale: 0.9 }}
-      whileInView={{ 
-        opacity: 1, 
-        y: 0, 
-        scale: 1 
-      }}
-      viewport={{ 
-        once: false, 
-        amount: 0.3 
-      }}
-      transition={{ 
-        duration: 0.6, 
-        ease: [0.22, 1, 0.36, 1] 
-      }}
-    >
-        
-        {/* Header */}
-        <div className="mb-6">
-          <h2 className="font-heading text-3xl md:text-4xl font-bold text-brand-graphite dark:text-brand-light">
-            Promesas de Dios para ti
-          </h2>
-        </div>
+    <div className="mt-6">
+      <h2 className="font-heading text-3xl md:text-4xl font-bold text-brand-graphite dark:text-brand-light mb-6">
+        Promesas de Dios para ti
+      </h2>
+      
+      <motion.div 
+        className="glass-light dark:glass-dark rounded-3xl p-8"
+        initial={{ opacity: 0, y: 50, scale: 0.9 }}
+        whileInView={{ 
+          opacity: 1, 
+          y: 0, 
+          scale: 1 
+        }}
+        viewport={{ 
+          once: false, 
+          amount: 0.3 
+        }}
+        transition={{ 
+          duration: 0.6, 
+          ease: [0.22, 1, 0.36, 1] 
+        }}
+      >
 
         {/* Promesa */}
         {loading ? (
@@ -105,6 +103,7 @@ export default function PromiseOfTheDay() {
           </button>
         </div>
 
-    </motion.div>
+      </motion.div>
+    </div>
   );
 }

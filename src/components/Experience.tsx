@@ -42,56 +42,40 @@ const jobs: Job[] = [
 
 export default function Experience() {
   return (
-    <section id='experience' className='max-w-6xl mx-auto px-6 py-8 scroll-mt-28'>
-      <motion.div 
-        className="glass-light dark:glass-dark rounded-3xl p-8 relative"
-        initial={{ opacity: 0, y: 50, scale: 0.9 }}
-        whileInView={{ 
-          opacity: 1, 
-          y: 0, 
-          scale: 1 
-        }}
-        viewport={{ 
-          once: false, 
-          amount: 0.3 
-        }}
-        transition={{ 
-          duration: 0.6, 
-          ease: [0.22, 1, 0.36, 1] 
-        }}
-      >
-        {/* Easter Eggs en Experience */}
-        <div className="absolute top-6 right-6 z-10">
-          <img
-            src="/chocolate-1-svgrepo-com.svg"
-            alt="🍫"
-            className="w-4 h-4 cursor-pointer hover:scale-110 transition-transform duration-200"
-            style={{
-              filter: 'brightness(0.5) saturate(0.7)',
-              opacity: 0.25
-            }}
-            onClick={() => {
-              console.log('Chocolate encontrado en Experience!');
-            }}
-          />
-        </div>
-        <div className="absolute bottom-6 left-6 z-10">
-          <img
-            src="/chocolate-1-svgrepo-com.svg"
-            alt="🍫"
-            className="w-3 h-3 cursor-pointer hover:scale-110 transition-transform duration-200"
-            style={{
-              filter: 'brightness(0.3) saturate(0.5)',
-              opacity: 0.15
-            }}
-            onClick={() => {
-              console.log('Chocolate oculto encontrado en Experience!');
-            }}
-          />
-        </div>
-        <h2 className='font-heading text-3xl md:text-4xl font-bold text-brand-graphite dark:text-brand-light mb-8'>
-          Experiencia
-        </h2>
+    <section id='experience' className='max-w-6xl mx-auto px-6 py-8 scroll-mt-28 relative'>
+      {/* Easter Eggs en Experience */}
+      <div className="absolute top-8 right-8 z-10">
+        <img
+          src="/chocolate-1-svgrepo-com.svg"
+          alt="🍫"
+          className="w-4 h-4 cursor-pointer hover:scale-110 transition-transform duration-200"
+          style={{
+            filter: 'brightness(0.5) saturate(0.7)',
+            opacity: 0.25
+          }}
+          onClick={() => {
+            console.log('Chocolate encontrado en Experience!');
+          }}
+        />
+      </div>
+      <div className="absolute bottom-8 left-8 z-10">
+        <img
+          src="/chocolate-1-svgrepo-com.svg"
+          alt="🍫"
+          className="w-3 h-3 cursor-pointer hover:scale-110 transition-transform duration-200"
+          style={{
+            filter: 'brightness(0.3) saturate(0.5)',
+            opacity: 0.15
+          }}
+          onClick={() => {
+            console.log('Chocolate oculto encontrado en Experience!');
+          }}
+        />
+      </div>
+      
+      <h2 className='font-heading text-3xl md:text-4xl font-bold text-brand-graphite dark:text-brand-light mb-6'>
+        Experiencia
+      </h2>
       
       <motion.div 
         className='grid gap-6' 
@@ -141,7 +125,6 @@ export default function Experience() {
           </motion.div>
         ))}
       </motion.div>
-    </motion.div>
     </section>
   );
 }

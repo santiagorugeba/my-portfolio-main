@@ -47,42 +47,24 @@ export default function App() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.5, ease: [0.22, 1, 0.36, 1] }}
         >
-          <motion.div 
-            className="glass-light dark:glass-dark rounded-3xl p-8"
-            initial={{ opacity: 0, y: 50, scale: 0.9 }}
-            whileInView={{ 
-              opacity: 1, 
-              y: 0, 
-              scale: 1 
-            }}
-            viewport={{ 
-              once: false, 
-              amount: 0.3 
-            }}
-            transition={{ 
-              duration: 0.6, 
-              ease: [0.22, 1, 0.36, 1] 
-            }}
-          >
-            <div className="flex items-end justify-between mb-6">
-              <h2 className="font-heading text-3xl md:text-4xl font-bold text-brand-graphite dark:text-brand-light">
-                Proyectos
-              </h2>
-              <a
-                href={profile?.links?.behance ?? "#"}
-                target="_blank"
-                className="text-brand-accent hover:opacity-90"
-              >
-                Ver más en Behance →
-              </a>
-            </div>
+          <div className="flex items-end justify-between mb-6">
+            <h2 className="font-heading text-3xl md:text-4xl font-bold text-brand-graphite dark:text-brand-light">
+              Proyectos
+            </h2>
+            <a
+              href={profile?.links?.behance ?? "#"}
+              target="_blank"
+              className="text-brand-accent hover:opacity-90"
+            >
+              Ver más en Behance →
+            </a>
+          </div>
 
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 auto-rows-fr">
-              {cases.map((c: any, index: number) => (
-                <ProjectCard key={c.slug} item={c} index={index} />
-              ))}
-            </div>
-          </motion.div>
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 auto-rows-fr">
+            {cases.map((c: any, index: number) => (
+              <ProjectCard key={c.slug} item={c} index={index} />
+            ))}
+          </div>
         </motion.section>
 
         <motion.div

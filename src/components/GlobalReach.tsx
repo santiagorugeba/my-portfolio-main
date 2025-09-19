@@ -62,26 +62,28 @@ export default function GlobalReach(): JSX.Element {
   const selected = useMemo(() => countries.find(c => c.key === selectedKey) || null, [selectedKey]);
 
   return (
-    <motion.div 
-      className="mt-6 glass-light dark:glass-dark rounded-3xl p-6"
-      initial={{ opacity: 0, y: 50, scale: 0.9 }}
-      whileInView={{ 
-        opacity: 1, 
-        y: 0, 
-        scale: 1 
-      }}
-      viewport={{ 
-        once: false, 
-        amount: 0.3 
-      }}
-      transition={{ 
-        duration: 0.6, 
-        ease: [0.22, 1, 0.36, 1] 
-      }}
-    >
-      <h2 className="font-heading text-3xl md:text-4xl font-bold text-brand-graphite dark:text-brand-light mb-4">
+    <div className="mt-6">
+      <h2 className="font-heading text-3xl md:text-4xl font-bold text-brand-graphite dark:text-brand-light mb-6">
         Países donde mis diseños han generado impacto
       </h2>
+      
+      <motion.div 
+        className="glass-light dark:glass-dark rounded-3xl p-6"
+        initial={{ opacity: 0, y: 50, scale: 0.9 }}
+        whileInView={{ 
+          opacity: 1, 
+          y: 0, 
+          scale: 1 
+        }}
+        viewport={{ 
+          once: false, 
+          amount: 0.3 
+        }}
+        transition={{ 
+          duration: 0.6, 
+          ease: [0.22, 1, 0.36, 1] 
+        }}
+      >
 
       <div className="grid md:grid-cols-[2fr_1fr] gap-6 items-start">
             <div className="relative w-full overflow-hidden rounded-2xl glass-light dark:glass-dark">
@@ -143,6 +145,7 @@ export default function GlobalReach(): JSX.Element {
           </ul>
         </aside>
       </div>
-    </motion.div>
+      </motion.div>
+    </div>
   );
 }

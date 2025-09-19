@@ -8,6 +8,10 @@ import PromiseOfTheDay from '@/components/PromiseOfTheDay';
 export default function About() {
   return (
     <section id='about' className='max-w-6xl mx-auto px-6 py-8 scroll-mt-28 -mt-0'>
+      <h2 className='font-heading text-3xl md:text-4xl font-bold text-brand-graphite dark:text-brand-light mb-6'>
+        About me
+      </h2>
+      
       {/* Bloque principal con tu storytelling */}
       <motion.div
         className='glass-light dark:glass-dark rounded-3xl p-8 relative'
@@ -42,10 +46,6 @@ export default function About() {
             }}
           />
         </div>
-
-        <h2 className='font-heading text-3xl md:text-4xl font-bold text-brand-graphite dark:text-brand-light mb-4'>
-          About me
-        </h2>
 
         <motion.div className='space-y-4' variants={stagger(0.08)}>
           {about.paragraphs.map((p, i) => (

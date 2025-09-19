@@ -189,7 +189,7 @@ export default function EasterEggChallenge() {
                       }}
                       className="w-14 h-8 text-center text-lg font-bold text-brand-graphite dark:text-brand-light bg-transparent border border-brand-accent/30 rounded focus:border-brand-accent focus:outline-none"
                       placeholder="0"
-                      maxLength="2"
+                      maxLength={2}
                     />
                     
                     <motion.button

@@ -234,7 +234,7 @@ export const BIBLE_PROMISES: BiblePromise[] = [
   // PROMESAS DE FORTALEZA Y AYUDA (161-190)
   {
     reference: "Isaías 40:31",
-    text: "Pero los que esperan a Jehová tendrán nuevas fuerzas; levantarán alas como las águilas; correrán y no se cansarán; caminarán y no se fatigarán.",
+    text: "Pero los que confían en el Señor encontrarán nuevas fuerzas. Volarán alto como las águilas; correrán y no se cansarán; caminarán y no se fatigarán.",
     category: "Fortaleza",
     day: 36
   },
@@ -272,7 +272,7 @@ export const BIBLE_PROMISES: BiblePromise[] = [
   },
   {
     reference: "Proverbios 3:5-6",
-    text: "Fíate de Jehová de todo tu corazón, y no te apoyes en tu propia prudencia. Reconócelo en todos tus caminos, y él enderezará tus veredas.",
+    text: "Confía en el Señor con todo tu corazón; no dependas de tu propia inteligencia. Busca su voluntad en todo lo que hagas, y él te mostrará cuál camino tomar.",
     category: "Sabiduría",
     day: 42
   },
@@ -330,13 +330,13 @@ export const BIBLE_PROMISES: BiblePromise[] = [
   // PROMESAS DE ESPERANZA Y FUTURO (251-280)
   {
     reference: "Jeremías 29:11",
-    text: "Porque yo sé los pensamientos que tengo acerca de vosotros, dice Jehová, pensamientos de paz, y no de mal, para daros el fin que esperáis.",
+    text: "Pues yo sé los planes que tengo para ustedes —dice el Señor—. Son planes para lo bueno y no para lo malo, para darles un futuro y una esperanza.",
     category: "Esperanza",
     day: 51
   },
   {
     reference: "Romanos 8:28",
-    text: "Y sabemos que a los que aman a Dios, todas las cosas les ayudan a bien, esto es, a los que conforme a su propósito son llamados.",
+    text: "Y sabemos que Dios hace que todas las cosas cooperen para el bien de quienes lo aman y son llamados según el propósito que él tiene para ellos.",
     category: "Esperanza",
     day: 52
   },

@@ -4,7 +4,7 @@ import { fetchSpecificVerse, BIBLE_TRANSLATIONS } from '@/hooks/useBibleAPI';
 
 export default function BibleSearch() {
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedTranslation, setSelectedTranslation] = useState('ntv');
+  const [selectedTranslation, setSelectedTranslation] = useState('bible');
   const [verse, setVerse] = useState<any>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -16,7 +16,7 @@ export default function BibleSearch() {
     setError(null);
 
     try {
-      const result = await fetchSpecificVerse(searchTerm, selectedTranslation);
+      const result = await fetchSpecificVerse(searchTerm);
       if (result) {
         setVerse(result);
       } else {
@@ -67,7 +67,7 @@ export default function BibleSearch() {
             onChange={(e) => setSelectedTranslation(e.target.value)}
             className="px-4 py-3 bg-white dark:bg-brand-coal border border-blue-300 dark:border-blue-700 rounded-lg focus:outline-none focus:border-blue-500 dark:focus:border-blue-400"
           >
-            {BIBLE_TRANSLATIONS.map((trans) => (
+            {BIBLE_TRANSLATIONS.map((trans: { id: string; name: string }) => (
               <option key={trans.id} value={trans.id}>
                 {trans.name}
               </option>

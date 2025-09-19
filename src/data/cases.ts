@@ -79,13 +79,83 @@ export const cases = [
   },
   {
     slug: "pos-smes",
-    title: "UX/UI — POS app for SMEs",
-    subtitle: "Estado visible y flows recuperables",
+    title: "Mercado Pago POS: Revolucionando los Pagos para Pequeños Comerciantes",
+    subtitle: "Una solución integral que democratiza los pagos electrónicos en pequeños negocios",
+    client: "Mercado Pago",
     cover: "/cases/meli.png",
-    tags: ["Product", "POS"],
+    figmaUrl: "https://embed.figma.com/design/ilWCj6eFu3LVzkBCSie0xj/Mercado-Pago-Point-Of-Sales--UX-Challenge-?node-id=502-1456&embed-host=share",
+    tags: ["UX/UI", "Fintech", "Mobile", "Design Thinking"],
     bullets: [
-      "Onboarding y pairing",
-      "Comprobantes con reintentos"
+      "Diseño centrado en el usuario",
+      "Metodología Design Thinking",
+      "Aplicación móvil Android/iOS",
+      "Integración con dispositivo POS"
+    ],
+    ctaLabel: "Ver caso",
+    ctaHref: "/case/pos-smes",
+    cards: [
+      {
+        icon: "/pen-tool.svg",
+        title: "Empatizar con usuarios",
+        description: "Identifiqué las necesidades y frustraciones de los usuarios a través de entrevistas, creando un Mapa de Empatía y un User Persona para entender sus comportamientos y objetivos diarios."
+      },
+      {
+        icon: "/pen-tool.svg",
+        title: "Investigación de mercado",
+        description: "Realicé un benchmarking detallado de la competencia para comprender las tendencias del sector y las mejores prácticas en el diseño de aplicaciones de pago."
+      },
+      {
+        icon: "/pen-tool.svg",
+        title: "Definir el problema",
+        description: "Con los hallazgos de mi investigación, definí el problema central y las metas del proyecto, creando una declaración clara que guiaría todo mi trabajo."
+      },
+      {
+        icon: "/pen-tool.svg",
+        title: "Ideación de soluciones",
+        description: "Realicé sesiones de brainstorming para generar múltiples soluciones y funcionalidades que pudieran resolver los puntos de dolor de los usuarios, priorizando aquellas que ofrecieran mayor valor."
+      },
+      {
+        icon: "/pen-tool.svg",
+        title: "Prototipado de flujos",
+        description: "Diseñé User Flows (flujos de usuario) detallados para mapear el recorrido completo del usuario, desde que abre la aplicación hasta que completa una transacción, asegurando una navegación lógica y sin fricciones."
+      },
+      {
+        icon: "/pen-tool.svg",
+        title: "Diseño de interfaz (UI)",
+        description: "Creé wireframes y prototipos de alta fidelidad con un UI Kit cohesionado, garantizando que cada elemento visual y cada interacción estuvieran alineados con la usabilidad y la marca."
+      }
+    ],
+    infoBlocks: [
+      {
+        title: "El Problema",
+        content: "En un mercado donde el uso de tarjetas de crédito y débito se ha disparado, los pequeños comerciantes enfrentan un obstáculo crítico: la falta de una infraestructura para aceptar pagos electrónicos. Esta situación no solo limita sus oportunidades de venta, sino que también complica su gestión financiera, dejándolos en desventaja competitiva.",
+        size: "large",
+        variant: "secondary"
+      },
+      {
+        title: "La Solución",
+        content: "La solución final es una aplicación móvil (Android y iOS) que se conecta a un dispositivo de lectura de tarjetas. La interfaz de usuario fue diseñada para ser simple y clara, incluyendo pantallas optimizadas con teclado numérico, mensajes de seguridad y errores claros, gestión integral de transacciones, e ilustraciones y animaciones para hacer el proceso más amigable.",
+        size: "large",
+        variant: "accent"
+      },
+      {
+        title: "Características del producto",
+        content: "• Pantallas optimizadas con teclado numérico\n• Mensajes de seguridad y errores claros\n• Gestión integral de transacciones\n• Comprobantes digitales por correo/SMS\n• Historial de transacciones\n• Ilustraciones y animaciones amigables",
+        size: "medium",
+        variant: "primary"
+      },
+      {
+        title: "Metodología aplicada",
+        content: "Design Thinking estructurado en 6 fases: Empatizar, Investigación de Mercado, Definir el Problema, Ideación, Prototipado de Flujos y Diseño de Interfaz, garantizando un proceso centrado en el usuario.",
+        size: "medium",
+        variant: "primary"
+      },
+      {
+        title: "Impacto y propuesta de valor",
+        content: "La solución propuesta facilita la adopción de pagos electrónicos para pequeños comerciantes, mejorando su competitividad y gestión financiera a través de una interfaz intuitiva y segura que conecta tecnología con necesidades reales del mercado.",
+        size: "large",
+        variant: "secondary"
+      }
     ]
   },
   {

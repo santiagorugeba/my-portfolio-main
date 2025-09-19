@@ -1,11 +1,43 @@
 import { motion } from 'framer-motion';
 import { useBibleAPI } from '@/hooks/useBibleAPI';
+import { useState } from 'react';
 
 export default function PromiseOfTheDay() {
-  const { verse, loading, error, fetchVerse } = useBibleAPI('ntv');
+  const { verse, loading, error, fetchVerse } = useBibleAPI('bible');
+  const [copied, setCopied] = useState(false);
+  const [showStars, setShowStars] = useState(false);
+  const [showHearts, setShowHearts] = useState(false);
+
+  console.log('🎯 PromiseOfTheDay render:', { verse, loading, error });
 
   const handleNewPromise = () => {
-    fetchVerse('ntv');
+    fetchVerse('bible');
+    setShowHearts(true);
+    
+    // Reset after 2 seconds
+    setTimeout(() => {
+      setShowHearts(false);
+    }, 2000);
+  };
+
+  const handleCopyVerse = async () => {
+    if (!verse) return;
+    
+    const textToCopy = `"${verse.text}" — ${verse.reference}`;
+    
+    try {
+      await navigator.clipboard.writeText(textToCopy);
+      setCopied(true);
+      setShowStars(true);
+      
+      // Reset after 2 seconds
+      setTimeout(() => {
+        setCopied(false);
+        setShowStars(false);
+      }, 2000);
+    } catch (err) {
+      console.error('Error copying to clipboard:', err);
+    }
   };
 
   const getCategoryColor = (category: string) => {
@@ -88,19 +120,101 @@ export default function PromiseOfTheDay() {
             
             {/* Referencia */}
             <cite className="text-brand-accent font-semibold">
-              — {verse.reference} ({verse.translation_name})
+              — {verse.reference}
             </cite>
+
           </motion.div>
         ) : null}
 
-        {/* Botón para nueva promesa - abajo y centrado */}
+        {/* Botones - centrados y del mismo tamaño */}
         <div className="mt-8 text-center">
-          <button
-            onClick={handleNewPromise}
-            className="px-6 py-3 bg-brand-accent text-white rounded-lg hover:bg-brand-accent/90 transition-colors text-sm font-medium"
-          >
-            Dame otra promesa
-          </button>
+          <div className="flex gap-4 justify-center items-center">
+            {/* Botón de copiar */}
+            <motion.button
+              onClick={handleCopyVerse}
+              className={`relative px-6 py-3 rounded-lg font-medium text-sm transition-all duration-300 ${
+                copied 
+                  ? 'bg-green-500 text-white' 
+                  : 'bg-brand-accent/10 text-brand-accent hover:bg-brand-accent/20 border border-brand-accent/30'
+              }`}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              {copied ? 'Promesa guardada' : 'Copiar versículo'}
+              
+              {/* Efecto de estrellitas */}
+              {showStars && (
+                <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
+                  {[...Array(6)].map((_, i) => (
+                    <motion.div
+                      key={i}
+                      className="absolute text-yellow-400 text-lg"
+                      initial={{ 
+                        opacity: 1, 
+                        scale: 0,
+                        x: 0, 
+                        y: 0 
+                      }}
+                      animate={{ 
+                        opacity: 0, 
+                        scale: 1,
+                        x: (Math.random() - 0.5) * 80, 
+                        y: (Math.random() - 0.5) * 80 
+                      }}
+                      transition={{ 
+                        duration: 1.5, 
+                        delay: i * 0.1,
+                        ease: "easeOut" 
+                      }}
+                    >
+                      ⭐
+                    </motion.div>
+                  ))}
+                </div>
+              )}
+            </motion.button>
+
+            {/* Botón para nueva promesa */}
+            <motion.button
+              onClick={handleNewPromise}
+              className="relative px-6 py-3 bg-brand-accent text-white rounded-lg hover:bg-brand-accent/90 transition-colors text-sm font-medium"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Dame otra promesa
+              
+              {/* Efecto de corazones */}
+              {showHearts && (
+                <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
+                  {[...Array(5)].map((_, i) => (
+                    <motion.div
+                      key={i}
+                      className="absolute text-white text-lg"
+                      initial={{ 
+                        opacity: 1, 
+                        scale: 0,
+                        x: 0, 
+                        y: 0 
+                      }}
+                      animate={{ 
+                        opacity: 0, 
+                        scale: 1,
+                        x: (Math.random() - 0.5) * 80, 
+                        y: (Math.random() - 0.5) * 80 
+                      }}
+                      transition={{ 
+                        duration: 1.5, 
+                        delay: i * 0.1,
+                        ease: "easeOut" 
+                      }}
+                    >
+                      ❤️
+                    </motion.div>
+                  ))}
+                </div>
+              )}
+            </motion.button>
+          </div>
         </div>
 
       </motion.div>

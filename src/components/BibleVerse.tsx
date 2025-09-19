@@ -3,8 +3,8 @@ import { motion } from 'framer-motion';
 import { useBibleAPI, BIBLE_TRANSLATIONS } from '@/hooks/useBibleAPI';
 
 export default function BibleVerse() {
-  const [selectedTranslation, setSelectedTranslation] = useState('ntv');
-  const { verse, loading, error, fetchVerse, refreshVerse } = useBibleAPI(selectedTranslation);
+  const [selectedTranslation, setSelectedTranslation] = useState('bible');
+  const { verse, loading, error, fetchVerse } = useBibleAPI(selectedTranslation);
 
   const handleTranslationChange = (translation: string) => {
     setSelectedTranslation(translation);
@@ -12,7 +12,7 @@ export default function BibleVerse() {
   };
 
   const handleRefresh = () => {
-    refreshVerse();
+    fetchVerse(selectedTranslation);
   };
 
   if (loading) {
@@ -74,7 +74,7 @@ export default function BibleVerse() {
               onChange={(e) => handleTranslationChange(e.target.value)}
               className="px-3 py-2 bg-white dark:bg-brand-coal border border-brand-accent/30 rounded-lg text-sm focus:outline-none focus:border-brand-accent"
             >
-              {BIBLE_TRANSLATIONS.map((trans) => (
+              {BIBLE_TRANSLATIONS.map((trans: { id: string; name: string }) => (
                 <option key={trans.id} value={trans.id}>
                   {trans.name}
                 </option>

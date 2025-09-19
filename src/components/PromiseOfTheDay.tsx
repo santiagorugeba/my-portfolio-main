@@ -3,7 +3,7 @@ import { useBibleAPI } from '@/hooks/useBibleAPI';
 import { useState } from 'react';
 
 export default function PromiseOfTheDay() {
-  const { verse, loading, error, fetchVerse } = useBibleAPI('bible');
+  const { verse, loading, error, fetchVerse } = useBibleAPI('ntv');
   const [copied, setCopied] = useState(false);
   const [showStars, setShowStars] = useState(false);
   const [showHearts, setShowHearts] = useState(false);
@@ -11,7 +11,7 @@ export default function PromiseOfTheDay() {
   console.log('🎯 PromiseOfTheDay render:', { verse, loading, error });
 
   const handleNewPromise = () => {
-    fetchVerse('bible');
+    fetchVerse('ntv');
     setShowHearts(true);
     
     // Reset after 2 seconds

@@ -3,6 +3,7 @@ import { about } from '@/data/about';
 import { motion } from 'framer-motion';
 import { fadeUp, stagger } from '@/lib/motion';
 import GlobalReach from '@/components/GlobalReach';
+import PromiseOfTheDay from '@/components/PromiseOfTheDay';
 
 export default function About() {
   return (
@@ -42,7 +43,7 @@ export default function About() {
           />
         </div>
 
-        <h2 className='text-3xl font-extrabold mb-4 text-brand-graphite dark:text-brand-light'>
+        <h2 className='font-heading text-3xl md:text-4xl font-bold text-brand-graphite dark:text-brand-light mb-4'>
           About me
         </h2>
 
@@ -69,6 +70,9 @@ export default function About() {
           ))}
         </motion.div>
       </motion.div>
+
+      {/* Promesas de Dios */}
+      <PromiseOfTheDay />
 
       {/* Nuevo: mapa interactivo + estadísticas */}
       <GlobalReach />

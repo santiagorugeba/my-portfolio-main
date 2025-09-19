@@ -38,6 +38,13 @@ Este portfolio fue desarrollado con asistencia de IA para optimizar la experienc
   - Sora - Fuente para títulos
   - Sitio web: [fonts.google.com](https://fonts.google.com)
 
+### APIs y Servicios
+- **YouVersion Bible API** - Integración para versículos bíblicos
+  - Sitio web: [bible.com](https://www.bible.com/)
+  - API: [bible-api.com](https://bible-api.com/)
+  - Licencia: Uso gratuito para aplicaciones no comerciales
+  - Traducciones disponibles: NTV, RVR1960, NVI, KJV, WEB y más
+
 ## 📄 Licencia
 
 © 2025 Santiago Ruge. Todos los derechos reservados.

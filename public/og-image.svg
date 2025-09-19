@@ -27,18 +27,23 @@
   <line x1="900" y1="530" x2="1100" y2="530" stroke="#F7931E" stroke-width="2" opacity="0.2"/>
   
   <!-- Contenido principal -->
-  <text x="600" y="200" text-anchor="middle" font-family="Arial, sans-serif" font-size="72" font-weight="bold" fill="white">
+  <text x="600" y="180" text-anchor="middle" font-family="Arial, sans-serif" font-size="68" font-weight="bold" fill="white">
     Santiago Ruge
   </text>
   
   <!-- Subtítulo -->
-  <text x="600" y="280" text-anchor="middle" font-family="Arial, sans-serif" font-size="36" fill="#FF6B35">
+  <text x="600" y="240" text-anchor="middle" font-family="Arial, sans-serif" font-size="32" fill="#FF6B35">
     UX/UI Designer
   </text>
   
   <!-- Descripción -->
-  <text x="600" y="350" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" fill="#cccccc">
-    Especializado en investigación de usuarios y diseño de interfaces
+  <text x="600" y="300" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" fill="#cccccc">
+    Ingeniero Multimedia • Diseñador UX/UI
+  </text>
+  
+  <!-- Segunda línea de descripción -->
+  <text x="600" y="330" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" fill="#aaaaaa">
+    Gaming • Capital Humano • Energía • Retail
   </text>
   
   <!-- Línea decorativa -->
@@ -53,6 +58,6 @@
   
   <!-- URL del sitio -->
   <text x="600" y="550" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" fill="#888888">
-    uxsantiago.vercel.app
+    my-portfolio-main-phi.vercel.app
   </text>
 </svg>
